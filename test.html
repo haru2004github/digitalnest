@@ -427,17 +427,24 @@
 
             <!-- Right Cards -->
             <div class="w-full lg:w-1/2 flex justify-center items-center">
-                <div class="relative w-full max-w-[360px] sm:max-w-[420px] aspect-[1.58/1] rounded-2xl shadow-xl overflow-hidden border border-slate-200/50 dark:border-white/10">
-                    <div class="fade-card-1 absolute inset-0 w-full h-full z-10 transition-transform duration-700 bg-cyan-600 flex items-center justify-center text-white font-display font-bold text-2xl md:text-3xl">
-                        5% Discount
+               <div class="w-full lg:w-1/2 flex justify-center items-center p-4">
+                <div class="relative w-full max-w-[400px] sm:max-w-[450px] lg:max-w-[500px] aspect-[1.58/1] rounded-xl md:rounded-2xl shadow-2xl overflow-hidden ">
+                    
+                    <div class="fade-card-1 absolute inset-0 w-full h-full z-10 transition-all duration-700 ">
+                        <img src="./img/discount/5.png" alt="5%" class="w-full h-full object-fill block rounded-2xl">
                     </div>
-                    <div class="fade-card-2 absolute inset-0 w-full h-full z-20 opacity-0 transition-transform duration-700 bg-blue-600 flex items-center justify-center text-white font-display font-bold text-2xl md:text-3xl">
-                        8% Discount
+
+                    <div class="fade-card-2 absolute inset-0 w-full h-full z-20 opacity-0 transition-all duration-700 ">
+                        <img src="./img/discount/8.png" alt="8%" class="w-full h-full object-fill block rounded-2xl">
                     </div>
-                    <div class="fade-card-3 absolute inset-0 w-full h-full z-30 opacity-0 transition-transform duration-700 bg-indigo-700 flex items-center justify-center text-white font-display font-bold text-2xl md:text-3xl">
-                        10% Discount
+
+                    <div class="fade-card-3 absolute inset-0 w-full h-full z-30 opacity-0 transition-all duration-700 ">
+                        <img src="./img/discount/10.png" alt="10%" class="w-full h-full object-fill block rounded-2xl">
                     </div>
+
                 </div>
+            </div>
+
             </div>
         </div>
     </section>
@@ -770,7 +777,10 @@
         </div>
     </div>
 
-
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="fixed bottom-6 right-5 w-10 h-10 md:w-11 md:h-11 bg-cyan-600 dark:bg-cyan-500 text-white rounded-full shadow-lg shadow-cyan-500/30 flex items-center justify-center active:bg-cyan-700 active:scale-95 transition-all z-40" aria-label="Scroll to top">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+    </button>
 
     
 <script>
