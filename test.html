@@ -775,6 +775,44 @@
         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
     </button>
 
+    
+<script>
+    const seeMoreBtn = document.getElementById('seeMoreBtn');
+    const seeMoreText = document.getElementById('seeMoreText');
+    const seeMoreIcon = document.getElementById('seeMoreIcon');
+    const extraReviews = document.querySelectorAll('.extra-review');
+    
+    let isShowingMore = false;
+
+    if(seeMoreBtn) {
+        seeMoreBtn.addEventListener('click', () => {
+            isShowingMore = !isShowingMore;
+            
+            extraReviews.forEach(card => {
+                if (isShowingMore) {
+                    card.classList.remove('hidden');
+                    card.classList.add('flex'); // Grid ထဲမှာ flex box ဖြစ်နေလို့ flex ထည့်ပေးရပါမယ်
+                } else {
+                    card.classList.add('hidden');
+                    card.classList.remove('flex');
+                }
+            });
+
+            // စာသားနဲ့ မြှားပုံစံလေး ပြောင်းပေးရန်
+            if (isShowingMore) {
+                seeMoreText.innerText = "See Less";
+                seeMoreIcon.style.transform = "rotate(180deg)";
+            } else {
+                seeMoreText.innerText = "See More Reviews";
+                seeMoreIcon.style.transform = "rotate(0deg)";
+                
+                // ပြန်ပိတ်လိုက်ရင် Section ရဲ့ အစကို ပြန်သွားချင်ရင်
+                // document.getElementById('reviews').scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+</script>
+
     <!-- Scripts -->
     <script>
         // Custom Toast Notification instead of alert()
