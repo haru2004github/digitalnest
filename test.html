@@ -169,9 +169,7 @@
             <!-- Logo -->
             <div class="flex items-center gap-2 cursor-pointer active:scale-95 transition-transform" onclick="window.scrollTo(0,0)">
                 <div class="w-8 h-8 md:w-9 md:h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-md shadow-cyan-500/20">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="md:w-5 md:h-5">
-                        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
-                    </svg>
+                    <img class="rounded-xl" src="./img/dnlogo.png" alt="">
                 </div>
                 <span class="text-lg md:text-xl font-display font-bold tracking-tight text-slate-900 dark:text-white">DIGITAL<span class="text-cyan-600 dark:text-cyan-400">NEST</span></span>
             </div>
@@ -217,7 +215,7 @@
         </div>
 
         <!-- Mobile Menu Dropdown -->
-        <div id="mobileMenu" class="bg-white absolute top-full left-0 w-full glass-nav shadow-2xl origin-top lg:hidden border-b border-slate-200 dark:border-white/10">
+        <div id="mobileMenu" class="bg-white dark:bg-slate-900 absolute top-full left-0 w-full glass-nav shadow-2xl origin-top lg:hidden border-b border-slate-200 dark:border-white/10">
             <div class="px-5 py-4 flex flex-col gap-1">
                 <a href="#home" data-i18n="navHome" class="mobile-link text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-cyan-500 transition-colors p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800">Home</a>
                 <a href="#about" data-i18n="navAbout" class="mobile-link text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-cyan-500 transition-colors p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800">About Us</a>
@@ -658,6 +656,76 @@
     </div>
 </section>
 
+ <!-- Blog & Tutorial Section (Detailed Preview) -->
+    <section id="blog" class="py-20 md:py-28 bg-white/50 dark:bg-slate-900/50 transition-colors duration-300 border-y border-slate-200 dark:border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
+                <!-- Blog Side -->
+                <div>
+                    <div class="flex items-center justify-between mb-8">
+                        <div class="flex items-center gap-4 flex-1">
+                            <h2 class="text-2xl md:text-3xl font-display font-bold text-slate-900 dark:text-white" data-i18n="blogTitle">Digital Blog</h2>
+                            <div class="h-px flex-1 bg-slate-200 dark:bg-white/10 hidden sm:block"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="glass p-5 rounded-[1.5rem] hover:border-cyan-500/30 transition-all group border border-slate-200 dark:border-white/10 shadow-sm">
+                            <p class="text-[9px] md:text-[10px] text-cyan-600 dark:text-cyan-400 mb-2 uppercase tracking-widest font-bold">AI News • Feb 2026</p>
+                            <h3 class="text-base md:text-lg font-bold mb-2 text-slate-900 dark:text-white group-hover:text-cyan-500 transition-colors">Gemini 2.0 Advanced ရဲ့ Feature အသစ်များ</h3>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed mb-4">Google ရဲ့ နောက်ဆုံးပေါ် AI Gemini 2.0 မှာ ဘာတွေ ထူးခြားလာသလဲဆိုတာကို အသေးစိတ် လေ့လာလိုက်ပါ။ နေ့စဉ်လုပ်ငန်းဆောင်တာတွေမှာ ဘယ်လိုအသုံးချနိုင်မလဲ ဆိုတာတွေ ပါဝင်ပါတယ်။</p>
+                            <a href="#" class="inline-flex items-center gap-2 text-xs font-bold text-cyan-600 dark:text-cyan-400 hover:text-cyan-500 transition-colors">
+                                Read Full Article <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 text-center sm:text-left">
+                        <a target="_blank" href="./blog.html" class="px-5 py-2.5 rounded-full border border-slate-300 dark:border-white/20 text-xs font-bold hover:bg-slate-100 dark:hover:bg-white/5 transition-colors text-slate-700 dark:text-slate-300">
+                            View All Blogs...
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tutorial Side -->
+                <div id="tutorial">
+                    <div class="flex items-center justify-between mb-8">
+                        <div class="flex items-center gap-4 flex-1">
+                            <h2 class="text-2xl md:text-3xl font-display font-bold text-slate-900 dark:text-white" data-i18n="tutorialTitle">Tutorials</h2>
+                            <div class="h-px flex-1 bg-slate-200 dark:bg-white/10 hidden sm:block"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="glass p-3 md:p-4 rounded-xl border border-slate-200 dark:border-white/10 hover:border-cyan-500/30 transition-all flex gap-4 items-center group cursor-pointer shadow-sm">
+                            <div class="w-12 h-12 bg-slate-200 dark:bg-slate-800 rounded-lg relative overflow-hidden flex items-center justify-center flex-shrink-0">
+                                <svg width="20" height="20" fill="currentColor" class="text-cyan-500 opacity-60 group-hover:scale-110 transition-transform" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold mb-1 text-slate-900 dark:text-white group-hover:text-cyan-500 transition-colors">ChatGPT Plus Login Guide</h4>
+                                <p class="text-[10px] text-slate-500 line-clamp-1">Account ကို Error မရှိဘဲ ဘယ်လို Login ဝင်ရမလဲ။</p>
+                            </div>
+                        </div>
+                        
+                        <div class="glass p-3 md:p-4 rounded-xl border border-slate-200 dark:border-white/10 hover:border-cyan-500/30 transition-all flex gap-4 items-center group cursor-pointer shadow-sm">
+                            <div class="w-12 h-12 bg-slate-200 dark:bg-slate-800 rounded-lg relative overflow-hidden flex items-center justify-center flex-shrink-0">
+                                <svg width="20" height="20" fill="currentColor" class="text-cyan-500 opacity-60 group-hover:scale-110 transition-transform" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold mb-1 text-slate-900 dark:text-white group-hover:text-cyan-500 transition-colors">VPN Connection Tips</h4>
+                                <p class="text-[10px] text-slate-500 line-clamp-1">အင်တာနက် အမြန်နှုန်းမကျဘဲ VPN အသုံးပြုနည်း။</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 text-center sm:text-left">
+                        <button class="px-5 py-2.5 rounded-full border border-slate-300 dark:border-white/20 text-xs font-bold hover:bg-slate-100 dark:hover:bg-white/5 transition-colors text-slate-700 dark:text-slate-300">
+                            View All Tutorials...
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="py-16 md:py-24 bg-slate-50 dark:bg-tech-dark relative overflow-hidden">
         <div class="absolute bottom-0 left-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none"></div>
@@ -698,7 +766,8 @@
             <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
                 <div class="flex items-center gap-2">
                     <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/30">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                                           <img class="rounded-xl" src="./img/dnlogo.png" alt="">
+
                     </div>
                     <span class="text-xl font-display font-bold tracking-tight text-slate-900 dark:text-white">DIGITAL<span class="text-cyan-600 dark:text-cyan-400">NEST</span></span>
                 </div>

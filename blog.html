@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="my" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Digital Nest - Blog & Updates</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Theme Check Script -->
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class', 
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        cyan: {
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                            600: '#0891b2',
+                        },
+                        tech: {
+                            dark: '#0B1120',
+                            light: '#F8FAFC'
+                        }
+                    },
+                    animation: {
+                        'toast-slide': 'toastSlide 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards',
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'fade-in': 'fadeIn 0.4s ease-out forwards',
+                    },
+                    keyframes: {
+                        toastSlide: {
+                            '0%': { transform: 'translateY(100%)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Styles -->
+    <style>
+        * { -webkit-tap-highlight-color: transparent; }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-nav {
+            background: rgba(248, 250, 252, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dark .glass-nav {
+            background: rgba(11, 17, 32, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .bg-grid-pattern {
+            background-image: linear-gradient(to right, rgba(6, 182, 212, 0.04) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(6, 182, 212, 0.04) 1px, transparent 1px);
+            background-size: 32px 32px;
+            mask-image: linear-gradient(to bottom, transparent, black, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black, transparent);
+        }
+
+        #scrollToTopBtn {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #scrollToTopBtn.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        #mobileMenu {
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #mobileMenu.mobile-menu-open {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-color-scheme: light) {
+            .glass {
+                background: rgba(255, 255, 255, 0.7);
+                border: 1px solid rgba(0, 0, 0, 0.04);
+            }
+            .bg-grid-pattern {
+                background-image: linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                                  linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-tech-light text-slate-900 dark:bg-tech-dark dark:text-slate-50 font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden transition-colors duration-300 relative w-full flex flex-col">
+
+    <!-- Global Background Grid -->
+    <div class="fixed inset-0 bg-grid-pattern pointer-events-none z-0"></div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] flex flex-col gap-2 pointer-events-none w-[90%] max-w-sm"></div>
+
+    <!-- Navigation Bar -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-3 md:py-4 border-b border-transparent">
+        <div class="container mx-auto px-5 md:px-6 flex justify-between items-center relative z-20">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-2 cursor-pointer active:scale-95 transition-transform">
+                <div class="w-8 h-8 md:w-9 md:h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-md shadow-cyan-500/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="md:w-5 md:h-5">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <span class="text-lg md:text-xl font-display font-bold tracking-tight text-slate-900 dark:text-white">DIGITAL<span class="text-cyan-600 dark:text-cyan-400">NEST</span></span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-6 text-xs font-semibold uppercase tracking-widest text-slate-600 dark:text-slate-300">
+                <a href="index.html#home" data-i18n="navHome" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Home</a>
+                <a href="index.html#shop" data-i18n="navShop" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Shop</a>
+                <a href="#" data-i18n="navBlog" class="text-cyan-600 dark:text-cyan-400 transition-colors">Blog</a>
+                <a href="index.html#offers" data-i18n="navOffers" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Offers</a>
+                
+                <div class="flex items-center gap-4 border-l border-slate-300 dark:border-white/10 pl-6">
+                    <!-- Theme Toggle -->
+                    <button class="theme-toggle hover:text-cyan-500 transition-colors p-1" aria-label="Toggle Dark Mode">
+                        <svg class="sun-icon hidden w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+                        <svg class="moon-icon w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    </button>
+                    <!-- Lang Toggle -->
+                    <button id="langToggleBtn" class="hover:text-cyan-500 transition-colors font-bold px-2 py-1 bg-slate-200 dark:bg-slate-800 rounded-md active:scale-95">EN</button>
+                    <!-- Buy Button -->
+                    <a href="index.html#contact" data-i18n="navContact" class="px-5 py-2 rounded-full bg-slate-900 text-white dark:bg-cyan-500 dark:text-white hover:scale-105 active:scale-95 transition-all text-xs">ဝယ်ယူရန်</a>
+                </div>
+            </div>
+
+            <!-- Mobile Actions & Toggle Button -->
+            <div class="flex items-center gap-3 lg:hidden relative z-20">
+                <!-- Theme Toggle (Mobile) -->
+                <button class="theme-toggle text-slate-500 hover:text-cyan-500 transition-colors p-1.5 active:scale-90" aria-label="Toggle Dark Mode">
+                    <svg class="sun-icon hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+                    <svg class="moon-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+                
+                <!-- Lang Toggle (Mobile) -->
+                <button id="langToggleBtnMobile" class="text-[10px] font-bold text-slate-700 dark:text-slate-300 bg-slate-200 dark:bg-slate-800 px-2 py-1.5 rounded-md active:scale-90 transition-transform">EN</button>
+                
+                <!-- Hamburger Menu Button -->
+                <button id="mobileMenuBtn" class="text-slate-600 dark:text-slate-300 focus:outline-none p-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg active:scale-90 transition-transform">
+                    <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                    <svg id="closeIcon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="absolute top-full left-0 w-full glass-nav shadow-2xl origin-top lg:hidden border-b border-slate-200 dark:border-white/10">
+            <div class="px-5 py-4 flex flex-col gap-1">
+                <a href="index.html#home" data-i18n="navHome" class="mobile-link text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-cyan-500 transition-colors p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50">Home</a>
+                <a href="index.html#shop" data-i18n="navShop" class="mobile-link text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-cyan-500 transition-colors p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50">Shop</a>
+                <a href="#" data-i18n="navBlog" class="mobile-link text-sm font-semibold text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-500/10 transition-colors p-3 rounded-lg">Blog</a>
+                <a href="index.html#offers" data-i18n="navOffers" class="mobile-link text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-cyan-500 transition-colors p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50">Offers</a>
+                
+                <div class="mt-3 pt-4 border-t border-slate-200 dark:border-white/10">
+                    <a href="index.html#contact" data-i18n="navContact" class="mobile-link w-full py-3.5 text-center rounded-xl bg-cyan-600 dark:bg-cyan-500 font-bold text-white text-sm active:scale-[0.98] transition-transform shadow-lg shadow-cyan-500/20 block">ဝယ်ယူရန်</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow pt-24 md:pt-32 pb-16 relative z-10 w-full">
+        
+        <!-- ============================================== -->
+        <!-- 1. BLOG LIST VIEW (Preview) -->
+        <!-- ============================================== -->
+        <div id="blogListView" class="w-full animate-fade-in">
+            <!-- Blog Header -->
+            <div class="container mx-auto px-5 md:px-6 mb-10 text-center relative">
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] max-w-[400px] h-[150px] bg-cyan-500/10 rounded-full blur-[80px] pointer-events-none z-0"></div>
+                <div class="relative z-10">
+                    <p data-i18n="blogSubtitle" class="text-[10px] font-bold tracking-[0.2em] text-cyan-600 dark:text-cyan-400 uppercase mb-2">Knowledge Base</p>
+                    <h1 data-i18n="blogTitle" class="text-3xl md:text-5xl font-display font-bold text-slate-900 dark:text-white mb-4">Latest Articles</h1>
+                    <p data-i18n="blogDesc" class="text-[13px] md:text-sm text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
+                        နည်းပညာဆိုင်ရာ ဗဟုသုတများ၊ AI Tools အသုံးပြုနည်းများနှင့် နောက်ဆုံးရ Update များကို ဤနေရာတွင် ဖတ်ရှုနိုင်ပါသည်။
+                    </p>
+                </div>
+            </div>
+
+            <!-- Blog Grid Container -->
+            <div class="container mx-auto px-5 md:px-6">
+                <div id="blogContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Skeletons will be injected here initially -->
+                </div>
+                
+                <!-- Error State Container (Hidden by default) -->
+                <div id="errorContainer" class="hidden text-center py-12">
+                    <div class="inline-flex justify-center items-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-500/20 text-red-500 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2" data-i18n="errorTitle">Connection Error</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400" data-i18n="errorDesc">ဆောင်းပါးများကို ယူဆောင်ရာတွင် အခက်အခဲရှိနေပါသည်။ ခေတ္တစောင့်ဆိုင်းပြီး ပြန်လည်ကြိုးစားကြည့်ပါ။</p>
+                    <button onclick="fetchBlogPosts()" class="mt-4 px-5 py-2 rounded-full border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 font-bold text-xs hover:bg-cyan-500/10 transition-colors">Try Again</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- 2. BLOG DETAIL VIEW (Hidden initially) -->
+        <!-- ============================================== -->
+        <div id="blogDetailView" class="hidden w-full max-w-4xl mx-auto px-5 md:px-6 animate-fade-in">
+            <!-- Back Button -->
+            <button onclick="closePost()" class="inline-flex items-center gap-2 mb-6 md:mb-8 text-[13px] md:text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors bg-white/50 dark:bg-slate-800/50 backdrop-blur-md px-4 py-2 rounded-full border border-slate-200 dark:border-white/10 shadow-sm active:scale-95">
+                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                <span class="back-btn-text">နောက်သို့ ပြန်သွားမည်</span>
+            </button>
+
+            <!-- Post Detail Content -->
+            <article class="glass p-5 md:p-8 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-lg bg-white/70 dark:bg-slate-900/70">
+                <!-- Meta Data -->
+                <div class="flex flex-wrap items-center gap-3 mb-4">
+                    <span id="detailCategory" class="px-3 py-1 bg-cyan-100 dark:bg-cyan-500/20 text-cyan-700 dark:text-cyan-400 text-[10px] md:text-xs font-bold uppercase tracking-wider rounded-lg border border-cyan-200 dark:border-cyan-500/30">Category</span>
+                    <span class="text-slate-400 dark:text-slate-500 text-xs">•</span>
+                    <span id="detailDate" class="text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Date</span>
+                </div>
+                
+                <!-- Title -->
+                <h1 id="detailTitle" class="text-2xl md:text-4xl lg:text-5xl font-display font-bold text-slate-900 dark:text-white mb-6 md:mb-8 leading-tight">Post Title</h1>
+                
+                <!-- Hero Image -->
+                <div class="w-full aspect-video md:aspect-[21/9] bg-slate-900 rounded-xl md:rounded-2xl mb-8 overflow-hidden border border-slate-200 dark:border-white/10 shadow-inner">
+                    <img id="detailImage" src="" alt="Blog Cover" class="w-full h-full object-cover">
+                </div>
+                
+                <!-- Full Content -->
+                <div id="detailContent" class="prose prose-slate dark:prose-invert max-w-none text-sm md:text-base leading-loose whitespace-pre-wrap text-slate-700 dark:text-slate-300 font-medium">
+                    <!-- Content will be injected here -->
+                </div>
+            </article>
+        </div>
+        
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-100 dark:bg-[#060B14] border-t border-slate-200 dark:border-white/5 pt-12 pb-6 mt-auto relative z-10">
+        <div class="container mx-auto px-5 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <span class="text-xl font-display font-bold tracking-tight text-slate-900 dark:text-white">DIGITAL<span class="text-cyan-600 dark:text-cyan-400">NEST</span></span>
+                </div>
+                
+                <div class="flex gap-5">
+                    <a href="https://m.me/digitalnest03" target="_blank" class="text-slate-400 hover:text-blue-500 transition-colors"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.065 0 11.312c0 3.565 1.794 6.744 4.603 8.847-.13.842-.486 2.05-1.155 3.011 0 0 2.28-.088 4.437-1.22.68.17 1.396.262 2.115.262 6.627 0 12-5.066 12-11.312C22 5.065 16.627 0 12 0zm1.096 15.352l-2.793-2.983-5.466 2.983 6.015-6.398 2.87 2.983 5.382-2.983-6.008 6.398z"/></svg></a>
+                    <a href="https://t.me/digitalnest001" target="_blank" class="text-slate-400 hover:text-sky-500 transition-colors"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-slate-200 dark:border-white/10 text-center">
+                <p id="footerYear" data-i18n="footerText" class="text-slate-400 text-[10px] md:text-xs font-medium tracking-wide"></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="fixed bottom-6 right-5 w-10 h-10 md:w-11 md:h-11 bg-cyan-600 dark:bg-cyan-500 text-white rounded-full shadow-lg shadow-cyan-500/30 flex items-center justify-center active:bg-cyan-700 active:scale-95 transition-all z-40" aria-label="Scroll to top">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        // Custom Toast Notification
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            const isError = type === 'error';
+            const bgColor = isError ? 'bg-red-500' : 'bg-emerald-500';
+            const icon = isError 
+                ? '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'
+                : '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
+
+            toast.className = `animate-toast-slide flex items-center gap-3 w-full px-4 py-3 rounded-xl shadow-lg text-white text-xs sm:text-sm font-medium ${bgColor}`;
+            toast.innerHTML = `${icon} <span>${message}</span>`;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(100%)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Theme Toggle
+        const themeToggleBtns = document.querySelectorAll('.theme-toggle');
+        const sunIcons = document.querySelectorAll('.sun-icon');
+        const moonIcons = document.querySelectorAll('.moon-icon');
+        
+        function updateThemeUI(isDark) {
+            if(isDark) {
+                sunIcons.forEach(icon => icon.classList.remove('hidden'));
+                moonIcons.forEach(icon => icon.classList.add('hidden'));
+            } else {
+                sunIcons.forEach(icon => icon.classList.add('hidden'));
+                moonIcons.forEach(icon => icon.classList.remove('hidden'));
+            }
+        }
+
+        updateThemeUI(document.documentElement.classList.contains('dark'));
+
+        themeToggleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                updateThemeUI(isDark);
+            });
+        });
+
+        // Translation Logic
+        const translations = {
+            en: {
+                navHome: "Home", navShop: "Shop", navBlog: "Blog", navOffers: "Offers", navContact: "Buy Now",
+                blogSubtitle: "Knowledge Base", blogTitle: "Latest Articles",
+                blogDesc: "Read our latest articles, AI tools tutorials and tech updates here.",
+                errorTitle: "Connection Error", errorDesc: "Failed to load articles. Please try again later.",
+                readMore: "Read More", backBtn: "Back to Articles",
+                footerText: "© {year} Digital Nest. All rights reserved."
+            },
+            my: {
+                navHome: "Home", navShop: "Shop", navBlog: "Blog", navOffers: "Offers", navContact: "ဝယ်ယူရန်",
+                blogSubtitle: "Knowledge Base", blogTitle: "နည်းပညာ ဆောင်းပါးများ",
+                blogDesc: "နည်းပညာဆိုင်ရာ ဗဟုသုတများ၊ AI Tools အသုံးပြုနည်းများနှင့် နောက်ဆုံးရ Update များကို ဤနေရာတွင် ဖတ်ရှုနိုင်ပါသည်။",
+                errorTitle: "Connection Error", errorDesc: "ဆောင်းပါးများကို ယူဆောင်ရာတွင် အခက်အခဲရှိနေပါသည်။ ခေတ္တစောင့်ဆိုင်းပြီး ပြန်လည်ကြိုးစားကြည့်ပါ။",
+                readMore: "ဆက်လက်ဖတ်ရှုရန်", backBtn: "နောက်သို့ ပြန်သွားမည်",
+                footerText: "© {year} Digital Nest. မူပိုင်ခွင့်များအားလုံးသိမ်းဆည်းထားသည်။"
+            }
+        };
+
+        let currentLang = 'my';
+        
+        function updateContent() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    if(key === 'footerText') {
+                        el.innerText = translations[currentLang][key].replace('{year}', new Date().getFullYear());
+                    } else {
+                        el.innerHTML = translations[currentLang][key];
+                    }
+                }
+            });
+            document.getElementById('langToggleBtn').innerText = currentLang === 'my' ? 'EN' : 'မြန်မာ';
+            document.getElementById('langToggleBtnMobile').innerText = currentLang === 'my' ? 'EN' : 'မြန်မာ';
+            
+            // Re-render Dynamic buttons based on language
+            document.querySelectorAll('.read-more-btn').forEach(btn => {
+                btn.innerText = translations[currentLang]['readMore'];
+            });
+            document.querySelectorAll('.back-btn-text').forEach(btn => {
+                btn.innerText = translations[currentLang]['backBtn'];
+            });
+        }
+
+        document.getElementById('langToggleBtn').onclick = () => { currentLang = currentLang === 'my' ? 'en' : 'my'; updateContent(); };
+        document.getElementById('langToggleBtnMobile').onclick = () => { currentLang = currentLang === 'my' ? 'en' : 'my'; updateContent(); };
+        updateContent();
+
+        // Navbar Scroll Effect & Scroll to top
+        const navbar = document.getElementById('navbar');
+        const scrollBtn = document.getElementById('scrollToTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) { 
+                navbar.classList.add('glass-nav'); 
+                navbar.classList.remove('py-3', 'md:py-4', 'border-transparent'); 
+                navbar.classList.add('py-2', 'md:py-3');
+            } else { 
+                navbar.classList.remove('glass-nav', 'py-2', 'md:py-3'); 
+                navbar.classList.add('py-3', 'md:py-4', 'border-transparent'); 
+            }
+
+            if (window.scrollY > 400) {
+                scrollBtn.classList.add('show');
+            } else {
+                scrollBtn.classList.remove('show');
+            }
+        });
+
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
+        
+        const toggleMenu = () => {
+            const isMenuOpen = mobileMenu.classList.contains('mobile-menu-open');
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('mobile-menu-open');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            } else {
+                mobileMenu.classList.add('mobile-menu-open');
+                menuIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+            }
+        };
+
+        mobileMenuBtn.onclick = toggleMenu;
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if(mobileMenu.classList.contains('mobile-menu-open')) toggleMenu();
+            });
+        });
+
+        // -------------------------------------------------------------------
+        // Blog SPA (Single Page App) Logic
+        // Google Sheets Columns: title | description | img_url | date | category
+        // -------------------------------------------------------------------
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwDWBV5_3eS9b6WjpRsBGnrH9DmCBoFxA7EasU_EyUNZwshHVkJPkvXQliK4Pp5zQDL/exec'; 
+        
+        const blogListView = document.getElementById('blogListView');
+        const blogDetailView = document.getElementById('blogDetailView');
+        const blogContainer = document.getElementById('blogContainer');
+        const errorContainer = document.getElementById('errorContainer');
+        
+        let globalPosts = []; // Store fetched posts globally
+
+        // Skeleton UI
+        const generateSkeleton = () => {
+            return Array(6).fill(0).map(() => `
+                <div class="glass p-4 rounded-2xl border border-slate-200 dark:border-white/10 shadow-sm flex flex-col h-full bg-white/50 dark:bg-slate-900/50">
+                    <div class="aspect-video bg-slate-200 dark:bg-slate-800 rounded-xl mb-4 animate-pulse-fast"></div>
+                    <div class="w-1/3 h-3 bg-slate-200 dark:bg-slate-800 rounded mb-3 animate-pulse-fast"></div>
+                    <div class="w-full h-5 bg-slate-200 dark:bg-slate-800 rounded mb-2 animate-pulse-fast"></div>
+                    <div class="w-4/5 h-5 bg-slate-200 dark:bg-slate-800 rounded mb-4 animate-pulse-fast"></div>
+                    <div class="mt-auto w-1/2 h-8 bg-slate-200 dark:bg-slate-800 rounded-xl animate-pulse-fast"></div>
+                </div>
+            `).join('');
+        };
+
+        // Render Preview Card (List View)
+        const generatePostCard = (post, index) => {
+            const imgUrl = post.img_url || 'https://via.placeholder.com/600x400?text=No+Image';
+            const title = post.title || 'Untitled Post';
+            const date = post.date || 'Recent';
+            const category = post.category || 'News';
+            
+            // Create short excerpt from description
+            const description = post.description || 'No content available.';
+            const excerpt = description.length > 100 ? description.substring(0, 100) + '...' : description;
+            
+            const readMoreText = translations[currentLang]['readMore'];
+
+            return `
+                <div class="glass p-4 rounded-2xl hover:-translate-y-1 transition-transform duration-300 border border-slate-200 dark:border-white/10 shadow-sm flex flex-col h-full bg-white/60 dark:bg-slate-900/60 group">
+                    <div class="aspect-video bg-slate-900 rounded-xl mb-4 overflow-hidden relative border border-slate-200/50 dark:border-slate-800">
+                        <img src="${imgUrl}" alt="${title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/600x400?text=Image+Error'">
+                        <div class="absolute top-2 right-2 px-2.5 py-1 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm text-cyan-600 dark:text-cyan-400 text-[9px] font-bold tracking-wider uppercase rounded shadow-sm border border-cyan-500/20">${category}</div>
+                    </div>
+                    <div class="text-[10px] font-bold tracking-wider text-slate-500 dark:text-slate-400 mb-2 uppercase">${date}</div>
+                    <h3 class="text-base font-bold mb-2 text-slate-900 dark:text-white leading-snug group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors cursor-pointer" onclick="openPost(${index})">${title}</h3>
+                    <p class="text-[12px] text-slate-600 dark:text-slate-400 mb-5 line-clamp-3 leading-relaxed flex-grow">${excerpt}</p>
+                    
+                    <button onclick="openPost(${index})" class="mt-auto inline-flex justify-center items-center px-5 py-2.5 rounded-xl border border-slate-300 dark:border-white/20 text-slate-800 dark:text-slate-200 font-bold text-[11px] hover:bg-slate-100 dark:hover:bg-white/5 active:scale-95 transition-all w-fit">
+                        <span class="read-more-btn">${readMoreText}</span>
+                        <svg class="w-3 h-3 ml-2 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"></path></svg>
+                    </button>
+                </div>
+            `;
+        };
+
+        // Open Post Detail View
+        const openPost = (index) => {
+            const post = globalPosts[index];
+            if(!post) return;
+
+            // Populate Detail View Elements
+            document.getElementById('detailTitle').innerText = post.title || 'Untitled Post';
+            document.getElementById('detailCategory').innerText = post.category || 'News';
+            document.getElementById('detailDate').innerText = post.date || 'Recent';
+            
+            const imgEl = document.getElementById('detailImage');
+            imgEl.src = post.img_url || 'https://via.placeholder.com/1200x600?text=No+Image';
+            
+            document.getElementById('detailContent').innerText = post.description || 'No content available.';
+
+            // View Transition
+            blogListView.classList.add('hidden');
+            blogDetailView.classList.remove('hidden');
+            
+            // Scroll to top of the page smoothly
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+
+        // Close Post Detail View and Return to List
+        const closePost = () => {
+            blogDetailView.classList.add('hidden');
+            blogListView.classList.remove('hidden');
+            
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+
+        // Fetch Logic
+        const fetchBlogPosts = async () => {
+            blogContainer.innerHTML = generateSkeleton();
+            errorContainer.classList.add('hidden');
+            blogContainer.classList.remove('hidden');
+
+            try {
+                // Remove this 'if' block when you link your real Google Script URL
+                if(GOOGLE_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE' || GOOGLE_SCRIPT_URL === '') {
+                    await new Promise(r => setTimeout(r, 1200)); // Fake Delay
+                    
+                    // Mock Data matching Google Sheets columns: title, description, img_url, date, category
+                    globalPosts = [
+                        { 
+                            title: "ChatGPT အကောင့်ကို မြန်မာနိုင်ငံမှာ ဘယ်လိုဖွင့်မလဲ", 
+                            description: "ChatGPT ကို မြန်မာနိုင်ငံမှ လွယ်ကူစွာအသုံးပြုနိုင်ရန် အဆင့်ဆင့်လမ်းညွှန်ချက်များ။ VPN အသုံးပြုပုံ၊ ဖုန်းနံပါတ် Verify လုပ်ပုံနှင့် အခမဲ့ အသုံးပြုနည်းများကို အသေးစိတ် ရှင်းပြပေးထားပါသည်။\n\nChatGPT Plus သို့ Upgrade ပြုလုပ်လိုပါက Digital Nest တွင် ယုံကြည်စိတ်ချစွာ ဝယ်ယူနိုင်ပါသည်။ ကိုယ်ပိုင် Gmail ဖြင့်သော်လည်းကောင်း၊ Page မှ စီစဉ်ပေးသော အကောင့်ဖြင့်သော်လည်းကောင်း အသုံးပြုနိုင်ပါသည်။", 
+                            img_url: "https://www.orencloud.com/wp-content/uploads/2023/02/ChatGPT-Feature-1024x576.webp",
+                            date: "Oct 15, 2023",
+                            category: "Tutorial"
+                        },
+                        { 
+                            title: "CapCut Pro ဖြင့် Video များကို Professional ကျကျ တည်းဖြတ်ခြင်း", 
+                            description: "CapCut PC ၏ လျှို့ဝှက်ချက်များနှင့် AI Features များကို အသုံးပြု၍ Quality ကောင်းသော Video ဖန်တီးနည်းများ။ Auto Captions, Background Removal, နှင့် AI Effects များကို အလွယ်တကူ သုံးနိုင်ပါသည်။\n\nVideo တည်းဖြတ်သူများအတွက် CapCut Pro account သည် မရှိမဖြစ်လိုအပ်သော Tools တစ်ခုဖြစ်ပြီး Digital Nest တွင် လစဉ်ကြေးပေးသွင်းကာ အလွယ်တကူရယူနိုင်ပါသည်။", 
+                            img_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzBS6aDCVeczti15QCCBbDei9PhpEPFVRKyw&s",
+                            date: "Oct 10, 2023",
+                            category: "Editing"
+                        },
+                        { 
+                            title: "Gemini AI ကို အသုံးပြု၍ အလုပ်များကို မြန်ဆန်အောင်လုပ်နည်း", 
+                            description: "Google ၏ နောက်ဆုံးပေါ် AI Gemini ကို နေ့စဉ်လုပ်ငန်းခွင်တွင် မည်သို့အသုံးချနိုင်ကြောင်း လေ့လာကြပါစို့။ Email ရေးသားခြင်း၊ စာတမ်းပြုစုခြင်း၊ နှင့် Code ရေးသားခြင်းတို့တွင် အချိန်ကုန်သက်သာစေပါသည်။\n\nAdvanced features များအတွက် Gemini Advanced Subscription ကို ရယူနိုင်ပါသည်။", 
+                            img_url: "https://assets.bizclikmedia.net/900/5c54c1fa5b86257922ce5c7f359dc7a6:70dc165261503d52aca95c04679e0bae/google-gemini.webp",
+                            date: "Oct 05, 2023",
+                            category: "AI News"
+                        },
+                        { 
+                            title: "Midjourney ဖြင့် AI ပုံများဖန်တီးခြင်း အခြေခံလမ်းညွှန်", 
+                            description: "Prompt ရေးသားနည်းမှစ၍ လှပသော AI Artwork များထွက်ရှိလာသည်အထိ Midjourney အသုံးပြုနည်း အခြေခံများကို မျှဝေပေးထားပါသည်။ Parameter များကို ကစားနည်းများ၊ Aspect Ratio ချိန်ညှိနည်းများ ပါဝင်ပါသည်။", 
+                            img_url: "https://miro.medium.com/v2/resize:fit:1200/1*C2qP9-M8z7A9DItL84B9Yw.png",
+                            date: "Sep 28, 2023",
+                            category: "Design"
+                        }
+                    ];
+                    
+                    blogContainer.innerHTML = globalPosts.map((post, index) => generatePostCard(post, index)).join('');
+                    return;
+                }
+
+                // Fetch real data
+                const response = await fetch(GOOGLE_SCRIPT_URL);
+                if (!response.ok) throw new Error('Network response error');
+                
+                const data = await response.json();
+                
+                if(data && data.length > 0) {
+                    globalPosts = data; // Save to global array
+                    blogContainer.innerHTML = globalPosts.map((post, index) => generatePostCard(post, index)).join('');
+                } else {
+                    blogContainer.innerHTML = `<div class="col-span-full text-center text-slate-500 py-10">No articles found.</div>`;
+                }
+
+            } catch (error) {
+                console.error("Fetch error: ", error);
+                blogContainer.innerHTML = '';
+                blogContainer.classList.add('hidden');
+                errorContainer.classList.remove('hidden');
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', fetchBlogPosts);
+
+    </script>
+</body>
+</html>
