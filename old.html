@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+       <!-- Primary Meta Tags -->
+    <meta name="title" content="Digital Nest" />
+    <meta name="description" content="Digital Nest offers high-quality digital products, content writing, social media boosting services, and modern frontend web development — all in one place. Fast, reliable, and Gen Z-friendly!" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://metatags.io/" />
+    <meta property="og:title" content="Digital Nest" />
+    <meta property="og:description" content="Digital Nest offers high-quality digital products, content writing, social media boosting services, and modern frontend web development — all in one place. Fast, reliable, and Gen Z-friendly!" />
+    <meta property="og:image" content="./img/dnlogo.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://metatags.io/" />
+    <meta property="twitter:title" content="Digital Nest" />
+    <meta property="twitter:description" content="Digital Nest offers high-quality digital products, content writing, social media boosting services, and modern frontend web development — all in one place. Fast, reliable, and Gen Z-friendly!" />
+    <meta property="twitter:image" content="./img/dnlogo.png" />
+
+
+
+    <title>Digital Nest - Premium Digital Services</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="./img/dnlogo.png">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        montserrat: ['Montserrat', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                        'fadeInUp': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        fadeInUp: {
+                            '0%': { 
+                                opacity: '0',
+                                transform: 'translateY(30px)'
+                            },
+                            '100%': { 
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+        }
+        .dark .gradient-bg {
+            background: linear-gradient(135deg, #075985 0%, #1e40af 100%);
+        }
+        
+        /* Tab styling */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .tab-btn.active {
+            background-color: #0ea5e9;
+            color: white;
+        }
+        
+        /* Loading animation */
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid rgba(14, 165, 233, 0.2);
+            border-bottom-color: #0ea5e9;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Floating animation */
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        /* Brand icons hover effect */
+        .brand-icon {
+            transition: all 0.3s ease;
+            filter: grayscale(100%);
+            opacity: 0.7;
+        }
+        .brand-icon:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        /* Back to top button - Maximum z-index */
+        .back-to-top {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 9999 !important;
+        }
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Language content visibility */
+        .lang-content {
+            display: none;
+        }
+        .lang-content.active {
+            display: inline;
+        }
+
+        /* Scroll animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .scroll-animate.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger animation delays */
+        .scroll-animate:nth-child(1) { transition-delay: 0.1s; }
+        .scroll-animate:nth-child(2) { transition-delay: 0.2s; }
+        .scroll-animate:nth-child(3) { transition-delay: 0.3s; }
+        .scroll-animate:nth-child(4) { transition-delay: 0.4s; }
+        .scroll-animate:nth-child(5) { transition-delay: 0.5s; }
+        .scroll-animate:nth-child(6) { transition-delay: 0.6s; }
+    </style>
+</head>
+<body class="font-montserrat bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Loading Screen -->
+    <!-- <div id="loading" class="fixed inset-0 bg-white dark:bg-gray-900 z-50 flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="loader mb-4"></div>
+        <div class="text-primary-500 dark:text-primary-400 text-xl font-bold animate-pulse">
+            <span class="lang-content" data-lang="en">Loading Digital Services...</span>
+            <span class="lang-content" data-lang="mm">ဒီဂျစ်တယ်ဝန်ဆောင်မှုများ လုပ်ဆောင်နေသည်...</span>
+        </div>
+    </div> -->
+
+    <!-- Language Switcher (Top Right) -->
+    <div class="fixed top-4 right-4 z-50 flex items-center space-x-2">
+        <div id="themeSwitcher" class="relative">
+            <button id="themeToggle" class="p-2 rounded-full bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:block"></i>
+            </button>
+            <div id="themeOptions" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50">
+                <button data-theme="light" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition flex items-center">
+                    <i class="fas fa-sun mr-2 text-yellow-500"></i>
+                    <span class="lang-content" data-lang="en">Light</span>
+                    <span class="lang-content" data-lang="mm">အလင်းမူ</span>
+                </button>
+                <button data-theme="dark" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition flex items-center">
+                    <i class="fas fa-moon mr-2 text-indigo-500"></i>
+                    <span class="lang-content" data-lang="en">Dark</span>
+                    <span class="lang-content" data-lang="mm">မှောင်မူ</span>
+                </button>
+                <button data-theme="system" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition flex items-center">
+                    <i class="fas fa-desktop mr-2 text-primary-500"></i>
+                    <span class="lang-content" data-lang="en">System</span>
+                    <span class="lang-content" data-lang="mm">စနစ်အတိုင်း</span>
+                </button>
+            </div>
+        </div>
+        
+        <div id="languageSwitcher" class="relative hidden">
+            <button id="languageBtn" class="p-2 rounded-full bg-primary-500 text-white shadow-md hover:shadow-lg hover:bg-primary-600 transition flex items-center">
+                <i class="fas fa-globe mr-1"></i>
+                <span id="currentLangDisplay" class="text-sm font-medium">EN</span>
+            </button>
+            <div id="languageDropdown" class="hidden absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50">
+                <button data-lang-switch="en" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition flex items-center">
+                    <span class="w-6">🇬🇧</span>
+                    <span>English</span>
+                </button>
+                <button data-lang-switch="mm" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition flex items-center">
+                    <span class="w-6">🇲🇲</span>
+                    <span>မြန်မာ</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm">
+        <div class="container mx-auto px-4 py-3 md:py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2">
+                <div class="w-14 h-14 rounded-full gradient-bg flex items-center justify-center text-white floating overflow-hidden">
+                    <img src="./img/dnlogo.png" alt="">
+                </div>
+                <span class="text-xl font-bold text-primary-600 dark:text-primary-400">
+                    <span class="lang-content" data-lang="en">Digital Nest</span>
+                    <span class="lang-content" data-lang="mm">ဒီဂျစ်တယ်နက်စ်</span>
+                </span>
+            </a>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium transition">
+                    <span class="lang-content" data-lang="en">Home</span>
+                    <span class="lang-content" data-lang="mm">ပင်မ</span>
+                </a>
+                <a href="#about" class="text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium transition">
+                    <span class="lang-content" data-lang="en">About</span>
+                    <span class="lang-content" data-lang="mm">အကြောင်း</span>
+                </a>
+                <a href="#team" class="text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium transition">
+                    <span class="lang-content" data-lang="en">Team</span>
+                    <span class="lang-content" data-lang="mm">အဖွဲ့</span>
+                </a>
+                <a href="#services" class="text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium transition">
+                    <span class="lang-content" data-lang="en">Services</span>
+                    <span class="lang-content" data-lang="mm">ဝန်ဆောင်မှုများ</span>
+                </a>
+                <a href="https://digitalnest-shop.vercel.app/" target="_blank" class="text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium transition">
+                    <span class="lang-content" data-lang="en">Shop</span>
+                    <span class="lang-content" data-lang="mm">အရောင်း</span>
+                </a>
+                <a href="#contact" class="text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium transition">
+                    <span class="lang-content" data-lang="en">Contact</span>
+                    <span class="lang-content" data-lang="mm">ဆက်သွယ်ရန်</span>
+                </a>
+            </nav>
+            
+            <button id="mobileMenuBtn" class="md:hidden p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="#home" class="py-2 text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition">
+                    <span class="lang-content" data-lang="en">Home</span>
+                    <span class="lang-content" data-lang="mm">ပင်မ</span>
+                </a>
+                <a href="#about" class="py-2 text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition">
+                    <span class="lang-content" data-lang="en">About</span>
+                    <span class="lang-content" data-lang="mm">အကြောင်း</span>
+                </a>
+                <a href="#team" class="py-2 text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition">
+                    <span class="lang-content" data-lang="en">Team</span>
+                    <span class="lang-content" data-lang="mm">အဖွဲ့</span>
+                </a>
+                <a href="#services" class="py-2 text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition">
+                    <span class="lang-content" data-lang="en">Services</span>
+                    <span class="lang-content" data-lang="mm">ဝန်ဆောင်မှုများ</span>
+                </a>
+                <a href="#contact" class="py-2 text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition">
+                    <span class="lang-content" data-lang="en">Contact</span>
+                    <span class="lang-content" data-lang="mm">ဆက်သွယ်ရန်</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="py-16 md:py-24 relative overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden z-0">
+            <div class="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-primary-100 dark:bg-primary-900 opacity-20 animate-pulse-slow"></div>
+            <div class="absolute -bottom-20 -right-20 w-64 h-64 rounded-full bg-primary-100 dark:bg-primary-900 opacity-20 animate-pulse-slow animation-delay-2000"></div>
+            <div class="absolute top-1/4 right-1/4 w-32 h-32 rounded-full bg-primary-100 dark:bg-primary-900 opacity-10 animate-pulse-slow animation-delay-3000"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 flex flex-col-reverse md:flex-row items-center relative z-10">
+            <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10 mt-10 md:mt-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight scroll-animate">
+                    <span class="lang-content" data-lang="en">Premium Digital Services at Your Fingertips</span>
+                    <span class="lang-content" data-lang="mm">အဆင့်မြင့်ဒီဂျစ်တယ်ဝန်ဆောင်မှုများ သင့်လက်ထဲတွင်</span>
+                </h1>
+                <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 scroll-animate">
+                    <span class="lang-content" data-lang="en">Get access to premium digital products and services including subscriptions, content creation, and social media boosting at affordable prices.</span>
+                    <span class="lang-content" data-lang="mm">အဆင့်မြင့်ဒီဂျစ်တယ်ထုတ်ကုန်များ၊ အကြိုက်စာရင်းဝင်မှုများ၊ အက်ပ်များ၊ လူမှုမီဒီယာတိုးမြှင့်ခြင်းနှင့် အခြားဝန်ဆောင်မှုများကို ဈေးနှုန်းသက်သာစွာဖြင့် ရယူပါ။</span>
+                </p>
+                <div class="flex flex-wrap gap-4 scroll-animate">
+                    <a href="#services" class="px-6 py-3 gradient-bg text-white rounded-lg font-medium hover:shadow-lg transition transform hover:-translate-y-1">
+                        <span class="lang-content" data-lang="en">Explore Services</span>
+                        <span class="lang-content" data-lang="mm">ဝန်ဆောင်မှုများကြည့်ရန်</span>
+                    </a>
+                    <a href="#contact" class="px-6 py-3 border border-primary-500 text-primary-500 dark:text-primary-400 rounded-lg font-medium hover:bg-primary-50 dark:hover:bg-gray-800 transition transform hover:-translate-y-1">
+                        <span class="lang-content" data-lang="en">Contact Us</span>
+                        <span class="lang-content" data-lang="mm">ဆက်သွယ်ရန်</span>
+                    </a>
+                </div>
+                
+         
+            </div>
+            <div class="md:w-1/2 scroll-animate">
+                <div class="relative floating">
+                    <div class="absolute -top-6 -left-6 w-32 h-32 rounded-full bg-primary-100 dark:bg-primary-900 opacity-50"></div>
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 rounded-full bg-primary-100 dark:bg-primary-900 opacity-50"></div>
+                    <img src="./img/coverpage.png" 
+                         alt="Digital Services" 
+                         class="relative z-10 rounded-2xl shadow-xl w-full h-full  object-cover border-4 border-white dark:border-gray-800">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-100 dark:bg-gray-800 relative overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden z-0">
+            <div class="absolute top-0 right-0 w-32 h-32 rounded-full bg-primary-100 dark:bg-primary-900 opacity-10 animate-pulse-slow"></div>
+            <div class="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-primary-100 dark:bg-primary-900 opacity-10 animate-pulse-slow animation-delay-2000"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="text-3xl font-bold mb-4">
+                    <span class="lang-content" data-lang="en">About Digital Nest</span>
+                    <span class="lang-content" data-lang="mm">ဒီဂျစ်တယ်နက်စ်အကြောင်း</span>
+                </h2>
+                <div class="w-20 h-1 gradient-bg mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10 scroll-animate">
+                    <img src="./img/about.jpg" 
+                         alt="About Us" 
+                         class="rounded-2xl shadow-lg w-full h-auto border-4 border-white dark:border-gray-800 transform hover:scale-105 transition duration-500">
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-bold mb-6 scroll-animate">
+                        <span class="lang-content" data-lang="en">Your Trusted Digital Partner</span>
+                        <span class="lang-content" data-lang="mm">သင့်ရဲ့ယုံကြည်စိတ်ချရသော ဒီဂျစ်တယ်မိတ်ဖက်</span>
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6 scroll-animate">
+                        <span class="lang-content" data-lang="en">Digital Nest is a premier provider of high-quality digital products and services. We specialize in offering authentic and reliable digital solutions to help individuals and businesses thrive in the digital world.</span>
+                        <span class="lang-content" data-lang="mm">ဒီဂျစ်တယ်နက်စ်သည် အရည်အသွေးမြင့်ဒီဂျစ်တယ်ထုတ်ကုန်များနှင့် ဝန်ဆောင်မှုများကို ပံ့ပိုးပေးသော ထိပ်တန်းကုမ္ပဏီတစ်ခုဖြစ်သည်။ ကျွန်ုပ်တို့သည် ဒီဂျစ်တယ်ကမ္ဘာတွင် တစ်ဦးချင်းနှင့် လုပ်ငန်းများ ဖွံ့ဖြိုးတိုးတက်ရန်အတွက် စစ်မှန်သော ဒီဂျစ်တယ်ဖြေရှင်းနည်းများကို ပံ့ပိုးပေးရန် အထူးပြုထားသည်။</span>
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6 scroll-animate">
+                        <span class="lang-content" data-lang="en">Our mission is to make premium digital tools and services accessible to everyone at competitive prices. From digital subscriptions to content creation and social media management, we've got you covered.</span>
+                        <span class="lang-content" data-lang="mm">ကျွန်ုပ်တို့၏ ရည်မှန်းချက်မှာ အဆင့်မြင့်ဒီဂျစ်တယ်ကိရိယာများနှင့် ဝန်ဆောင်မှုများကို လူတိုင်းအလွယ်တကူ ရရှိနိုင်ရန်နှင့် ဈေးနှုန်းသက်သာစွာဖြင့် ဝန်ဆောင်မှုပေးရန်ဖြစ်သည်။ ဒီဂျစ်တယ်စာရင်းဝင်မှုများမှ စာသားဖန်တီးမှုနှင့် လူမှုမီဒီယာစီမံခန့်ခွဲမှုအထိ ကျွန်ုပ်တို့က ဖြည့်ဆည်းပေးပါမည်။</span>
+                    </p>
+                    <div class="flex items-center space-x-4 p-4 bg-white dark:bg-gray-700 rounded-lg shadow-sm scroll-animate">
+                        <div class="w-12 h-12 rounded-full gradient-bg flex items-center justify-center text-white animate-bounce-slow">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium">
+                                <span class="lang-content" data-lang="en">Trusted Provider</span>
+                                <span class="lang-content" data-lang="mm">ယုံကြည်စိတ်ချရသော ပေးသွင်းသူ</span>
+                            </h4>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                <span class="lang-content" data-lang="en">100% authentic products & services</span>
+                                <span class="lang-content" data-lang="mm">၁၀၀% စစ်မှန်သော ထုတ်ကုန်များနှင့် ဝန်ဆောင်မှုများ</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-16 relative overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden z-0">
+            <div class="absolute top-1/3 left-1/4 w-16 h-16 rounded-full bg-primary-100 dark:bg-primary-900 opacity-10 animate-pulse-slow"></div>
+            <div class="absolute bottom-1/4 right-1/3 w-24 h-24 rounded-full bg-primary-100 dark:bg-primary-900 opacity-10 animate-pulse-slow animation-delay-3000"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="text-3xl font-bold mb-4">
+                    <span class="lang-content" data-lang="en">Our Team</span>
+                    <span class="lang-content" data-lang="mm">ကျွန်ုပ်တို့၏ အဖွဲ့</span>
+                </h2>
+                <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                    <span class="lang-content" data-lang="en">Meet the talented professionals behind Digital Nest</span>
+                    <span class="lang-content" data-lang="mm">Digital Nest ၏ ကျွမ်းကျင်ပညာရှင်များနှင့် တွေ့ဆုံပါ</span>
+                </p>
+                <div class="w-20 h-1 gradient-bg mx-auto rounded-full mt-4"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Team Member 1 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition transform hover:-translate-y-2 group scroll-animate">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="./img/bhonepyaesone.png" 
+                             alt="TTeam Builder, Designer & Web Designer" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-4">
+                            <h3 class="text-xl font-bold text-white">Bhone Pyae Sone</h3>
+                            <p class="text-primary-300 font-medium">
+                                <span class="lang-content" data-lang="en">Team Builder, Designer & Web Designer</span>
+                                <span class="lang-content" data-lang="mm">Team Builder, Designer & Web Designer</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition transform hover:-translate-y-2 group scroll-animate">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="./img/sai.jpg" 
+                             alt="Team Builder" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-4">
+                            <h3 class="text-xl font-bold text-white">Sai Khant Kyaw</h3>
+                            <p class="text-primary-300 font-medium">
+                                <span class="lang-content" data-lang="en">Team Builder, Mid-level Content Writer</span>
+                                <span class="lang-content" data-lang="mm">Team Builder , Mid-level Content Writer</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 11 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition transform hover:-translate-y-2 group scroll-animate">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="./img/zinminthant.jpg" 
+                             alt="Page Admin" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-4">
+                            <h3 class="text-xl font-bold text-white">Zin Min Thant</h3>
+                            <p class="text-primary-300 font-medium">
+                                <span class="lang-content" data-lang="en">Page Admin & Product Research</span>
+                                <span class="lang-content" data-lang="mm">Page Admin & Product Research</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                 <!-- Team Member 4 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition transform hover:-translate-y-2 group scroll-animate">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="./img/chan.jpg" 
+                             alt="Page Admin" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-4">
+                            <h3 class="text-xl font-bold text-white">Chan Chan</h3>
+                            <p class="text-primary-300 font-medium">
+                                <span class="lang-content" data-lang="en">Page Admin</span>
+                                <span class="lang-content" data-lang="mm">Page Admin</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <!-- Team Member 9 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition transform hover:-translate-y-2 group scroll-animate">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="./img/hayman.jpg" 
+                             alt="Content Manager" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-4">
+                            <h3 class="text-xl font-bold text-white">Hay Man</h3>
+                            <p class="text-primary-300 font-medium">
+                                <span class="lang-content" data-lang="en">Page Admin</span>
+                                <span class="lang-content" data-lang="mm">Page Admin</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 8 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition transform hover:-translate-y-2 group scroll-animate">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="./img/phyo.jpg" 
+                             alt="Content Manager" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-4">
+                            <h3 class="text-xl font-bold text-white">Phyo</h3>
+                            <p class="text-primary-300 font-medium">
+                                <span class="lang-content" data-lang="en">Junior Content Writer & Designer</span>
+                                <span class="lang-content" data-lang="mm">Junior Content Writer & Designer</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 5 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition transform hover:-translate-y-2 group scroll-animate">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="./img/nway.jpg" 
+                             alt="Designer" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-4">
+                            <h3 class="text-xl font-bold text-white">Yamon Nway</h3>
+                            <p class="text-primary-300 font-medium">
+                                <span class="lang-content" data-lang="en">Page Admin & Narrator</span>
+                                <span class="lang-content" data-lang="mm">Page Admin </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Team Member 6 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition transform hover:-translate-y-2 group scroll-animate">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="./img/uluukyi.jpg" 
+                             alt="Researcher and Operation" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-4">
+                            <h3 class="text-xl font-bold text-white">Sai Htet</h3>
+                            <p class="text-primary-300 font-medium">
+                                <span class="lang-content" data-lang="en">Researcher and Operation</span>
+                                <span class="lang-content" data-lang="mm">Researcher and Operation</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+               
+
+                
+
+                
+
+                <!-- Team Member 13 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition transform hover:-translate-y-2 group scroll-animate">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="./img//waiyan.jpg" 
+                             alt="Operation" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-4">
+                            <h3 class="text-xl font-bold text-white">Wai Yan Linn</h3>
+                            <p class="text-primary-300 font-medium">
+                                <span class="lang-content" data-lang="en">Video Editing & Operation</span>
+                                <span class="lang-content" data-lang="mm">Video Editing & Operation</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-gray-100 dark:bg-gray-800 relative overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden z-0">
+            <div class="absolute top-1/4 left-1/3 w-40 h-40 rounded-full bg-primary-100 dark:bg-primary-900 opacity-10 animate-pulse-slow"></div>
+            <div class="absolute bottom-1/3 right-1/4 w-32 h-32 rounded-full bg-primary-100 dark:bg-primary-900 opacity-10 animate-pulse-slow animation-delay-2000"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="text-3xl font-bold mb-4">
+                    <span class="lang-content" data-lang="en">Our Services</span>
+                    <span class="lang-content" data-lang="mm">ကျွန်ုပ်တို့၏ ဝန်ဆောင်မှုများ</span>
+                </h2>
+                <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                    <span class="lang-content" data-lang="en">We offer a wide range of premium digital products and services to meet your needs.</span>
+                    <span class="lang-content" data-lang="mm">သင့်လိုအပ်ချက်များကို ဖြည့်ဆည်းပေးရန် အဆင့်မြင့်ဒီဂျစ်တယ်ထုတ်ကုန်များနှင့် ဝန်ဆောင်မှုများစွာကို ကျွန်ုပ်တို့ပံ့ပိုးပေးပါသည်။</span>
+                </p>
+                <div class="w-20 h-1 gradient-bg mx-auto rounded-full mt-4"></div>
+            </div>
+            
+            <!-- Service Tabs -->
+            <div class="mb-12">
+                <div class="flex flex-wrap justify-center gap-2 mb-8 scroll-animate">
+                    <button class="tab-btn px-6 py-2 rounded-full border border-primary-500 text-primary-500 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-gray-700 transition active" data-tab="digital-products">
+                        <span class="lang-content" data-lang="en">Digital Products</span>
+                        <span class="lang-content" data-lang="mm">ဒီဂျစ်တယ်ထုတ်ကုန်များ</span>
+                    </button>
+                    <button class="tab-btn px-6 py-2 rounded-full border border-primary-500 text-primary-500 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-gray-700 transition" data-tab="content-writing">
+                        <span class="lang-content" data-lang="en">Content Writing</span>
+                        <span class="lang-content" data-lang="mm">အကြောင်းအရာရေးသားခြင်း</span>
+                    </button>
+                    <button class="tab-btn px-6 py-2 rounded-full border border-primary-500 text-primary-500 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-gray-700 transition" data-tab="web-customization">
+                        <span class="lang-content" data-lang="en">Web Customization</span>
+                        <span class="lang-content" data-lang="mm">ဝဘ်ဆိုဒ်စိတ်ကြိုက်ပြင်ဆင်ခြင်း</span>
+                    </button>
+                    <button class="tab-btn px-6 py-2 rounded-full border border-primary-500 text-primary-500 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-gray-700 transition" data-tab="social-boost">
+                        <span class="lang-content" data-lang="en">Social Media Boost</span>
+                        <span class="lang-content" data-lang="mm">လူမှုမီဒီယာတိုးမြှင့်ခြင်း</span>
+                    </button>
+                </div>
+                
+                <!-- Digital Products Tab -->
+                <div id="digital-products" class="tab-content active">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Spotify -->
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 scroll-animate">
+                            <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white mb-4">
+                                <i class="fab fa-spotify text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Spotify</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                                <span class="lang-content" data-lang="en">Spotify Premium gives you ad-free music, unlimited skips, offline listening, and high-quality audio. Vibe anytime, anywhere — no interruptions!</span>
+                                <span class="lang-content" data-lang="mm">Spotify Premium ဆိုတာက ကြော်ငြာမပါဘဲ သီချင်းတွေစိတ်ကြိုက်နားထောင်လို့ရတယ်။ Skip ပေးနိုင်၊ Offline နားထောင်လို့ရ၊ အသံကလဲအရမ်းကြည်။ အချိန်မရွေး၊ နေရာမရွေး Vibe တင်လို့ရပြီ!ား</span>
+                            </p>
+                            <a href="#contact" class="text-primary-500 dark:text-primary-400 font-medium hover:underline text-sm inline-flex items-center">
+                                <span class="lang-content" data-lang="en">Get Now</span>
+                                <span class="lang-content" data-lang="mm">ယခုရယူပါ</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Capcut -->
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 scroll-animate">
+                            <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white mb-4">
+                                <i class="fab fa-youtube text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Capcut Pro</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                                <span class="lang-content" data-lang="en">CapCut is your all-in-one video editing app — aesthetic filters, smooth transitions, cool text effects, and it's super easy to use. Perfect for TikTok, Reels, and YouTube!</span>
+                                <span class="lang-content" data-lang="mm">CapCut က Video Edit လုပ်ဖို့အတွက် တစ်ခုတည်းနဲ့ အကုန်ရှိတဲ့ app ပါ။ Filter လှလှတွေ၊ Transition ပေါ်ပေါ်ပါးပါးတွေ၊ Text effect တွေလဲစွမ်းဆောင်ချက်ကောင်းပြီး အသုံးပြုရလွယ်တယ်။ TikTok, Reels, YouTube အတွက် မှန်ကန်တဲ့လက်နက်တစ်ခုပါ!
+
+</span>
+                            </p>
+                            <a href="#contact" class="text-primary-500 dark:text-primary-400 font-medium hover:underline text-sm inline-flex items-center">
+                                <span class="lang-content" data-lang="en">Get Now</span>
+                                <span class="lang-content" data-lang="mm">ယခုရယူပါ</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Netfilx -->
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 scroll-animate">
+                            <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white mb-4 font-xl">
+                               N
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Netflix Premium</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                                <span class="lang-content" data-lang="en">Netflix is the ultimate streaming platform — from trending series to epic movies, all in one place. Binge anytime, anywhere, no ads, just vibes!</span>
+                                <span class="lang-content" data-lang="mm">Netflix ဆိုတာ ဟော့တဲ့ series တွေနဲ့ အကြီးအကျယ်ဇာတ်ကားတွေကို တစ်နေရာတည်းမှာကြည့်လို့ရတဲ့ streaming app တစ်ခုပါ။ ကြော်ငြာမရှိ၊ စိတ်ကြိုက်နာရီအကြာကြည့်လို့ရတာကြောင့် အမြဲ vibeတင်နေစေတယ်!</span>
+                            </p>
+                            <a href="#contact" class="text-primary-500 dark:text-primary-400 font-medium hover:underline text-sm inline-flex items-center">
+                                <span class="lang-content" data-lang="en">Get Now</span>
+                                <span class="lang-content" data-lang="mm">ယခုရယူပါ</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Canva Pro -->
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 scroll-animate">
+                            <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white mb-4 text-sm">
+                                Canva
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Canva Pro</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                                <span class="lang-content" data-lang="en">Canva is the go-to design tool for everything — posters, resumes, social media posts, you name it. Drag, drop, and slay your design game like a pro!</span>
+                                <span class="lang-content" data-lang="mm">Canva ဆိုတာ Design လုပ်မယ်ဆိုရင် မဖြစ်မနေသုံးရမယ့် app တစ်ခုပါ။ Poster, CV, Facebook post လုပ်ဖို့ဆိုရင် drag လုပ်၊ drop လုပ်ပြီး လွယ်လွယ်ကူကူနဲ့လှလှလေးထုတ်နိုင်တယ်။ Designer မဟုတ်လဲ pro လိုမြင်ရမယ်နော်!</span>
+                            </p>
+                            <a href="#contact" class="text-primary-500 dark:text-primary-400 font-medium hover:underline text-sm inline-flex items-center">
+                                <span class="lang-content" data-lang="en">Get Now</span>
+                                <span class="lang-content" data-lang="mm">ယခုရယူပါ</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="mt-10">
+                        <h1 class="text-2xl font-bold text-center text-blue-500">
+                             Upcoing Services
+                        </h1>
+
+                        <div class="grid md:grid-cols-2 lg:grid-cols-5 mt-8 bg-blue-500 rounded-xl shadow-lg p-5 text-white md:mx-10 lg:mx-20">
+
+                            <ul>
+                                <li class="text-lg font-bold ">Education</li>
+                                <li class="list-disc ml-5">Coursera Plus</li>
+                                <li class="list-disc ml-5">Edx Pro</li>
+                            </ul>
+
+                            <ul class="mt-5 md:mt-0">
+                                <li class="text-lg font-bold ">Design</li>
+                                <li class="list-disc ml-5">Picsart Pro</li>
+                            </ul>
+
+                            <ul class="mt-5 md:mt-0">
+                                <li class="text-lg font-bold ">Streaming</li>
+                                <li class="list-disc ml-5">Prime TV</li>
+                                <li class="list-disc ml-5">Disney Plus</li>
+                            </ul>
+
+                            <ul class="mt-5 md:mt-0">
+                                <li class="text-lg font-bold ">Socials</li>
+                                <li class="list-disc ml-5">Youtube Premium</li>
+                                <li class="list-disc ml-5">Telegram Premium</li>
+                                <li class="list-disc ml-5">Dscord Nitro Pro</li>
+                            </ul>
+
+                             <ul>
+                                <li class="text-lg font-bold ">AI </li>
+                                <li class="list-disc ml-5">Chatgpt Plus</li>
+                                <li class="list-disc ml-5">Perplexity Pro</li>
+                            </ul>
+                        </div>
+                    </div>                   
+                </div>
+                
+                <!-- Content Writing Tab -->
+                <div id="content-writing" class="tab-content">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Blog Writing -->
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white mb-4">
+                                <i class="fas fa-blog text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">
+                                <span class="lang-content" data-lang="en">Blog Writing</span>
+                                <span class="lang-content" data-lang="mm">ဘလော့ဂ်ရေးသားခြင်း</span>
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                                <span class="lang-content" data-lang="en">Engaging, SEO-optimized articles for your website</span>
+                                <span class="lang-content" data-lang="mm">သင့်ဝဘ်ဆိုဒ်အတွက် စွဲမက်ဖွယ်ကောင်းပြီး SEO အတွက်အဆင်ပြေသော ဆောင်းပါးများ</span>
+                            </p>
+                            <a href="#contact" class="text-primary-500 dark:text-primary-400 font-medium hover:underline text-sm inline-flex items-center">
+                                <span class="lang-content" data-lang="en">Order Now</span>
+                                <span class="lang-content" data-lang="mm">ယခုမှာယူပါ</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Website Content -->
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white mb-4">
+                                <i class="fas fa-globe text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">
+                                <span class="lang-content" data-lang="en">Website Content</span>
+                                <span class="lang-content" data-lang="mm">ဝဘ်ဆိုဒ်အကြောင်းအရာ</span>
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                                <span class="lang-content" data-lang="en">Professional content for all your web pages</span>
+                                <span class="lang-content" data-lang="mm">သင့်ဝဘ်စာမျက်နှာအားလုံးအတွက် ပရော်ဖက်ရှင်နယ်အကြောင်းအရာ</span>
+                            </p>
+                            <a href="#contact" class="text-primary-500 dark:text-primary-400 font-medium hover:underline text-sm inline-flex items-center">
+                                <span class="lang-content" data-lang="en">Order Now</span>
+                                <span class="lang-content" data-lang="mm">ယခုမှာယူပါ</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Product Descriptions -->
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white mb-4">
+                                <i class="fas fa-shopping-bag text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">
+                                <span class="lang-content" data-lang="en">Product Descriptions</span>
+                                <span class="lang-content" data-lang="mm">ထုတ်ကုန်ဖော်ပြချက်များ</span>
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                                <span class="lang-content" data-lang="en">Compelling descriptions for your e-commerce products</span>
+                                <span class="lang-content" data-lang="mm">သင့်အီလက်ထရောနစ်စျေးဝယ်ထုတ်ကုန်များအတွက် ဆွဲဆောင်မှုရှိသော ဖော်ပြချက်များ</span>
+                            </p>
+                            <a href="#contact" class="text-primary-500 dark:text-primary-400 font-medium hover:underline text-sm inline-flex items-center">
+                                <span class="lang-content" data-lang="en">Order Now</span>
+                                <span class="lang-content" data-lang="mm">ယခုမှာယူပါ</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Social Media Content -->
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white mb-4">
+                                <i class="fas fa-hashtag text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">
+                                <span class="lang-content" data-lang="en">Social Media Content</span>
+                                <span class="lang-content" data-lang="mm">လူမှုမီဒီယာအကြောင်းအရာ</span>
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                                <span class="lang-content" data-lang="en">Engaging posts for all your social platforms</span>
+                                <span class="lang-content" data-lang="mm">သင့်လူမှုမီဒီယာပလက်ဖောင်းများအားလုံးအတွက် စွဲမက်ဖွယ်ကောင်းသော ပို့စ်များ</span>
+                            </p>
+                            <a href="#contact" class="text-primary-500 dark:text-primary-400 font-medium hover:underline text-sm inline-flex items-center">
+                                <span class="lang-content" data-lang="en">Order Now</span>
+                                <span class="lang-content" data-lang="mm">ယခုမှာယူပါ</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Web Customization Tab -->
+                <div id="web-customization" class="tab-content">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                        <!-- Website Redesign -->
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white mb-4">
+                                <i class="fas fa-paint-brush text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">
+                                <span class="lang-content" data-lang="en">Website Redesign</span>
+                                <span class="lang-content" data-lang="mm">ဝဘ်ဆိုဒ်ပြန်လည်ဒီဇိုင်းဆွဲခြင်း</span>
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                                <span class="lang-content" data-lang="en">Modern, responsive redesign for your existing site</span>
+                                <span class="lang-content" data-lang="mm">သင့်ရှိပြီးသားဆိုဒ်အတွက် ခေတ်မီပြီး အလွယ်တကူကြည့်ရှုနိုင်သော ပြန်လည်ဒီဇိုင်းဆွဲခြင်း</span>
+                            </p>
+                            <a href="#contact" class="text-primary-500 dark:text-primary-400 font-medium hover:underline text-sm inline-flex items-center">
+                                <span class="lang-content" data-lang="en">Get Quote</span>
+                                <span class="lang-content" data-lang="mm">ဈေးနှုန်းတောင်းပါ</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                        
+                        
+                        <!-- Landing Page -->
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white mb-4">
+                                <i class="fas fa-rocket text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">
+                                <span class="lang-content" data-lang="en">Landing Page</span>
+                                <span class="lang-content" data-lang="mm">ဆင်းသက်သည့်စာမျက်နှာ</span>
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                                <span class="lang-content" data-lang="en">High-converting landing pages for your campaigns</span>
+                                <span class="lang-content" data-lang="mm">သင့်ကမ်ပိန်းများအတွက် အရောင်းတိုးမြှင့်ပေးသော ဆင်းသက်သည့်စာမျက်နှာများ</span>
+                            </p>
+                            <a href="#contact" class="text-primary-500 dark:text-primary-400 font-medium hover:underline text-sm inline-flex items-center">
+                                <span class="lang-content" data-lang="en">Get Quote</span>
+                                <span class="lang-content" data-lang="mm">ဈေးနှုန်းတောင်းပါ</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Social Media Boost Tab -->
+                <div id="social-boost" class="tab-content">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Facebook Boost -->
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white mb-4">
+                                <i class="fab fa-facebook-f text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">
+                                <span class="lang-content" data-lang="en">Facebook Boost</span>
+                                <span class="lang-content" data-lang="mm">Facebook တိုးမြှင့်ခြင်း</span>
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                                <span class="lang-content" data-lang="en">Increase your page likes and post engagement</span>
+                                <span class="lang-content" data-lang="mm">သင့်စာမျက်နှာနှစ်သက်မှုနှင့် ပို့စ်ပါဝင်မှုတိုးမြှင့်ပါ</span>
+                            </p>
+                            <a href="#contact" class="text-primary-500 dark:text-primary-400 font-medium hover:underline text-sm inline-flex items-center">
+                                <span class="lang-content" data-lang="en">Boost Now</span>
+                                <span class="lang-content" data-lang="mm">ယခုတိုးမြှင့်ပါ</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Instagram Growth -->
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white mb-4">
+                                <i class="fab fa-instagram text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">
+                                <span class="lang-content" data-lang="en">Instagram Growth</span>
+                                <span class="lang-content" data-lang="mm">Instagram တိုးတက်မှု</span>
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                                <span class="lang-content" data-lang="en">Grow your followers and engagement organically</span>
+                                <span class="lang-content" data-lang="mm">သင့်နောက်လိုက်များနှင့် ပါဝင်မှုကို သဘာဝအတိုင်းတိုးပွားစေပါ</span>
+                            </p>
+                            <a href="#contact" class="text-primary-500 dark:text-primary-400 font-medium hover:underline text-sm inline-flex items-center">
+                                <span class="lang-content" data-lang="en">Grow Now</span>
+                                <span class="lang-content" data-lang="mm">ယခုကြီးထွားပါ</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- TikTok Promotion -->
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+                            <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white mb-4">
+                                <i class="fab fa-tiktok text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">
+                                <span class="lang-content" data-lang="en">TikTok Promotion</span>
+                                <span class="lang-content" data-lang="mm">TikTok မြှင့်တင်ခြင်း</span>
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                                <span class="lang-content" data-lang="en">Boost your TikTok profile and video views</span>
+                                <span class="lang-content" data-lang="mm">သင့် TikTok ပရိုဖိုင်းနှင့် ဗီဒီယိုကြည့်ရှုမှုတိုးမြှင့်ပါ</span>
+                            </p>
+                            <a href="#contact" class="text-primary-500 dark:text-primary-400 font-medium hover:underline text-sm inline-flex items-center">
+                                <span class="lang-content" data-lang="en">Promote Now</span>
+                                <span class="lang-content" data-lang="mm">ယခုမြှင့်တင်ပါ</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </a>
+                        </div>
+                        
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section with Tally Form -->
+    <section id="contact" class="py-16 relative overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden z-0">
+            <div class="absolute top-1/4 right-1/4 w-32 h-32 rounded-full bg-primary-100 dark:bg-primary-900 opacity-10 animate-pulse-slow"></div>
+            <div class="absolute bottom-1/3 left-1/4 w-40 h-40 rounded-full bg-primary-100 dark:bg-primary-900 opacity-10 animate-pulse-slow animation-delay-2000"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="text-3xl font-bold mb-4">
+                    <span class="lang-content" data-lang="en">Contact Us</span>
+                    <span class="lang-content" data-lang="mm">ဆက်သွယ်ရန်</span>
+                </h2>
+                <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                    <span class="lang-content" data-lang="en">Get in touch with us for any inquiries or to purchase our services.</span>
+                    <span class="lang-content" data-lang="mm">မေးမြန်းလိုသည်များနှင့် ဝန်ဆောင်မှုများဝယ်ယူရန် ကျွန်ုပ်တို့ထံ ဆက်သွယ်ပါ။</span>
+                </p>
+                <div class="w-20 h-1 gradient-bg mx-auto rounded-full mt-4"></div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-bold mb-6 scroll-animate">
+                        <span class="lang-content" data-lang="en">Get in Touch</span>
+                        <span class="lang-content" data-lang="mm">ဆက်သွယ်ရန်</span>
+                    </h3>
+                    
+                    <div class="space-y-6 mb-8">
+                        <div class="flex items-start space-x-4 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition scroll-animate">
+                            <div class="w-12 h-12 rounded-full gradient-bg flex items-center justify-center text-white">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">
+                                    <span class="lang-content" data-lang="en">Email Us</span>
+                                    <span class="lang-content" data-lang="mm">အီးမေးလ်ပို့ရန်</span>
+                                </h4>
+                                <p class="text-gray-600 dark:text-gray-300">digitaln278@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition scroll-animate">
+                            <div class="w-12 h-12 rounded-full gradient-bg flex items-center justify-center text-white">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">
+                                    <span class="lang-content" data-lang="en">Call Us</span>
+                                    <span class="lang-content" data-lang="mm">ဖုန်းဆက်ရန်</span>
+                                </h4>
+                                <a href="tel:+959685623988" class="text-gray-600 dark:text-gray-300">+959685623988</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition scroll-animate">
+                            <div class="w-12 h-12 rounded-full gradient-bg flex items-center justify-center text-white">
+                                <i class="fab fa-telegram"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Telegram</h4>
+                                <a target="_blank" href="https://t.me/digitalnest01" class="text-gray-600 dark:text-gray-300">@digitalnest001</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition scroll-animate">
+                            <div class="w-12 h-12 rounded-full gradient-bg flex items-center justify-center text-white">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">
+                                    <span class="lang-content" data-lang="en">Location</span>
+                                    <span class="lang-content" data-lang="mm">တည်နေရာ</span>
+                                </h4>
+                                <p class="text-gray-600 dark:text-gray-300">
+                                    <span class="lang-content" data-lang="en">Yangon, Myanmar</span>
+                                    <span class="lang-content" data-lang="mm">ရန်ကုန်၊ မြန်မာ</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md scroll-animate">
+                        <h4 class="font-bold mb-4">
+                            <span class="lang-content" data-lang="en">Business Hours</span>
+                            <span class="lang-content" data-lang="mm">လုပ်ငန်းလုပ်ချိန်များ</span>
+                        </h4>
+                        <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                            <li class="flex justify-between py-2 border-b border-gray-100 dark:border-gray-700">
+                                <span>
+                                    <span class="lang-content" data-lang="en">Monday - Friday</span>
+                                    <span class="lang-content" data-lang="mm">တနင်္လာ - သောကြာ</span>
+                                </span>
+                                <span>7:00 AM - 10:00 PM</span>
+                            </li>
+                            <li class="flex justify-between py-2 border-b border-gray-100 dark:border-gray-700">
+                                <span>
+                                    <span class="lang-content" data-lang="en">Saturday & Sunday</span>
+                                    <span class="lang-content" data-lang="mm">စနေ</span>
+                                </span>
+                                <span>6:00 AM - 11:00 PM</span>
+                            </li>
+        
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2 scroll-animate">
+                    <!-- Tally Form Embed -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md h-full overflow-hidden">
+                        <iframe src="https://tally.so/r/w40QAb" width="100%" height="100%" class="min-h-[30rem]" frameborder="0" marginheight="0" marginwidth="0" title="Contact Digital Nest"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 relative">
+        <div class="absolute inset-0 overflow-hidden z-0">
+            <div class="absolute top-0 right-0 w-32 h-32 rounded-full bg-primary-900 opacity-10 animate-pulse-slow"></div>
+            <div class="absolute bottom-0 left-0 w-40 h-40 rounded-full bg-primary-900 opacity-10 animate-pulse-slow animation-delay-2000"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2 scroll-animate">
+                    <a href="#" class="flex items-center space-x-2 mb-6">
+                        <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-white">
+                            <img src="./img/dnlogo.png" alt="">
+                        </div>
+                        <span class="text-xl font-bold text-white">
+                            <span class="lang-content" data-lang="en">Digital Nest</span>
+                            <span class="lang-content" data-lang="mm">ဒီဂျစ်တယ်နက်စ်</span>
+                        </span>
+                    </a>
+                    <p class="mb-6">
+                        <span class="lang-content" data-lang="en">Your trusted provider for premium digital services and solutions.</span>
+                        <span class="lang-content" data-lang="mm">အဆင့်မြင့်ဒီဂျစ်တယ်ဝန်ဆောင်မှုများနှင့် ဖြေရှင်းနည်းများအတွက် သင့်ရဲ့ယုံကြည်စိတ်ချရသော ပေးသွင်းသူ။</span>
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary-500 transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary-500 transition">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary-500 transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="scroll-animate">
+                    <h4 class="text-white font-bold mb-6 text-lg">
+                        <span class="lang-content" data-lang="en">Quick Links</span>
+                        <span class="lang-content" data-lang="mm">အမြန်လင့်ခ်များ</span>
+                    </h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="hover:text-primary-400 transition">
+                            <span class="lang-content" data-lang="en">Home</span>
+                            <span class="lang-content" data-lang="mm">ပင်မ</span>
+                        </a></li>
+                        <li><a href="#about" class="hover:text-primary-400 transition">
+                            <span class="lang-content" data-lang="en">About</span>
+                            <span class="lang-content" data-lang="mm">အကြောင်း</span>
+                        </a></li>
+                        <li><a href="#team" class="hover:text-primary-400 transition">
+                            <span class="lang-content" data-lang="en">Team</span>
+                            <span class="lang-content" data-lang="mm">အဖွဲ့</span>
+                        </a></li>
+                        <li><a href="#services" class="hover:text-primary-400 transition">
+                            <span class="lang-content" data-lang="en">Services</span>
+                            <span class="lang-content" data-lang="mm">ဝန်ဆောင်မှုများ</span>
+                        </a></li>
+                        <li><a href="#contact" class="hover:text-primary-400 transition">
+                            <span class="lang-content" data-lang="en">Contact</span>
+                            <span class="lang-content" data-lang="mm">ဆက်သွယ်ရန်</span>
+                        </a></li>
+                    </ul>
+                </div>
+                
+                <div class="scroll-animate">
+                    <h4 class="text-white font-bold mb-6 text-lg">
+                        <span class="lang-content" data-lang="en">Services</span>
+                        <span class="lang-content" data-lang="mm">ဝန်ဆောင်မှုများ</span>
+                    </h4>
+                    <ul class="space-y-3">
+                        <li><a href="#services" class="hover:text-primary-400 transition">
+                            <span class="lang-content" data-lang="en">Digital Products</span>
+                            <span class="lang-content" data-lang="mm">ဒီဂျစ်တယ်ထုတ်ကုန်များ</span>
+                        </a></li>
+                        <li><a href="#services" class="hover:text-primary-400 transition">
+                            <span class="lang-content" data-lang="en">Content Writing</span>
+                            <span class="lang-content" data-lang="mm">အကြောင်းအရာရေးသားခြင်း</span>
+                        </a></li>
+                        <li><a href="#services" class="hover:text-primary-400 transition">
+                            <span class="lang-content" data-lang="en">Web Customization</span>
+                            <span class="lang-content" data-lang="mm">ဝဘ်ဆိုဒ်စိတ်ကြိုက်ပြင်ဆင်ခြင်း</span>
+                        </a></li>
+                        <li><a href="#services" class="hover:text-primary-400 transition">
+                            <span class="lang-content" data-lang="en">Social Media Boost</span>
+                            <span class="lang-content" data-lang="mm">လူမှုမီဒီယာတိုးမြှင့်ခြင်း</span>
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center scroll-animate">
+                <p>
+                    <span class="lang-content" data-lang="en">&copy; 2025 Digital Nest. All rights reserved.</span>
+                    <span class="lang-content" data-lang="mm">&copy; 2025 Digital Nest. All rights reserved.
+                        
+                    </span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top fixed bottom-8 right-8 w-12 h-12 rounded-full gradient-bg text-white shadow-lg hover:shadow-xl transition flex items-center justify-center">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Current language state
+        let currentLanguage = 'en';
+
+        // Language switching functionality
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Hide all language content
+            document.querySelectorAll('.lang-content').forEach(element => {
+                element.classList.remove('active');
+            });
+            
+            // Show content for selected language
+            document.querySelectorAll(`.lang-content[data-lang="${lang}"]`).forEach(element => {
+                element.classList.add('active');
+            });
+            
+            // Update language display
+            document.getElementById('currentLangDisplay').textContent = lang === 'en' ? 'EN' : 'MM';
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = lang === 'mm' ? 'my' : 'en';
+        }
+
+        // Scroll animation functionality
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                        // Don't unobserve to prevent re-animation
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all scroll-animate elements
+            document.querySelectorAll('.scroll-animate').forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // Loading screen
+        // window.addEventListener('load', function() {
+        //     setTimeout(function() {
+        //         document.getElementById('loading').style.opacity = '0';
+        //         setTimeout(function() {
+        //             document.getElementById('loading').style.display = 'none';
+        //         }, 500);
+        //     }, 1000);
+        // });
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize language (default to English)
+            changeLanguage(currentLanguage);
+            
+            // Initialize scroll animations
+            initScrollAnimations();
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeOptions = document.getElementById('themeOptions');
+        const themeSwitcher = document.getElementById('themeSwitcher');
+        
+        function setTheme(theme) {
+            if (theme === 'system') {
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+                localStorage.removeItem('theme');
+            } else {
+                localStorage.setItem('theme', theme);
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            }
+        }
+        
+        themeSwitcher.addEventListener('click', (e) => {
+            if (e.target === themeToggle || e.target.closest('#themeToggle')) {
+                themeOptions.classList.toggle('hidden');
+            } else if (e.target.hasAttribute('data-theme') || e.target.closest('[data-theme]')) {
+                const themeBtn = e.target.hasAttribute('data-theme') ? e.target : e.target.closest('[data-theme]');
+                const theme = themeBtn.getAttribute('data-theme');
+                setTheme(theme);
+                themeOptions.classList.add('hidden');
+            }
+        });
+        
+        // Language Toggle
+        const languageBtn = document.getElementById('languageBtn');
+        const languageDropdown = document.getElementById('languageDropdown');
+        const languageSwitcher = document.getElementById('languageSwitcher');
+        
+        languageSwitcher.addEventListener('click', (e) => {
+            if (e.target === languageBtn || e.target.closest('#languageBtn')) {
+                languageDropdown.classList.toggle('hidden');
+            } else if (e.target.hasAttribute('data-lang-switch') || e.target.closest('[data-lang-switch]')) {
+                const langBtn = e.target.hasAttribute('data-lang-switch') ? e.target : e.target.closest('[data-lang-switch]');
+                const lang = langBtn.getAttribute('data-lang-switch');
+                changeLanguage(lang);
+                languageDropdown.classList.add('hidden');
+            }
+        });
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!themeSwitcher.contains(e.target)) {
+                themeOptions.classList.add('hidden');
+            }
+            if (!languageSwitcher.contains(e.target)) {
+                languageDropdown.classList.add('hidden');
+            }
+        });
+        
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else {
+            setTheme('system');
+        }
+        
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Back to top button
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('active');
+            } else {
+                backToTopBtn.classList.remove('active');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
