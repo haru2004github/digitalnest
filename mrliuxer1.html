@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr.Linuxer | Premier Cyber Security</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Outfit for elegant, modern headings, Inter for highly readable body text -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#DC2626', // Premium Red (Tailwind red-600)
+                        secondary: '#991B1B', // Darker Red for gradients
+                        dark: '#0F172A', // Slate 900 for text
+                        surface: '#F8FAFC', // Slate 50 for section backgrounds
+                        light: '#FFFFFF',
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -15px rgba(0,0,0,0.05)',
+                        'glow': '0 0 20px rgba(220, 38, 38, 0.15)',
+                        'glow-hover': '0 10px 30px rgba(220, 38, 38, 0.3)',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background-color: #FFFFFF;
+            color: #475569; /* Slate 600 for general text */
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: #0F172A; /* Slate 900 for headings */
+        }
+
+        /* Elegant Preloader */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            background: #FFFFFF;
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(220, 38, 38, 0.1);
+            border-radius: 50%;
+            border-top-color: #DC2626;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loaded #preloader { opacity: 0; visibility: hidden; }
+
+        /* Glassmorphism Navbar */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        }
+
+        /* Text Gradients */
+        .text-gradient {
+            background: linear-gradient(135deg, #0F172A 0%, #DC2626 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .text-gradient-red {
+            background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Scroll Reveal Elements */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F8FAFC; }
+        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #DC2626; }
+        
+        /* Premium Button Hover */
+        .btn-premium {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .btn-premium::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to right, #991B1B, #DC2626);
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        .btn-premium:hover::before {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary selection:text-white">
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="flex flex-col items-center gap-4">
+            <div class="spinner"></div>
+            <div class="font-display font-medium tracking-widest text-sm text-slate-400 uppercase">Securing Connection</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-6 px-6 md:px-12 bg-transparent">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="font-display text-2xl font-bold tracking-tight text-dark flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-glow">
+                    <i class="fa-solid fa-shield-halved text-white text-lg"></i>
+                </div>
+                <span>Mr.<span class="text-primary">Linuxer</span></span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center space-x-10 bg-white/60 backdrop-blur-md px-8 py-3 rounded-full border border-white/80 shadow-sm">
+                <a href="#home" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors">Home</a>
+                <a href="#about" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors">About Us</a>
+                <a href="#expertise" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors">Expertise</a>
+                <a href="#insights" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors">Insights</a>
+            </div>
+
+            <!-- CTA & Mobile Toggle -->
+            <div class="flex items-center gap-4">
+                <a href="#contact" class="hidden lg:inline-flex items-center justify-center px-6 py-3 bg-primary text-white text-sm font-semibold rounded-full shadow-glow transition-all duration-300 hover:shadow-glow-hover hover:-translate-y-0.5 btn-premium">
+                    Consult an Expert
+                </a>
+                <button id="mobile-menu-btn" class="lg:hidden text-2xl text-dark focus:outline-none bg-white p-2 rounded-full shadow-sm">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="fixed inset-0 bg-white/95 backdrop-blur-lg z-40 hidden flex-col items-center justify-center space-y-8 h-screen w-full transition-opacity">
+            <button id="close-menu-btn" class="absolute top-8 right-8 text-3xl text-slate-400 hover:text-primary transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <a href="#home" class="mobile-link font-display text-3xl font-medium text-dark hover:text-primary transition-colors">Home</a>
+            <a href="#about" class="mobile-link font-display text-3xl font-medium text-dark hover:text-primary transition-colors">About</a>
+            <a href="#expertise" class="mobile-link font-display text-3xl font-medium text-dark hover:text-primary transition-colors">Expertise</a>
+            <a href="#insights" class="mobile-link font-display text-3xl font-medium text-dark hover:text-primary transition-colors">Insights</a>
+            <a href="#contact" class="mobile-link font-display text-3xl font-medium text-primary mt-4">Contact Us</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden bg-surface">
+        <!-- Elegant Background Accents -->
+        <div class="absolute top-[-10%] right-[-5%] w-[800px] h-[800px] bg-red-100 rounded-full blur-[120px] opacity-60 pointer-events-none"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-red-50 rounded-full blur-[100px] opacity-80 pointer-events-none"></div>
+        
+        <!-- Subtle Grid -->
+        <div class="absolute inset-0" style="background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+        <div class="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+            <div class="reveal active">
+                <div class="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-white shadow-sm border border-slate-100">
+                    <span class="relative flex h-2.5 w-2.5">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+                    </span>
+                    <span class="text-xs font-semibold tracking-wider uppercase text-slate-500">Advanced Threat Protection</span>
+                </div>
+                
+                <h1 class="font-display text-5xl md:text-7xl font-extrabold leading-[1.1] mb-6 tracking-tight">
+                    ELEVATE YOUR <br>
+                    <span class="text-gradient-red">DIGITAL SECURITY</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl max-w-lg mb-10 leading-relaxed text-slate-500">
+                    We deliver enterprise-grade cyber defense strategies. Protect your infrastructure, secure your data, and operate with absolute confidence in the digital era.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#expertise" class="inline-flex items-center justify-center px-8 py-4 bg-primary text-white font-semibold rounded-full shadow-glow hover:shadow-glow-hover hover:-translate-y-1 transition-all duration-300 btn-premium">
+                        Explore Services
+                    </a>
+                    <a href="#contact" class="inline-flex items-center justify-center px-8 py-4 bg-white text-dark font-semibold rounded-full shadow-soft border border-slate-100 hover:border-primary/30 hover:text-primary transition-all duration-300">
+                        Request Audit <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Visual (Clean 3D/Premium UI Feel) -->
+            <div class="relative hidden lg:block animate-float">
+                <div class="relative rounded-3xl bg-white p-4 shadow-soft border border-slate-100/50 z-10">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="[Cyber Technology]" class="w-full aspect-[4/3] object-cover rounded-2xl">
+                    
+                    <!-- Floating Premium Badges -->
+                    <div class="absolute -left-12 top-1/4 bg-white p-5 rounded-2xl shadow-xl flex items-center gap-4 border border-slate-50">
+                        <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center text-primary text-xl">
+                            <i class="fa-solid fa-fingerprint"></i>
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-dark">Zero Trust</div>
+                            <div class="text-xs text-slate-500 font-medium">Architecture verified</div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -right-8 bottom-1/4 bg-white p-5 rounded-2xl shadow-xl border border-slate-50">
+                        <div class="text-4xl font-display font-bold text-dark mb-1">99.9<span class="text-primary text-2xl">%</span></div>
+                        <div class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Threat Prevention</div>
+                    </div>
+                </div>
+                <!-- Back decoration -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent rounded-3xl transform rotate-3 translate-x-4 translate-y-4 z-0 blur-sm"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section (Premium Minimalist) -->
+    <section id="about" class="py-28 relative bg-white">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="relative reveal">
+                    <div class="absolute -inset-4 bg-red-50 rounded-[2.5rem] transform -rotate-2 z-0"></div>
+                    <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?q=80&w=2069&auto=format&fit=crop" alt="[Security Team]" class="relative z-10 rounded-3xl shadow-soft object-cover aspect-square md:aspect-[4/3]">
+                    
+                    <!-- Experience Badge -->
+                    <div class="absolute bottom-8 -right-8 bg-primary text-white p-6 rounded-2xl shadow-glow z-20 hidden md:block">
+                        <div class="font-display text-4xl font-bold mb-1">10+</div>
+                        <div class="text-sm font-medium opacity-90">Years of<br>Excellence</div>
+                    </div>
+                </div>
+                
+                <div class="reveal">
+                    <div class="inline-block px-3 py-1 mb-4 rounded-full bg-red-50 text-primary text-xs font-bold tracking-wider uppercase">
+                        Who We Are
+                    </div>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mb-6 tracking-tight">Myanmar's Premier <br>Cyber Security Experts</h2>
+                    
+                    <p class="text-lg leading-relaxed mb-8 text-slate-500">
+                        Mr.Linuxer is an elite collective of cybersecurity professionals dedicated to fortifying digital assets. We leverage military-grade tactics, advanced forensics, and cutting-edge threat intelligence to secure your business against modern adversaries.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-5">
+                            <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-shield-check text-primary text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-display font-bold text-xl mb-1 text-dark">Elite Professionals</h4>
+                                <p class="text-slate-500">Industry-certified experts with deep knowledge in offensive and defensive security operations.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-5">
+                            <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-microchip text-primary text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-display font-bold text-xl mb-1 text-dark">Advanced Technology</h4>
+                                <p class="text-slate-500">Utilizing state-of-the-art tools and AI-driven intelligence to proactively mitigate risks.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise Section (Clean Cards) -->
+    <section id="expertise" class="py-28 bg-surface relative">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-20 reveal">
+                <div class="inline-block px-3 py-1 mb-4 rounded-full bg-red-50 text-primary text-xs font-bold tracking-wider uppercase">
+                    Our Services
+                </div>
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-dark mb-6 tracking-tight">Core <span class="text-gradient-red">Expertise</span></h2>
+                <p class="text-slate-500 text-lg">Comprehensive security solutions tailored to protect your enterprise at every level.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white p-10 rounded-3xl shadow-soft hover:shadow-xl transition-all duration-400 hover:-translate-y-2 group reveal">
+                    <div class="w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center mb-8 group-hover:bg-primary transition-colors duration-400">
+                        <i class="fa-solid fa-bug-slash text-2xl text-primary group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h4 class="font-display text-2xl font-bold text-dark mb-4">Penetration Testing</h4>
+                    <p class="text-slate-500 leading-relaxed mb-8">
+                        Deep vulnerability assessment and exploitation. We proactively secure your systems before malicious actors can leverage them.
+                    </p>
+                    <a href="#" class="inline-flex items-center font-semibold text-dark group-hover:text-primary transition-colors">
+                        Learn More <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                    </a>
+                </div>
+
+                <!-- Service 2 (Highlighted) -->
+                <div class="bg-white p-10 rounded-3xl shadow-glow border border-red-100 hover:-translate-y-2 transition-all duration-400 relative group reveal">
+                    <div class="absolute top-6 right-6 bg-red-50 text-primary text-xs font-bold px-3 py-1 rounded-full">
+                        Featured
+                    </div>
+                    <div class="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center mb-8 shadow-glow">
+                        <i class="fa-solid fa-mobile-screen-button text-2xl text-white"></i>
+                    </div>
+                    <h4 class="font-display text-2xl font-bold text-dark mb-4">Mobile Forensics</h4>
+                    <p class="text-slate-500 leading-relaxed mb-8">
+                        Military-grade data extraction. Full file system analysis, digital footprint tracing, and comprehensive forensic investigations.
+                    </p>
+                    <a href="#" class="inline-flex items-center font-semibold text-primary hover:text-secondary transition-colors">
+                        Learn More <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                    </a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white p-10 rounded-3xl shadow-soft hover:shadow-xl transition-all duration-400 hover:-translate-y-2 group reveal">
+                    <div class="w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center mb-8 group-hover:bg-primary transition-colors duration-400">
+                        <i class="fa-solid fa-file-shield text-2xl text-primary group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h4 class="font-display text-2xl font-bold text-dark mb-4">Security Audit</h4>
+                    <p class="text-slate-500 leading-relaxed mb-8">
+                        Rigorous evaluation of IT infrastructure, policies, and compliance checking against global cybersecurity frameworks.
+                    </p>
+                    <a href="#" class="inline-flex items-center font-semibold text-dark group-hover:text-primary transition-colors">
+                        Learn More <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insights Section -->
+    <section id="insights" class="py-28 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                <div>
+                    <div class="inline-block px-3 py-1 mb-4 rounded-full bg-red-50 text-primary text-xs font-bold tracking-wider uppercase">
+                        Intelligence
+                    </div>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold text-dark tracking-tight">Latest <span class="text-gradient-red">Insights</span></h2>
+                </div>
+                <a href="#" class="hidden md:inline-flex items-center font-semibold text-slate-500 hover:text-primary transition-colors">
+                    View All Articles <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Article 1 -->
+                <article class="group cursor-pointer reveal">
+                    <div class="relative h-72 overflow-hidden rounded-3xl mb-6 bg-surface">
+                        <img src="https://images.unsplash.com/photo-1614064641913-a520faff3fa8?q=80&w=2070&auto=format&fit=crop" alt="[Technology Device]" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur text-primary text-xs font-bold px-4 py-1.5 rounded-full shadow-sm">Technology</div>
+                    </div>
+                    <div class="px-2">
+                        <div class="text-sm text-slate-400 mb-2 font-medium">Apr 25, 2026</div>
+                        <h4 class="font-display text-2xl font-bold text-dark mb-3 group-hover:text-primary transition-colors">Mobile Forensics and Checkm8</h4>
+                        <p class="text-slate-500 leading-relaxed mb-4 line-clamp-2">
+                            Exploring the revolutionary Checkm8 vulnerability. We tested its capabilities recently, discovering how it allows full file system extraction by exploiting Apple device security flaws...
+                        </p>
+                        <span class="font-semibold text-dark group-hover:text-primary transition-colors inline-flex items-center">
+                            Read Full Article <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                        </span>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="group cursor-pointer reveal">
+                    <div class="relative h-72 overflow-hidden rounded-3xl mb-6 bg-surface">
+                        <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=2188&auto=format&fit=crop" alt="[Research Books]" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur text-primary text-xs font-bold px-4 py-1.5 rounded-full shadow-sm">Review</div>
+                    </div>
+                    <div class="px-2">
+                        <div class="text-sm text-slate-400 mb-2 font-medium">Jul 26, 2020</div>
+                        <h4 class="font-display text-2xl font-bold text-dark mb-3 group-hover:text-primary transition-colors">Book Review: Targeted</h4>
+                        <p class="text-slate-500 leading-relaxed mb-4 line-clamp-2">
+                            Deep dive into the cybersecurity landscape with our comprehensive review of 'Targeted'. Discover fascinating insights and real-world cyber espionage tactics...
+                        </p>
+                        <a href="https://mrlinuxer.net/2020/07/26/" target="_blank" class="font-semibold text-dark group-hover:text-primary transition-colors inline-flex items-center">
+                            Read Full Article <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="mt-10 text-center md:hidden">
+                <a href="#" class="inline-flex items-center font-semibold text-primary">
+                    View All Articles <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section (Elegant Form) -->
+    <section id="contact" class="py-28 relative bg-surface">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            <div class="bg-white rounded-[2.5rem] shadow-soft overflow-hidden flex flex-col lg:flex-row reveal">
+                
+                <!-- Contact Info -->
+                <div class="lg:w-2/5 bg-slate-900 text-white p-12 relative overflow-hidden flex flex-col justify-between">
+                    <!-- Decor -->
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-[80px]"></div>
+                    
+                    <div class="relative z-10">
+                        <h3 class="font-display text-3xl md:text-4xl font-bold mb-4 text-white">Get in Touch</h3>
+                        <p class="text-slate-400 mb-12 text-lg">Require an emergency audit or security consultation? Reach out to our experts.</p>
+                        
+                        <div class="space-y-8">
+                            <div class="flex items-center gap-5 group">
+                                <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-primary transition-colors">
+                                    <i class="fa-solid fa-envelope text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-1">Email Support</h4>
+                                    <a href="mailto:hello@mrlinuxer.net" class="font-medium hover:text-primary transition-colors text-lg text-white">hello@mrlinuxer.net</a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-5 group">
+                                <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-primary transition-colors">
+                                    <i class="fa-solid fa-phone-volume text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-1">Direct Line</h4>
+                                    <a href="tel:+959260438525" class="font-medium hover:text-primary transition-colors text-lg text-white">+95 9260438525</a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-5 group">
+                                <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-primary transition-colors">
+                                    <i class="fa-solid fa-location-dot text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-1">Headquarters</h4>
+                                    <p class="font-medium text-lg text-white">Nay Pyi Taw, Myanmar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="lg:w-3/5 p-12 bg-white">
+                    <form action="#" method="POST" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-dark mb-2">Full Name</label>
+                                <input type="text" class="w-full bg-surface border border-slate-200 rounded-xl px-5 py-4 text-dark focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-dark mb-2">Email Address</label>
+                                <input type="email" class="w-full bg-surface border border-slate-200 rounded-xl px-5 py-4 text-dark focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="john@company.com">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-dark mb-2">Subject</label>
+                            <input type="text" class="w-full bg-surface border border-slate-200 rounded-xl px-5 py-4 text-dark focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Security Consultation">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-dark mb-2">Message</label>
+                            <textarea rows="4" class="w-full bg-surface border border-slate-200 rounded-xl px-5 py-4 text-dark focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-none" placeholder="Tell us about your security needs..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary text-white font-semibold py-4 rounded-xl shadow-glow hover:shadow-glow-hover hover:-translate-y-1 transition-all duration-300 mt-2 btn-premium">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white pt-16 pb-8 border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
+                <a href="#" class="font-display text-2xl font-bold tracking-tight text-dark flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+                        <i class="fa-solid fa-shield-halved text-white text-sm"></i>
+                    </div>
+                    <span>Mr.<span class="text-primary">Linuxer</span></span>
+                </a>
+                
+                <div class="flex space-x-4 text-slate-400">
+                    <a href="#" class="w-10 h-10 rounded-full bg-surface flex items-center justify-center hover:bg-primary hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-surface flex items-center justify-center hover:bg-primary hover:text-white transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-surface flex items-center justify-center hover:bg-primary hover:text-white transition-colors"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-slate-100 text-sm font-medium text-slate-500">
+                <p>&copy; 2026 Mr.Linuxer. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-primary transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-primary transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts for Interactions -->
+    <script>
+        // Preloader Logic
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+            }, 800);
+        });
+
+        // Navbar Glassmorphism on Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('glass-nav', 'py-4');
+                navbar.classList.remove('py-6', 'bg-transparent');
+            } else {
+                navbar.classList.add('py-6', 'bg-transparent');
+                navbar.classList.remove('glass-nav', 'py-4');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const closeBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            if(mobileMenu.classList.contains('hidden')){
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            }
+        }
+
+        mobileBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    </script>
+</body>
+</html>
