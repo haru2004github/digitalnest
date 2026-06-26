@@ -1,65 +1,23 @@
 <!DOCTYPE html>
-<html lang="my" class="scroll-smooth">
+<html lang="my">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Digital Nest - Premium Shop</title>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Padauk:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="./img/dnlogo.png">
-
-    <!-- Theme Check Script (Runs first to prevent flash) -->
-    <script>
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    </script>
-
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Tailwind Configuration -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class', 
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Outfit', 'Padauk', 'sans-serif'],
-                        display: ['Poppins', 'Padauk', 'sans-serif'],
-                    },
-                    colors: {
-                        cyan: {
-                            400: '#22d3ee',
-                            500: '#06b6d4',
-                            600: '#0891b2',
-                        },
-                        tech: {
-                            dark: '#0B1120',
-                            light: '#F8FAFC'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Padauk:wght@400;700&display=swap');
         body { 
+            font-family: 'Plus Jakarta Sans', 'Padauk', sans-serif; 
             background-color: #F8FAFC; 
             -webkit-tap-highlight-color: transparent;
         }
-        .dark body { background-color: #0B1120; }
-        
         .hide { display: none !important; }
         
-        /* Compact Custom Scrollbar */
+        /* Compact Custom Scrollbar for categories */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -74,56 +32,41 @@
         }
         .modal-overlay { animation: fadeIn 0.2s ease-out forwards; }
         .modal-content { animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-
-        /* Glass Nav */
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-        }
-        .dark .glass-nav {
-            background: rgba(11, 17, 32, 0.85);
-        }
     </style>
 </head>
-<body class="text-slate-800 dark:text-slate-100 pb-20 overflow-x-hidden transition-colors duration-300">
+<body class="text-slate-800 pb-20 overflow-x-hidden">
 
-    <!-- Top App Bar (Matched with main site) -->
-    <nav class="glass-nav sticky top-0 z-40 shadow-sm border-b border-slate-200 dark:border-white/10 transition-colors duration-300">
-        <div class="px-4 py-3 md:py-4 flex justify-between items-center max-w-2xl mx-auto">
+    <!-- Top App Bar -->
+    <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-40 shadow-sm border-b border-slate-100">
+        <div class="px-4 py-3 flex justify-between items-center max-w-2xl mx-auto">
             
             <!-- Left: Back Button & Logo -->
             <div class="flex items-center gap-3">
-                <a href="index.html" class="p-1.5 text-slate-400 dark:text-slate-500 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-cyan-50 dark:hover:bg-cyan-500/10 rounded-lg transition-colors cursor-pointer" title="Back to Portal">
+                <a href="index.html" class="p-1.5 text-slate-400 hover:text-cyan-500 hover:bg-cyan-50 rounded-lg transition-colors cursor-pointer" title="Back to Portal">
                     <i data-lucide="arrow-left" class="w-5 h-5"></i>
                 </a>
                 
-                <!-- Logo -->
-                <div class="flex items-center gap-2 cursor-pointer" onclick="switchView('home')">
-                    <div class="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden bg-gradient-to-tr from-cyan-500 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/30">
-                        <img src="./img/dnlogo.png" alt="Logo" class="w-full h-full object-cover" onerror="this.style.display='none'">
-                    </div>
-                    <span class="font-display font-bold text-lg md:text-xl tracking-tight text-slate-900 dark:text-white">DIGITAL<span class="text-cyan-600 dark:text-cyan-400">NEST</span></span>
+                 <!-- Logo -->
+            <div class="flex items-center gap-2 sm:gap-3 cursor-pointer shrink-0" onclick="window.scrollTo(0,0)">
+                <div class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full overflow-hidden bg-gradient-to-tr from-cyan-500 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+                    <img src="./img/dnlogo.png" alt="Digital Nest Logo" class="w-full h-full object-cover" onerror="this.style.display='none'">
                 </div>
+                <span class="text-lg sm:text-xl font-display font-bold tracking-tight text-slate-900 dark:text-white">DIGITAL<span class="text-cyan-600 dark:text-cyan-400">NEST</span></span>
+            </div>
             </div>
             
             <!-- Right: Actions -->
-            <div class="flex items-center gap-3">
-                <!-- Theme Toggle -->
-                <button class="theme-toggle text-slate-500 hover:text-cyan-500 dark:text-slate-400 dark:hover:text-cyan-400 transition-colors p-1" aria-label="Toggle Dark Mode">
-                    <svg class="sun-icon hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
-                    <svg class="moon-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                </button>
-                
+            <div class="flex items-center gap-2">
                 <!-- Language Toggle -->
-                <button onclick="toggleLanguage()" class="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 transition-colors text-[10px] font-bold">
+                <button onclick="toggleLanguage()" class="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-100 transition-colors text-xs font-bold">
+                    <i data-lucide="globe" class="w-3.5 h-3.5"></i>
                     <span id="lang-text">EN</span>
                 </button>
                 
                 <!-- Cart Icon -->
-                <button onclick="switchView('cart')" class="relative p-1.5 text-slate-600 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">
+                <button onclick="switchView('cart')" class="relative p-2 text-slate-600 hover:text-cyan-500 transition-colors">
                     <i data-lucide="shopping-cart" class="w-6 h-6"></i>
-                    <span id="cart-badge" class="absolute top-0 right-0 bg-red-500 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center hide transform translate-x-1 -translate-y-1 shadow-sm">0</span>
+                    <span id="cart-badge" class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center hide transform translate-x-1 -translate-y-1 shadow-sm">0</span>
                 </button>
             </div>
         </div>
@@ -132,18 +75,24 @@
     <!-- Main Container -->
     <main class="max-w-2xl mx-auto w-full">
 
+        <!-- Loading Spinner -->
+        <div id="loader" class="flex flex-col items-center justify-center h-64 gap-3">
+            <div class="animate-spin rounded-full h-10 w-10 border-4 border-cyan-500 border-t-transparent"></div>
+            <div class="text-xs font-bold text-slate-400" id="t-loading">Loading...</div>
+        </div>
+
         <!-- ==================== HOME VIEW ==================== -->
         <div id="view-home" class="hide flex flex-col gap-4 p-4">
             
             <!-- Search & Filter -->
             <div class="flex gap-2">
                 <div class="relative flex-grow">
-                    <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500"></i>
+                    <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
                     <input type="text" id="search-input" onkeyup="filterShop()" placeholder="ရှာဖွေရန်..." 
-                        class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 text-sm font-medium shadow-sm transition-all">
+                        class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-white outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-50 text-sm font-medium shadow-sm transition-all">
                 </div>
                 <div class="w-32 flex-shrink-0">
-                    <select id="sort-select" onchange="filterShop()" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 outline-none text-sm font-bold shadow-sm appearance-none cursor-pointer">
+                    <select id="sort-select" onchange="filterShop()" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-white outline-none text-sm font-bold text-slate-700 shadow-sm appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[position:right_0.7rem_center] bg-[length:0.6rem_auto] cursor-pointer">
                         <option value="newest" id="t-sort-new">အသစ်ဆုံး</option>
                         <option value="price-asc" id="t-sort-asc">ဈေးအနည်းဆုံး</option>
                         <option value="price-desc" id="t-sort-desc">ဈေးအများဆုံး</option>
@@ -165,102 +114,101 @@
         <!-- ==================== CART VIEW ==================== -->
         <div id="view-cart" class="hide flex flex-col p-4">
             <div class="flex items-center gap-3 mb-6">
-                <button onclick="switchView('home')" class="p-2 bg-slate-100 dark:bg-slate-800 border border-transparent dark:border-white/5 rounded-full text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                <button onclick="switchView('home')" class="p-2 bg-slate-100 rounded-full text-slate-600 hover:bg-slate-200 transition-colors">
                     <i data-lucide="arrow-left" class="w-5 h-5"></i>
                 </button>
-                <h2 class="text-xl font-display font-bold text-slate-900 dark:text-white" id="t-cart-title">ဈေးခြင်းတောင်း</h2>
+                <h2 class="text-xl font-extrabold text-slate-900" id="t-cart-title">ဈေးခြင်းတောင်း</h2>
             </div>
 
             <div id="cart-items" class="flex flex-col gap-3">
                 <!-- Cart Items Injected Here -->
             </div>
 
-            <!-- Empty Cart State -->
             <div id="cart-empty" class="text-center py-16 hide">
-                <div class="w-16 h-16 bg-cyan-50 dark:bg-cyan-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-cyan-100 dark:border-cyan-500/20">
-                    <i data-lucide="shopping-bag" class="w-8 h-8 text-cyan-400 dark:text-cyan-500"></i>
+                <div class="w-16 h-16 bg-cyan-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-cyan-100">
+                    <i data-lucide="shopping-bag" class="w-8 h-8 text-cyan-300"></i>
                 </div>
-                <p class="text-slate-500 dark:text-slate-400 font-medium mb-5 text-sm" id="t-cart-empty">ဈေးခြင်းတောင်းထဲမှာ ဘာမှမရှိသေးပါဘူး။</p>
-                <button onclick="switchView('home')" class="px-6 py-2.5 bg-slate-900 dark:bg-cyan-500 text-white font-bold rounded-xl text-sm transition-colors shadow-md hover:scale-105" id="t-btn-shop">ပစ္စည်းသွားရွေးမယ်</button>
+                <p class="text-slate-500 font-medium mb-5" id="t-cart-empty">ဈေးခြင်းတောင်းထဲမှာ ဘာမှမရှိသေးပါဘူး။</p>
+                <button onclick="switchView('home')" class="px-6 py-2.5 bg-slate-900 text-white hover:bg-slate-800 font-bold rounded-xl text-sm transition-colors shadow-md" id="t-btn-shop">ပစ္စည်းသွားရွေးမယ်</button>
             </div>
 
-            <div id="cart-footer" class="mt-8 border-t border-slate-200 dark:border-white/10 pt-5 hide">
+            <div id="cart-footer" class="mt-8 border-t border-slate-200 pt-5 hide">
                 <div class="flex justify-between items-center mb-6 px-1">
-                    <span class="text-slate-500 dark:text-slate-400 font-bold text-sm" id="t-total-amt">စုစုပေါင်း (Total):</span>
-                    <span class="text-xl font-display font-bold text-slate-900 dark:text-white"><span id="cart-total">0</span> <span class="text-xs font-bold text-slate-500 dark:text-slate-400">MMK</span></span>
+                    <span class="text-slate-500 font-bold" id="t-total-amt">စုစုပေါင်း (Total):</span>
+                    <span class="text-xl font-extrabold text-slate-900"><span id="cart-total">0</span> <span class="text-sm font-bold text-slate-500">MMK</span></span>
                 </div>
-                <button onclick="switchView('checkout')" class="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-cyan-500/20 flex justify-center items-center gap-2 transition-all">
+                <button onclick="switchView('checkout')" class="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-cyan-500/20 flex justify-center items-center gap-2 transition-all">
                     <span id="t-btn-checkout">ငွေရှင်းမည် (Checkout)</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
                 </button>
             </div>
         </div>
 
         <!-- ==================== CHECKOUT VIEW ==================== -->
-        <div id="view-checkout" class="hide flex flex-col p-4 gap-5 min-h-[calc(100vh-4rem)]">
+        <div id="view-checkout" class="hide flex flex-col p-4 gap-5 bg-[#f8fafc] min-h-screen -mx-4 px-4 pb-24">
             
             <div class="flex items-center gap-3 pt-2">
-                <button onclick="switchView('cart')" class="p-2 bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-white/10 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                <button onclick="switchView('cart')" class="p-2 bg-white shadow-sm border border-slate-100 rounded-full text-slate-600 hover:bg-slate-50 transition-colors">
                     <i data-lucide="arrow-left" class="w-5 h-5"></i>
                 </button>
-                <h2 class="text-xl font-display font-bold text-slate-900 dark:text-white" id="t-co-title">ငွေပေးချေမှု</h2>
+                <h2 class="text-xl font-extrabold text-slate-900" id="t-co-title">ငွေပေးချေမှု</h2>
             </div>
 
             <!-- Important Info Banner -->
-            <div class="bg-cyan-50/50 dark:bg-cyan-500/10 border border-cyan-100 dark:border-cyan-500/20 rounded-2xl p-4 flex gap-3 items-start">
-                <i data-lucide="info" class="w-5 h-5 text-cyan-500 flex-shrink-0 mt-0.5"></i>
-                <p class="text-xs text-cyan-800 dark:text-cyan-100 font-medium leading-relaxed" id="t-co-alert">
+            <div class="bg-blue-50 border border-blue-100 rounded-2xl p-4 flex gap-3 items-start">
+                <i data-lucide="info" class="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5"></i>
+                <p class="text-xs text-blue-800 font-medium leading-relaxed" id="t-co-alert">
                     အောင်မြင်စွာ ဝယ်ယူနိုင်ရန် အောက်ပါ Payment Account တစ်ခုခုသို့ ငွေလွှဲပေးပါ။ ပြီးပါက <b>Send Order via Telegram</b> ကိုနှိပ်၍ Telegram တွင် ငွေလွှဲပြေစာ ပူးတွဲပို့ပေးပါ။
                 </p>
             </div>
 
             <!-- Payment Information -->
-            <div class="bg-white dark:bg-slate-800/50 rounded-3xl p-6 shadow-sm border border-slate-100 dark:border-white/5 relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-50 dark:bg-cyan-500/5 rounded-bl-full -z-10 opacity-50"></div>
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-50 rounded-bl-full -z-10 opacity-50"></div>
                 
-                <h3 class="font-bold text-slate-900 dark:text-white mb-5 flex items-center gap-2 text-lg">
+                <h3 class="font-bold text-slate-900 mb-5 flex items-center gap-2 text-lg">
                     <i data-lucide="wallet" class="w-5 h-5 text-cyan-500"></i> <span id="t-pay-info">ငွေလွှဲရန် အကောင့်များ</span>
                 </h3>
                 
                 <div class="space-y-1">
                     <!-- Bank 1 -->
-                    <div class="flex justify-between items-center py-4 border-b border-slate-100 dark:border-white/5">
+                    <div class="flex justify-between items-center py-4 border-b border-slate-100">
                         <div>
-                            <div class="font-display font-bold text-slate-900 dark:text-white text-lg">09685623988</div>
-                            <div class="text-slate-500 dark:text-slate-400 font-medium text-xs mt-0.5">Hnin Ei Phyu</div>
-                            <div class="text-slate-400 dark:text-slate-500 text-[9px] uppercase font-bold mt-1.5 tracking-wider bg-slate-50 dark:bg-slate-900 inline-block px-2 py-0.5 rounded-md border border-slate-100 dark:border-white/5">KPay • Wave • AYA Pay • UAB</div>
+                            <div class="font-extrabold text-slate-900 text-lg">09685623988</div>
+                            <div class="text-slate-500 font-medium text-xs mt-0.5">Hnin Ei Phyu</div>
+                            <div class="text-slate-400 text-[9px] uppercase font-bold mt-1.5 tracking-wider bg-slate-50 inline-block px-2 py-0.5 rounded-md border border-slate-100">KPay • Wave • AYA Pay • UAB</div>
                         </div>
-                        <button onclick="copyText('09685623988', this)" class="text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-500/10 hover:bg-cyan-100 dark:hover:bg-cyan-500/20 px-4 py-2 rounded-xl text-xs font-bold transition-all border border-transparent dark:border-cyan-500/20" data-i18n-copy>Copy</button>
+                        <button onclick="copyText('09685623988', this)" class="text-cyan-600 bg-cyan-50 hover:bg-cyan-100 px-4 py-2 rounded-xl text-xs font-bold transition-all" data-i18n-copy>Copy</button>
                     </div>
 
                     <!-- Bank 2 -->
                     <div class="flex justify-between items-center py-4">
                         <div>
-                            <div class="font-display font-bold text-slate-900 dark:text-white text-lg">39451139400446801</div>
-                            <div class="text-slate-500 dark:text-slate-400 font-medium text-xs mt-0.5">U Sai Khant Kyaw</div>
-                            <div class="text-slate-400 dark:text-slate-500 text-[9px] uppercase font-bold mt-1.5 tracking-wider bg-slate-50 dark:bg-slate-900 inline-block px-2 py-0.5 rounded-md border border-slate-100 dark:border-white/5">KBZ Bank</div>
+                            <div class="font-extrabold text-slate-900 text-lg">39451139400446801</div>
+                            <div class="text-slate-500 font-medium text-xs mt-0.5">U Sai Khant Kyaw</div>
+                            <div class="text-slate-400 text-[9px] uppercase font-bold mt-1.5 tracking-wider bg-slate-50 inline-block px-2 py-0.5 rounded-md border border-slate-100">KBZ Bank</div>
                         </div>
-                        <button onclick="copyText('39451139400446801', this)" class="text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-500/10 hover:bg-cyan-100 dark:hover:bg-cyan-500/20 px-4 py-2 rounded-xl text-xs font-bold transition-all border border-transparent dark:border-cyan-500/20" data-i18n-copy>Copy</button>
+                        <button onclick="copyText('39451139400446801', this)" class="text-cyan-600 bg-cyan-50 hover:bg-cyan-100 px-4 py-2 rounded-xl text-xs font-bold transition-all" data-i18n-copy>Copy</button>
                     </div>
                 </div>
             </div>
 
             <!-- Screenshot Upload Instruction -->
-            <div class="bg-white dark:bg-slate-800/30 border border-slate-200 dark:border-white/10 border-dashed rounded-2xl p-5 text-center flex flex-col items-center gap-2">
-                <div class="w-12 h-12 bg-cyan-50 dark:bg-cyan-500/10 text-cyan-500 rounded-full flex items-center justify-center mb-1">
+            <div class="bg-white border border-slate-200 border-dashed rounded-2xl p-5 text-center flex flex-col items-center gap-2">
+                <div class="w-12 h-12 bg-cyan-50 text-cyan-500 rounded-full flex items-center justify-center mb-1">
                     <i data-lucide="image-plus" class="w-6 h-6"></i>
                 </div>
-                <p class="text-sm font-bold text-slate-800 dark:text-slate-200" id="t-ss-title">ငွေလွှဲပြေစာ (Screenshot) ပူးတွဲရန်</p>
-                <p class="text-[11.5px] text-slate-500 dark:text-slate-400 max-w-sm" id="t-ss-desc">ငွေလွှဲပြီးပါက အောက်ပါခလုတ်ကိုနှိပ်ပါ။ Telegram သို့ရောက်သောအခါ ငွေလွှဲပြေစာပုံကို မှာယူသည့် စာသားများနှင့်အတူ ပူးတွဲ (Attach) လုပ်၍ ပေးပို့ပါ။</p>
+                <p class="text-sm font-bold text-slate-800" id="t-ss-title">ငွေလွှဲပြေစာ (Screenshot) ပူးတွဲရန်</p>
+                <p class="text-[11.5px] text-slate-500 max-w-sm" id="t-ss-desc">ငွေလွှဲပြီးပါက အောက်ပါခလုတ်ကိုနှိပ်ပါ။ Telegram သို့ရောက်သောအခါ ငွေလွှဲပြေစာပုံကို မှာယူသည့် စာသားများနှင့်အတူ ပူးတွဲ (Attach) လုပ်၍ ပေးပို့ပါ။</p>
             </div>
 
             <!-- Order Summary Mini -->
-            <div class="bg-slate-900 dark:bg-slate-800 border dark:border-white/10 rounded-3xl p-6 text-white mt-2 shadow-xl shadow-slate-900/10 dark:shadow-none">
-                <div class="flex justify-between items-center mb-4 pb-4 border-b border-slate-700/50 dark:border-white/10">
-                    <span class="font-medium text-slate-300 dark:text-slate-400 text-sm" id="t-co-summary">မှာယူမှု စုစုပေါင်း</span>
-                    <span class="font-display font-bold text-xl text-cyan-400"><span id="checkout-total">0</span> <span class="text-xs font-bold">MMK</span></span>
+            <div class="bg-slate-900 rounded-3xl p-6 text-white mt-2 shadow-xl shadow-slate-900/10">
+                <div class="flex justify-between items-center mb-4 pb-4 border-b border-slate-700/50">
+                    <span class="font-medium text-slate-300" id="t-co-summary">မှာယူမှု စုစုပေါင်း</span>
+                    <span class="font-extrabold text-xl text-cyan-400"><span id="checkout-total">0</span> <span class="text-sm font-bold">MMK</span></span>
                 </div>
                 
-                <button onclick="submitOrder()" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold py-3.5 rounded-xl flex justify-center items-center gap-2 transition-all shadow-md">
+                <button onclick="submitOrder()" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-extrabold py-4 rounded-xl flex justify-center items-center gap-2 transition-all">
                     <i data-lucide="send" class="w-4 h-4"></i> <span id="t-btn-send">Send Order via Telegram</span>
                 </button>
             </div>
@@ -272,10 +220,10 @@
     <div id="product-modal" class="fixed inset-0 z-50 hide flex items-end sm:items-center justify-center">
         <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm modal-overlay" onclick="closeProductModal()"></div>
         
-        <div class="bg-white dark:bg-slate-900 w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl modal-content relative z-10 flex flex-col max-h-[90vh] shadow-2xl border dark:border-slate-700">
-            <div class="w-12 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full mx-auto mt-3 sm:hidden"></div>
+        <div class="bg-white w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl modal-content relative z-10 flex flex-col max-h-[90vh] shadow-2xl">
+            <div class="w-12 h-1.5 bg-slate-200 rounded-full mx-auto mt-3 sm:hidden"></div>
             
-            <button onclick="closeProductModal()" class="absolute top-4 right-4 p-2 text-slate-400 dark:text-slate-500 hover:text-slate-800 dark:hover:text-white bg-slate-100 dark:bg-slate-800 rounded-full transition-colors z-20">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-800 bg-slate-100 rounded-full transition-colors z-20">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
 
@@ -294,13 +242,11 @@
         let groupedProducts = [];
         let currentShopData = []; 
         let shopCategory = 'All';
-        
-        // Match language from local storage exactly as index.html does
-        let currentLang = localStorage.getItem('language') || 'my';
+        let currentLang = 'mm';
 
-        // Translations Dictionary (Fixed key from 'mm' to 'my')
+        // Translations Dictionary
         const i18n = {
-            'my': {
+            'mm': {
                 'search': 'ရှာဖွေရန်...',
                 'all': 'All',
                 'sort_new': 'အသစ်ဆုံး',
@@ -350,108 +296,52 @@
             }
         };
 
+        // Cart Data
         let cart = []; 
 
         lucide.createIcons();
 
-        // Theme Setup
-        const themeToggleBtns = document.querySelectorAll('.theme-toggle');
-        const sunIcons = document.querySelectorAll('.sun-icon');
-        const moonIcons = document.querySelectorAll('.moon-icon');
-        
-        function updateThemeUI(isDark) {
-            if(isDark) {
-                sunIcons.forEach(icon => icon.classList.remove('hidden'));
-                moonIcons.forEach(icon => icon.classList.add('hidden'));
-            } else {
-                sunIcons.forEach(icon => icon.classList.add('hidden'));
-                moonIcons.forEach(icon => icon.classList.remove('hidden'));
-            }
-        }
-
-        updateThemeUI(document.documentElement.classList.contains('dark'));
-
-        themeToggleBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const isDark = document.documentElement.classList.toggle('dark');
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                updateThemeUI(isDark);
-            });
-        });
-
-        // Initialize App
         function initApp() {
             loadCartFromStorage();
-            updateStaticText(); 
+            updateStaticText();
             switchView('home');
             fetchData();
         }
 
-        // Language Logic
+        // Language Toggle Logic
         window.toggleLanguage = function() {
-            currentLang = currentLang === 'my' ? 'en' : 'my';
-            localStorage.setItem('language', currentLang);
+            currentLang = currentLang === 'mm' ? 'en' : 'mm';
+            document.getElementById('lang-text').innerText = currentLang === 'mm' ? 'EN' : 'MM';
+            
             updateStaticText();
             renderCategoryPills();
             filterShop(); 
             if(!document.getElementById('view-cart').classList.contains('hide')) renderCart();
+            
+            // Re-render copy buttons text if in checkout
             document.querySelectorAll('[data-i18n-copy]').forEach(el => el.innerText = i18n[currentLang].copy);
         }
 
         function updateStaticText() {
-            document.getElementById('lang-text').innerText = currentLang === 'my' ? 'EN' : 'MM';
-            
             const t = i18n[currentLang];
-            
-            // Elements that might be null before DOM is fully loaded or depending on view state
-            const searchInput = document.getElementById('search-input');
-            if (searchInput) searchInput.placeholder = t.search;
-            
-            const sortNew = document.getElementById('t-sort-new');
-            if (sortNew) sortNew.innerText = t.sort_new;
-            
-            const sortAsc = document.getElementById('t-sort-asc');
-            if (sortAsc) sortAsc.innerText = t.sort_asc;
-            
-            const sortDesc = document.getElementById('t-sort-desc');
-            if (sortDesc) sortDesc.innerText = t.sort_desc;
-            
-            const cartTitle = document.getElementById('t-cart-title');
-            if (cartTitle) cartTitle.innerText = t.cart_title;
-            
-            const cartEmpty = document.getElementById('t-cart-empty');
-            if (cartEmpty) cartEmpty.innerText = t.cart_empty;
-            
-            const btnShop = document.getElementById('t-btn-shop');
-            if (btnShop) btnShop.innerText = t.btn_shop;
-            
-            const totalAmt = document.getElementById('t-total-amt');
-            if (totalAmt) totalAmt.innerText = t.total_amt;
-            
-            const btnCheckout = document.getElementById('t-btn-checkout');
-            if (btnCheckout) btnCheckout.innerText = t.btn_checkout;
-            
-            const coTitle = document.getElementById('t-co-title');
-            if (coTitle) coTitle.innerText = t.co_title;
-            
-            const coAlert = document.getElementById('t-co-alert');
-            if (coAlert) coAlert.innerHTML = t.co_alert;
-            
-            const payInfo = document.getElementById('t-pay-info');
-            if (payInfo) payInfo.innerText = t.pay_info;
-            
-            const ssTitle = document.getElementById('t-ss-title');
-            if (ssTitle) ssTitle.innerText = t.ss_title;
-            
-            const ssDesc = document.getElementById('t-ss-desc');
-            if (ssDesc) ssDesc.innerText = t.ss_desc;
-            
-            const coSummary = document.getElementById('t-co-summary');
-            if (coSummary) coSummary.innerText = t.co_summary;
-            
-            const btnSend = document.getElementById('t-btn-send');
-            if (btnSend) btnSend.innerText = t.btn_send;
+            document.getElementById('search-input').placeholder = t.search;
+            document.getElementById('t-sort-new').innerText = t.sort_new;
+            document.getElementById('t-sort-asc').innerText = t.sort_asc;
+            document.getElementById('t-sort-desc').innerText = t.sort_desc;
+            document.getElementById('t-cart-title').innerText = t.cart_title;
+            document.getElementById('t-cart-empty').innerText = t.cart_empty;
+            document.getElementById('t-btn-shop').innerText = t.btn_shop;
+            document.getElementById('t-total-amt').innerText = t.total_amt;
+            document.getElementById('t-btn-checkout').innerText = t.btn_checkout;
+            document.getElementById('t-co-title').innerText = t.co_title;
+            document.getElementById('t-co-alert').innerHTML = t.co_alert;
+            document.getElementById('t-pay-info').innerText = t.pay_info;
+            document.getElementById('t-ss-title').innerText = t.ss_title;
+            document.getElementById('t-ss-desc').innerText = t.ss_desc;
+            document.getElementById('t-co-summary').innerText = t.co_summary;
+            document.getElementById('t-btn-send').innerText = t.btn_send;
         }
+
 
         function switchView(view) {
             document.getElementById('view-home').classList.add('hide');
@@ -469,31 +359,7 @@
             window.scrollTo(0,0);
         }
 
-        function renderSkeletons() {
-            const grid = document.getElementById('product-grid');
-            const cats = document.getElementById('shop-categories');
-            
-            grid.innerHTML = Array(6).fill(0).map(() => `
-                <div class="bg-white dark:bg-slate-800/50 rounded-[1.25rem] p-3 shadow-sm border border-slate-100 dark:border-white/5 relative flex flex-col animate-pulse">
-                    <div class="absolute top-2 right-2 w-10 h-3 bg-slate-200 dark:bg-slate-700 rounded-md"></div>
-                    <div class="h-24 w-full rounded-xl mb-3 bg-slate-200 dark:bg-slate-700"></div>
-                    <div class="flex-grow flex flex-col justify-end border-t border-slate-50 dark:border-white/5 pt-2 mt-2">
-                        <div class="h-3 w-3/4 bg-slate-200 dark:bg-slate-700 rounded mb-2"></div>
-                        <div class="h-4 w-1/2 bg-slate-200 dark:bg-slate-700 rounded"></div>
-                    </div>
-                    <div class="absolute bottom-3 right-3 w-7 h-7 bg-slate-200 dark:bg-slate-700 rounded-full"></div>
-                </div>
-            `).join('');
-            
-            cats.innerHTML = Array(4).fill(0).map(() => `
-                <div class="w-20 h-7 bg-slate-200 dark:bg-slate-700 rounded-full animate-pulse flex-shrink-0"></div>
-            `).join('');
-        }
-
         async function fetchData() {
-            // Render Skeleton loaders instead of completely hiding the view
-            renderSkeletons();
-            
             try {
                 const response = await fetch(API_URL, {
                     method: 'POST',
@@ -510,7 +376,10 @@
                 }
             } catch (error) {
                 console.error(error);
-                document.getElementById('product-grid').innerHTML = `<div class="col-span-2 text-center text-red-500 text-sm">Failed to load data. Please try again.</div>`;
+                alert("ဒေတာရယူရာတွင် အမှားရှိပါသည်။ အင်တာနက်ချိတ်ဆက်မှုကို စစ်ဆေးပါ။");
+            } finally {
+                document.getElementById('loader').classList.add('hide');
+                document.getElementById('view-home').classList.remove('hide');
             }
         }
 
@@ -563,12 +432,9 @@
             container.innerHTML = categories.map(cat => {
                 const isAll = cat === 'All';
                 const displayTxt = isAll ? t_all : cat;
-                const activeClass = "bg-cyan-500 text-white border-cyan-500 shadow-md shadow-cyan-500/20";
-                const inactiveClass = "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700";
-                
                 return `
                     <button onclick="setShopCategory('${cat}')"
-                        class="whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold transition-all border ${cat === shopCategory ? activeClass : inactiveClass}">
+                        class="whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold transition-all border ${cat === shopCategory ? 'bg-cyan-500 text-white border-cyan-500 shadow-md shadow-cyan-500/20' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'}">
                         ${displayTxt}
                     </button>
                 `
@@ -582,10 +448,8 @@
         }
 
         function filterShop() {
-            const searchInput = document.getElementById('search-input');
-            const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
-            const sortSelect = document.getElementById('sort-select');
-            const sortVal = sortSelect ? sortSelect.value : 'newest';
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const sortVal = document.getElementById('sort-select').value;
             const t = i18n[currentLang];
 
             currentShopData = groupedProducts.filter(group => {
@@ -611,7 +475,7 @@
             grid.innerHTML = '';
 
             if(currentShopData.length === 0) {
-                grid.innerHTML = `<div class="col-span-2 text-center py-10 text-slate-400 dark:text-slate-500 text-sm font-medium">${t.empty_search}</div>`;
+                grid.innerHTML = `<div class="col-span-2 text-center py-10 text-slate-400 text-sm font-medium">${t.empty_search}</div>`;
                 return;
             }
 
@@ -620,11 +484,11 @@
                 const basePrice = product.basePrice;
 
                 const card = document.createElement('div');
-                card.className = "bg-white dark:bg-slate-800/50 rounded-[1.25rem] p-3 shadow-[0_2px_10px_rgba(0,0,0,0.03)] dark:shadow-none border border-slate-100 dark:border-white/5 relative flex flex-col cursor-pointer hover:border-cyan-200 dark:hover:border-cyan-500/50 transition-colors group";
+                card.className = "bg-white rounded-[1.25rem] p-3 shadow-[0_2px_10px_rgba(0,0,0,0.03)] border border-slate-100 relative flex flex-col cursor-pointer hover:border-cyan-200 transition-colors group";
                 card.onclick = () => openProductModal(product.product_id);
                 
                 card.innerHTML = `
-                    <div class="absolute top-2 right-2 bg-slate-50 dark:bg-slate-900 text-slate-500 dark:text-slate-400 text-[9px] font-extrabold px-2 py-0.5 rounded-md uppercase tracking-wider border border-slate-100 dark:border-white/5 z-10">
+                    <div class="absolute top-2 right-2 bg-slate-50 text-slate-500 text-[9px] font-extrabold px-2 py-0.5 rounded-md uppercase tracking-wider border border-slate-100 z-10">
                         ${product.category}
                     </div>
                     
@@ -632,12 +496,12 @@
                         <img src="${product.img_url}" alt="${product.product_name}" class="max-h-full object-contain drop-shadow-sm" onerror="this.src='https://placehold.co/200?text=No+Img'">
                     </div>
                     
-                    <div class="flex-grow flex flex-col justify-end border-t border-slate-50 dark:border-white/5 pt-2">
-                        <h3 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white leading-tight mb-1 line-clamp-2 pr-6">${product.product_name}</h3>
-                        <div class="text-cyan-600 dark:text-cyan-400 font-display font-bold text-sm sm:text-base">${basePrice.toLocaleString()} <span class="text-[9px] text-slate-500 font-medium">MMK</span></div>
+                    <div class="flex-grow flex flex-col justify-end border-t border-slate-50 pt-2">
+                        <h3 class="text-xs sm:text-sm font-bold text-slate-900 leading-tight mb-1 line-clamp-2 pr-6">${product.product_name}</h3>
+                        <div class="text-cyan-600 font-extrabold text-sm sm:text-base">${basePrice.toLocaleString()} <span class="text-[9px] text-slate-500 font-bold">MMK</span></div>
                     </div>
                     
-                    <button class="absolute bottom-3 right-3 w-7 h-7 bg-slate-900 dark:bg-cyan-500 text-white rounded-full flex items-center justify-center shadow-md shadow-slate-900/20 dark:shadow-cyan-500/20 hover:bg-cyan-500 dark:hover:bg-cyan-400 transition-colors">
+                    <button class="absolute bottom-3 right-3 w-7 h-7 bg-slate-900 text-white rounded-full flex items-center justify-center shadow-md shadow-slate-900/20 hover:bg-cyan-500 transition-colors">
                         <i data-lucide="plus" class="w-4 h-4"></i>
                     </button>
                 `;
@@ -645,6 +509,7 @@
             });
             lucide.createIcons();
         }
+
 
         // ==============================================================
         // PRODUCT MODAL
@@ -654,32 +519,28 @@
             const t = i18n[currentLang];
             if(!product) return;
             
-            let optionsHtml = product.variants.map((v, i) => {
-                const activeClass = "border-cyan-500 bg-cyan-50/50 dark:bg-cyan-500/10 ring-1 ring-cyan-500";
-                const inactiveClass = "border-slate-200 dark:border-white/10 hover:border-cyan-200 dark:hover:border-cyan-500/50 hover:bg-slate-50 dark:hover:bg-slate-800";
-                return `
-                <label class="relative flex items-center justify-between p-3.5 rounded-xl border ${i===0 ? activeClass : inactiveClass} cursor-pointer transition-all" onclick="selectVariantUI(this)">
+            let optionsHtml = product.variants.map((v, i) => `
+                <label class="relative flex items-center justify-between p-3.5 rounded-xl border ${i===0 ? 'border-cyan-500 bg-cyan-50/50 ring-1 ring-cyan-500' : 'border-slate-200 hover:border-cyan-200 hover:bg-slate-50'} cursor-pointer transition-all" onclick="selectVariantUI(this)">
                     <input type="radio" name="variant" value="${v.no}" data-month="${v.months}" data-price="${v.price}" class="hidden" ${i===0 ? 'checked' : ''}>
-                    <span class="font-bold text-sm text-slate-800 dark:text-slate-200">${v.months}</span>
-                    <span class="font-display font-bold text-cyan-600 dark:text-cyan-400 text-sm">${v.price.toLocaleString()} Ks</span>
+                    <span class="font-bold text-sm text-slate-800">${v.months}</span>
+                    <span class="font-extrabold text-cyan-600 text-sm">${v.price.toLocaleString()} Ks</span>
                 </label>
-                `
-            }).join('');
+            `).join('');
 
             const content = document.getElementById('modal-content-area');
             content.innerHTML = `
                 <div class="flex gap-4 items-center mb-5">
-                    <div class="w-20 h-20 rounded-2xl bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-white/5 flex items-center justify-center p-2 flex-shrink-0">
+                    <div class="w-20 h-20 rounded-2xl bg-white shadow-sm border border-slate-100 flex items-center justify-center p-2 flex-shrink-0">
                         <img src="${product.img_url}" class="max-h-full object-contain">
                     </div>
                     <div>
-                        <span class="inline-block px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-[9px] font-extrabold rounded uppercase tracking-wider mb-1">${product.category}</span>
-                        <h2 class="text-xl font-display font-bold text-slate-900 dark:text-white leading-tight">${product.product_name}</h2>
+                        <span class="inline-block px-2 py-0.5 bg-slate-100 text-slate-500 text-[9px] font-extrabold rounded uppercase tracking-wider mb-1">${product.category}</span>
+                        <h2 class="text-xl font-extrabold text-slate-900 leading-tight">${product.product_name}</h2>
                     </div>
                 </div>
 
                 <div class="mb-5">
-                    <div class="text-xs text-slate-600 dark:text-slate-300 font-medium bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-100 dark:border-white/5 max-h-28 overflow-y-auto no-scrollbar leading-relaxed">
+                    <div class="text-xs text-slate-600 font-medium bg-slate-50 p-4 rounded-2xl border border-slate-100 max-h-28 overflow-y-auto no-scrollbar leading-relaxed">
                         ${product.description || 'No description available.'}
                     </div>
                 </div>
@@ -691,7 +552,7 @@
                     </div>
                 </div>
 
-                <button onclick="addToCart('${product.product_id}')" class="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-cyan-500/30 flex justify-center items-center gap-2 transition-all">
+                <button onclick="addToCart('${product.product_id}')" class="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-cyan-500/30 flex justify-center items-center gap-2 transition-all">
                     <i data-lucide="shopping-cart" class="w-4 h-4"></i> ${t.add_cart}
                 </button>
             `;
@@ -703,9 +564,9 @@
         window.selectVariantUI = function(element) {
             const labels = document.getElementById('variant-list').querySelectorAll('label');
             labels.forEach(l => {
-                l.className = "relative flex items-center justify-between p-3.5 rounded-xl border border-slate-200 dark:border-white/10 hover:border-cyan-200 dark:hover:border-cyan-500/50 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-all";
+                l.className = "relative flex items-center justify-between p-3.5 rounded-xl border border-slate-200 hover:border-cyan-200 hover:bg-slate-50 cursor-pointer transition-all";
             });
-            element.className = "relative flex items-center justify-between p-3.5 rounded-xl border border-cyan-500 bg-cyan-50/50 dark:bg-cyan-500/10 ring-1 ring-cyan-500 cursor-pointer transition-all";
+            element.className = "relative flex items-center justify-between p-3.5 rounded-xl border border-cyan-500 bg-cyan-50/50 ring-1 ring-cyan-500 cursor-pointer transition-all";
             element.querySelector('input').checked = true;
         }
 
@@ -743,6 +604,7 @@
             updateCartBadge();
             closeProductModal();
         }
+
 
         // ==============================================================
         // CART LOGIC
@@ -792,26 +654,26 @@
                 totalAmt += (item.price * item.qty);
                 
                 const div = document.createElement('div');
-                div.className = "flex items-center gap-4 bg-white dark:bg-slate-800/80 p-3 rounded-2xl border border-slate-100 dark:border-white/5 shadow-sm relative";
+                div.className = "flex items-center gap-4 bg-white p-3 rounded-2xl border border-slate-100 shadow-sm relative";
                 div.innerHTML = `
-                    <button onclick="removeFromCart(${index})" class="absolute top-2 right-2 text-slate-300 dark:text-slate-500 hover:text-red-500 p-1 transition-colors">
+                    <button onclick="removeFromCart(${index})" class="absolute top-2 right-2 text-slate-300 hover:text-red-500 p-1 transition-colors">
                         <i data-lucide="x" class="w-4 h-4"></i>
                     </button>
                     
-                    <div class="w-16 h-16 bg-slate-50 dark:bg-slate-900 rounded-xl p-1 flex-shrink-0 flex items-center justify-center border border-slate-100 dark:border-white/5 shadow-sm">
+                    <div class="w-16 h-16 bg-white rounded-xl p-1 flex-shrink-0 flex items-center justify-center border border-slate-100 shadow-sm">
                         <img src="${item.img}" class="max-h-full object-contain">
                     </div>
                     
                     <div class="flex-grow">
-                        <h4 class="text-sm font-bold text-slate-900 dark:text-white pr-6 leading-tight">${item.name}</h4>
-                        <div class="text-[11px] text-slate-500 dark:text-slate-400 font-bold mb-1 uppercase tracking-wider">${item.duration}</div>
-                        <div class="text-cyan-600 dark:text-cyan-400 font-display font-bold text-sm">${item.price.toLocaleString()} Ks</div>
+                        <h4 class="text-sm font-bold text-slate-900 pr-6 leading-tight">${item.name}</h4>
+                        <div class="text-[11px] text-slate-500 font-bold mb-1 uppercase tracking-wider">${item.duration}</div>
+                        <div class="text-cyan-600 font-extrabold text-sm">${item.price.toLocaleString()} Ks</div>
                     </div>
 
-                    <div class="flex items-center bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-lg h-8 self-end shadow-sm">
-                        <button onclick="changeQty(${index}, -1)" class="w-7 h-full flex items-center justify-center text-slate-600 dark:text-slate-400 font-bold hover:bg-slate-200 dark:hover:bg-slate-700 rounded-l-lg">-</button>
-                        <span class="w-6 text-center text-xs font-bold text-slate-900 dark:text-white">${item.qty}</span>
-                        <button onclick="changeQty(${index}, 1)" class="w-7 h-full flex items-center justify-center text-slate-600 dark:text-slate-400 font-bold hover:bg-slate-200 dark:hover:bg-slate-700 rounded-r-lg">+</button>
+                    <div class="flex items-center bg-slate-50 border border-slate-200 rounded-lg h-8 self-end shadow-sm">
+                        <button onclick="changeQty(${index}, -1)" class="w-7 h-full flex items-center justify-center text-slate-600 font-bold hover:bg-slate-100 rounded-l-lg">-</button>
+                        <span class="w-6 text-center text-xs font-bold text-slate-900">${item.qty}</span>
+                        <button onclick="changeQty(${index}, 1)" class="w-7 h-full flex items-center justify-center text-slate-600 font-bold hover:bg-slate-100 rounded-r-lg">+</button>
                     </div>
                 `;
                 container.appendChild(div);
@@ -838,6 +700,7 @@
             renderCart();
         }
 
+
         // ==============================================================
         // CHECKOUT & TELEGRAM LOGIC
         // ==============================================================
@@ -863,17 +726,13 @@
             try {
                 document.execCommand('copy');
                 btnElement.innerText = t_copied;
-                btnElement.classList.replace('text-cyan-600', 'text-emerald-600');
-                btnElement.classList.replace('dark:text-cyan-400', 'dark:text-emerald-400');
-                btnElement.classList.replace('bg-cyan-50', 'bg-emerald-50');
-                btnElement.classList.replace('dark:bg-cyan-500/10', 'dark:bg-emerald-500/10');
+                btnElement.classList.replace('text-cyan-600', 'text-green-600');
+                btnElement.classList.replace('bg-cyan-50', 'bg-green-100');
                 
                 setTimeout(() => {
                     btnElement.innerText = t_copy;
-                    btnElement.classList.replace('text-emerald-600', 'text-cyan-600');
-                    btnElement.classList.replace('dark:text-emerald-400', 'dark:text-cyan-400');
-                    btnElement.classList.replace('bg-emerald-50', 'bg-cyan-50');
-                    btnElement.classList.replace('dark:bg-emerald-500/10', 'dark:bg-cyan-500/10');
+                    btnElement.classList.replace('text-green-600', 'text-cyan-600');
+                    btnElement.classList.replace('bg-green-100', 'bg-cyan-50');
                 }, 2000);
             } catch (err) {
                 alert("Copy ကူးရာတွင် အမှားရှိပါသည်။ manually ကူးယူပါ။");
@@ -884,6 +743,7 @@
         window.submitOrder = function() {
             let totalAmt = 0;
             
+            // Format clean plain text with neat emojis for Telegram Chat box
             let msg = `🛒 NEW ORDER FROM DIGITAL NEST\n`;
             msg += `━━━━━━━━━━━━━━━━━━━━━\n`;
             msg += `📦 Order Details:\n`;
@@ -903,16 +763,21 @@
             
             msg += `⚠️ [ငွေလွှဲပြေစာပုံ (Screenshot) ကို ဤနေရာတွင် ပူးတွဲ၍ ပေးပို့ပါ]`;
 
+            // Clean cart after initiating checkout
             cart = [];
             saveCart();
             updateCartBadge();
             
+            // Generate Telegram Deep Link (using purely URL encoded plain text)
             const telegramUsername = 'digitalnest001';
             const encodedMsg = encodeURIComponent(msg);
+            
             const tgUrl = `tg://resolve?domain=${telegramUsername}&text=${encodedMsg}`;
             
+            // Attempt to open the app directly
             window.location.href = tgUrl;
             
+            // Optional fallback to web URL (if device does not respond to tg://)
             setTimeout(() => {
                 switchView('home');
             }, 1000);

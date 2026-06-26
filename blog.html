@@ -7,6 +7,7 @@
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="./img/dnlogo.png">
     
     <!-- Theme Check Script -->
     <script>
@@ -137,64 +138,59 @@
     <div id="toastContainer" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] flex flex-col gap-2 pointer-events-none w-[90%] max-w-sm"></div>
 
         <!-- Navigation Bar -->
-      <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-3 sm:py-4 md:py-5 border-b border-transparent">
-        <div class="container mx-auto px-5 sm:px-6 flex justify-between items-center relative z-20 w-full">
+        <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-4 md:py-5 border-b border-transparent">
+        <div class="container mx-auto px-6 flex justify-between items-center relative z-10">
             <!-- Logo -->
-            <div class="flex items-center gap-2 sm:gap-3 cursor-pointer shrink-0" onclick="window.scrollTo(0,0)">
-                <div class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full overflow-hidden bg-gradient-to-tr from-cyan-500 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/30">
-                    <img src="./img/dnlogo.png" alt="Digital Nest Logo" class="w-full h-full object-cover" onerror="this.style.display='none'">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                <div class="w-8 h-8 md:w-12 md:h-12 rounded-full overflow-hidden bg-gradient-to-tr from-cyan-500 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+                    <img src="./img/dnlogo.png" alt="" onerror="this.style.display='none'">
                 </div>
-                <span class="text-lg sm:text-xl font-display font-bold tracking-tight text-slate-900 dark:text-white">DIGITAL<span class="text-cyan-600 dark:text-cyan-400">NEST</span></span>
+                <span class="text-lg md:text-xl font-display font-bold tracking-tight text-slate-900 dark:text-white">DIGITAL<span class="text-cyan-600 dark:text-cyan-400">NEST</span></span>
             </div>
 
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center gap-6 text-[11px] xl:text-xs font-semibold uppercase tracking-widest text-slate-600 dark:text-slate-300">
-                <a href="./index.html./index.html#home" data-i18n="navHome" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors py-2">Home</a>
-                <a href="./about.html" data-i18n="navAbout" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors py-2">About</a>
-                <a href="./shop.html" data-i18n="navShop" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors py-2">Shop</a>
-                <a href="./blog.html" data-i18n="navBlog" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors py-2">Blog</a>
-                <a href="./tutorials.html" data-i18n="navTutorial" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors py-2">Tutorials</a>
+                <a href="index.html#home" data-i18n="navHome" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Home</a>
+                <a href="./about.html" data-i18n="navAbout" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">About</a>
+                <a href="./shop.html" data-i18n="navShop" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Shop</a>
+                <a href="./blog.html" data-i18n="navBlog" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Blog</a>
+                <a href="./tutorials.html" data-i18n="navTutorial" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Tutorials</a>
                 
                 <div class="flex items-center gap-4 border-l border-slate-300 dark:border-white/10 pl-6">
                     <!-- Theme Toggle -->
-                    <button class="theme-toggle hover:text-cyan-500 transition-colors p-2 rounded-full bg-slate-100 dark:bg-white/5" aria-label="Toggle Dark Mode">
+                    <button class="theme-toggle hover:text-cyan-500 transition-colors p-1" aria-label="Toggle Dark Mode">
                         <svg class="sun-icon hidden w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
                         <svg class="moon-icon w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                     </button>
                     <!-- Lang Toggle -->
-                    <button id="langToggleBtn" class="hover:text-cyan-500 transition-colors font-bold text-xs px-2 py-1 bg-slate-100 dark:bg-white/5 rounded-md">EN</button>
+                    <button id="langToggleBtn" class="hover:text-cyan-500 transition-colors">EN</button>
                     <!-- Buy Button -->
-                    <a href="#contact" data-i18n="navContact" class="px-6 py-2.5 rounded-full bg-slate-900 text-white dark:bg-cyan-500 dark:text-white hover:scale-105 transition-all text-sm shadow-md">ဝယ်ယူရန်</a>
+                    <a href="./shop.html" data-i18n="navContact" class="px-5 py-2 rounded-full bg-slate-900 text-white dark:bg-cyan-500 dark:text-white hover:scale-105 transition-all">ဝယ်ယူရန်</a>
                 </div>
             </div>
 
             <!-- Mobile Actions -->
-            <div class="flex items-center gap-2 sm:gap-4 lg:hidden relative z-20 shrink-0">
-                <button class="theme-toggle text-slate-600 dark:text-slate-300 hover:text-cyan-500 transition-colors p-2 bg-slate-100 dark:bg-white/5 rounded-full" aria-label="Toggle Dark Mode">
-                    <svg class="sun-icon hidden w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
-                    <svg class="moon-icon w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <div class="flex items-center gap-4 lg:hidden relative z-10">
+                <button class="theme-toggle text-slate-500 hover:text-cyan-500 transition-colors p-1" aria-label="Toggle Dark Mode">
+                    <svg class="sun-icon hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+                    <svg class="moon-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                 </button>
-                <button id="langToggleBtnMobile" class="text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-cyan-500 transition-colors px-2 py-1.5 bg-slate-100 dark:bg-white/5 rounded-md">EN</button>
-                <button id="mobileMenuBtn" class="text-slate-600 dark:text-slate-300 focus:outline-none p-2 ml-1 bg-slate-100 dark:bg-white/5 rounded-lg transition-colors hover:bg-slate-200 dark:hover:bg-white/10">
+                <button id="langToggleBtnMobile" class="text-[10px] font-bold text-slate-500 hover:text-cyan-500 transition-colors">EN</button>
+                <button id="mobileMenuBtn" class="text-slate-600 dark:text-slate-300 focus:outline-none p-1">
                     <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
                     <svg id="closeIcon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile Menu Overlay -->
-        <div id="mobileMenuOverlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-10 opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden"></div>
-
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobileMenu" class="absolute top-full left-0 w-full bg-white dark:bg-[#0B1120] border-b border-slate-200 dark:border-white/10 shadow-2xl origin-top transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] opacity-0 pointer-events-none -translate-y-4 z-20 lg:hidden">
-            <div class="px-5 sm:px-6 py-6 flex flex-col max-h-[75vh] overflow-y-auto custom-scrollbar">
-                <a href="./index.html#home" data-i18n="navHome" class="mobile-link block w-full py-3.5 text-base font-semibold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-white/5 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Home</a>
-                <a href="./about.html" data-i18n="navAbout" class="mobile-link block w-full py-3.5 text-base font-semibold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-white/5 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">About Us</a>
-                <a href="./shop.html" data-i18n="navShop" class="mobile-link block w-full py-3.5 text-base font-semibold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-white/5 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Shop</a>
-                <a href="./blog.html" data-i18n="navBlog" class="mobile-link block w-full py-3.5 text-base font-semibold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-white/5 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Blog</a>
-                <a href="./tutorials.html" data-i18n="navTutorial" class="mobile-link block w-full py-3.5 text-base font-semibold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-white/5 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Tutorials</a>
-                <a href="./contact.html" data-i18n="navContact" class="mobile-link block w-full py-4 mt-6 text-center rounded-xl bg-cyan-600 dark:bg-cyan-500 font-bold text-white text-base shadow-lg shadow-cyan-500/30 hover:bg-cyan-700 transition-colors">ဝယ်ယူရန်</a>
-            </div>
+        <!-- Mobile Menu Dropdown (Fixed Hidden Issue) -->
+        <div id="mobileMenu" class="absolute top-full left-0 w-full glass bg-white/95 dark:bg-tech-dark/95 border-b border-slate-200 dark:border-white/10 py-6 px-6 flex flex-col gap-5 shadow-2xl transform origin-top transition-all lg:hidden">
+            <a href="index.html#home" data-i18n="navHome" class="mobile-link text-sm font-semibold hover:text-cyan-500">Home</a>
+            <a href="./about.html" data-i18n="navAbout" class="mobile-link text-sm font-semibold hover:text-cyan-500">About Us</a>
+            <a href="./shop.html" data-i18n="navShop" class="mobile-link text-sm font-semibold hover:text-cyan-500">Shop</a>
+            <a href="./blog.html" data-i18n="navBlog" class="mobile-link text-sm font-semibold hover:text-cyan-500">Blog</a>
+            <a href="./tutorials.html" data-i18n="navTutorial" class="mobile-link text-sm font-semibold hover:text-cyan-500">Tutorials</a>
+            <a href="./shop.html" data-i18n="navContact" class="mobile-link py-3 text-center rounded-xl bg-cyan-600 font-bold text-white text-sm">ဝယ်ယူရန်</a>
         </div>
     </nav>
 
@@ -279,7 +275,7 @@
                 <div class="md:col-span-2">
                     <div class="flex items-center gap-2 mb-4">
                          <div class="w-8 h-8 md:w-12 md:h-12 rounded-full overflow-hidden bg-gradient-to-tr from-cyan-500 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/30">
-                    <img src="./img/dnlogo.png" alt="">
+                    <img src="./img/dnlogo.png" alt="" onerror="this.style.display='none'">
                 </div>
                         <span class="text-xl font-display font-bold tracking-tight text-slate-900 dark:text-white">DIGITAL<span class="text-cyan-600 dark:text-cyan-400">NEST</span></span>
                     </div>
@@ -297,9 +293,9 @@
                 <div>
                     <h4 class="font-bold text-slate-900 dark:text-white mb-4 text-xs tracking-wider uppercase">Quick Links</h4>
                     <ul class="space-y-2 text-xs text-slate-500 dark:text-slate-400">
-                        <li><a href="./index.html" data-i18n="navHome" class="hover:text-cyan-500 transition-colors">Home</a></li>
+                        <li><a href="./index.html#home" data-i18n="navHome" class="hover:text-cyan-500 transition-colors">Home</a></li>
                         <li><a href="./about.html" data-i18n="navAbout" class="hover:text-cyan-500 transition-colors">About Us</a></li>
-                        <li><a href="https://digitalnest-shop.vercel.app/" data-i18n="navShop" class="hover:text-cyan-500 transition-colors">Shop</a></li>
+                        <li><a href="./shop.html" data-i18n="navShop" class="hover:text-cyan-500 transition-colors">Shop</a></li>
                         <li><a href="./blog.html" data-i18n="navBlog" class="hover:text-cyan-500 transition-colors">Blog</a></li>
                         <li><a href="./tutorials.html" data-i18n="navTutorial" class="hover:text-cyan-500 transition-colors">Tutorials</a></li>
                     </ul>
@@ -309,9 +305,9 @@
                 <div>
                     <h4 class="font-bold text-slate-900 dark:text-white mb-4 text-xs tracking-wider uppercase">Resources</h4>
                     <ul class="space-y-2 text-xs text-slate-500 dark:text-slate-400">
-                        <li><a href="./index.html#blog" class="hover:text-cyan-500 transition-colors">Digital Blog</a></li>
-                        <li><a href="./index.html#tutorial" class="hover:text-cyan-500 transition-colors">Tutorials</a></li>
-                        <li><a href="./index.html#contact" class="hover:text-cyan-500 transition-colors">Help Center</a></li>
+                        <li><a href="./blog.html" class="hover:text-cyan-500 transition-colors">Digital Blog</a></li>
+                        <li><a href="./tutorials.html" class="hover:text-cyan-500 transition-colors">Tutorials</a></li>
+                        <li><a href="./contact.html" class="hover:text-cyan-500 transition-colors">Help Center</a></li>
                     </ul>
                 </div>
             </div>
@@ -458,7 +454,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // Mobile Menu
+        // Mobile Menu Logic (Fixed missing class and toggle actions)
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         const menuIcon = document.getElementById('menuIcon');
@@ -488,7 +484,7 @@
         // Blog SPA (Single Page App) Logic
         // Google Sheets Columns: title | description | img_url | date | category
         // -------------------------------------------------------------------
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwc8E6kv8U-4z4qyaQp4b24mhuWZrGkev1WhshqASuATs7VTfGrmvJqfOv8vVkCZAbP/exec'; 
+        const GOOGLE_SCRIPT_URL = 'https://docs.google.com/spreadsheets/d/13C89R1HgKakij6SgJWFZZ8EnK3qRqW-3R9vBCUIZrks/gviz/tq?tqx=out:json'; 
         
         const blogListView = document.getElementById('blogListView');
         const blogDetailView = document.getElementById('blogDetailView');
@@ -512,28 +508,42 @@
 
         // Render Preview Card (List View)
         const generatePostCard = (post, index) => {
-            const imgUrl = post.img_url || 'https://via.placeholder.com/600x400?text=No+Image';
+            let imgUrl = post.img_url || 'https://via.placeholder.com/600x400?text=No+Image';
             const title = post.title || 'Untitled Post';
             const date = post.date || 'Recent';
             const category = post.category || 'News';
             
-            // Create short excerpt from description
-            const description = post.description || 'No content available.';
-            const excerpt = description.length > 100 ? description.substring(0, 100) + '...' : description;
+            // Extract URL from description if img_url is missing
+            let description = post.description || 'No content available.';
+            const urlRegex = /(https?:\/\/[^\s]+)/gi;
+            const urls = description.match(urlRegex);
+            if (urls && urls.length > 0) {
+                const lastUrl = urls[urls.length - 1];
+                if (!imgUrl || !imgUrl.startsWith('http')) imgUrl = lastUrl;
+                description = description.replace(lastUrl, '').trim();
+            }
+            if(!imgUrl || !imgUrl.startsWith('http')) {
+                imgUrl = "https://placehold.co/800x400/0f172a/22d3ee?text=Digital+Nest+Blog";
+            }
             
+            // Save clean description back
+            globalPosts[index].cleanDesc = description;
+            globalPosts[index].cleanImg = imgUrl;
+
+            const excerpt = description.length > 100 ? description.substring(0, 100) + '...' : description;
             const readMoreText = translations[currentLang]['readMore'];
 
             return `
-                <div class="glass p-4 rounded-2xl hover:-translate-y-1 transition-transform duration-300 border border-slate-200 dark:border-white/10 shadow-sm flex flex-col h-full bg-white/60 dark:bg-slate-900/60 group">
+                <div class="glass p-4 rounded-2xl hover:-translate-y-1 transition-transform duration-300 border border-slate-200 dark:border-white/10 shadow-sm flex flex-col h-full bg-white/60 dark:bg-slate-900/60 group cursor-pointer" onclick="openPost(${index})">
                     <div class="aspect-video bg-slate-900 rounded-xl mb-4 overflow-hidden relative border border-slate-200/50 dark:border-slate-800">
                         <img src="${imgUrl}" alt="${title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/600x400?text=Image+Error'">
                         <div class="absolute top-2 right-2 px-2.5 py-1 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm text-cyan-600 dark:text-cyan-400 text-[9px] font-bold tracking-wider uppercase rounded shadow-sm border border-cyan-500/20">${category}</div>
                     </div>
                     <div class="text-[10px] font-bold tracking-wider text-slate-500 dark:text-slate-400 mb-2 uppercase">${date}</div>
-                    <h3 class="text-base font-bold mb-2 text-slate-900 dark:text-white leading-snug group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors cursor-pointer" onclick="openPost(${index})">${title}</h3>
+                    <h3 class="text-base font-bold mb-2 text-slate-900 dark:text-white leading-snug group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">${title}</h3>
                     <p class="text-[12px] text-slate-600 dark:text-slate-400 mb-5 line-clamp-3 leading-relaxed flex-grow">${excerpt}</p>
                     
-                    <button onclick="openPost(${index})" class="mt-auto inline-flex justify-center items-center px-5 py-2.5 rounded-xl border border-slate-300 dark:border-white/20 text-slate-800 dark:text-slate-200 font-bold text-[11px] hover:bg-slate-100 dark:hover:bg-white/5 active:scale-95 transition-all w-fit">
+                    <button class="mt-auto inline-flex justify-center items-center px-5 py-2.5 rounded-xl border border-slate-300 dark:border-white/20 text-slate-800 dark:text-slate-200 font-bold text-[11px] hover:bg-slate-100 dark:hover:bg-white/5 active:scale-95 transition-all w-fit">
                         <span class="read-more-btn">${readMoreText}</span>
                         <svg class="w-3 h-3 ml-2 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"></path></svg>
                     </button>
@@ -546,29 +556,25 @@
             const post = globalPosts[index];
             if(!post) return;
 
-            // Populate Detail View Elements
             document.getElementById('detailTitle').innerText = post.title || 'Untitled Post';
             document.getElementById('detailCategory').innerText = post.category || 'News';
             document.getElementById('detailDate').innerText = post.date || 'Recent';
             
             const imgEl = document.getElementById('detailImage');
-            imgEl.src = post.img_url || 'https://via.placeholder.com/1200x600?text=No+Image';
+            imgEl.src = post.cleanImg || 'https://via.placeholder.com/1200x600?text=No+Image';
             
-            document.getElementById('detailContent').innerText = post.description || 'No content available.';
+            document.getElementById('detailContent').innerText = post.cleanDesc || 'No content available.';
 
-            // View Transition
             blogListView.classList.add('hidden');
             blogDetailView.classList.remove('hidden');
             
-            // Scroll to top of the page smoothly
             window.scrollTo({top: 0, behavior: 'smooth'});
         };
 
-        // Close Post Detail View and Return to List
+        // Close Post Detail View
         const closePost = () => {
             blogDetailView.classList.add('hidden');
             blogListView.classList.remove('hidden');
-            
             window.scrollTo({top: 0, behavior: 'smooth'});
         };
 
@@ -579,57 +585,34 @@
             blogContainer.classList.remove('hidden');
 
             try {
-                // Remove this 'if' block when you link your real Google Script URL
-                if(GOOGLE_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE' || GOOGLE_SCRIPT_URL === '') {
-                    await new Promise(r => setTimeout(r, 1200)); // Fake Delay
-                    
-                    // Mock Data matching Google Sheets columns: title, description, img_url, date, category
-                    globalPosts = [
-                        { 
-                            title: "ChatGPT အကောင့်ကို မြန်မာနိုင်ငံမှာ ဘယ်လိုဖွင့်မလဲ", 
-                            description: "ChatGPT ကို မြန်မာနိုင်ငံမှ လွယ်ကူစွာအသုံးပြုနိုင်ရန် အဆင့်ဆင့်လမ်းညွှန်ချက်များ။ VPN အသုံးပြုပုံ၊ ဖုန်းနံပါတ် Verify လုပ်ပုံနှင့် အခမဲ့ အသုံးပြုနည်းများကို အသေးစိတ် ရှင်းပြပေးထားပါသည်။\n\nChatGPT Plus သို့ Upgrade ပြုလုပ်လိုပါက Digital Nest တွင် ယုံကြည်စိတ်ချစွာ ဝယ်ယူနိုင်ပါသည်။ ကိုယ်ပိုင် Gmail ဖြင့်သော်လည်းကောင်း၊ Page မှ စီစဉ်ပေးသော အကောင့်ဖြင့်သော်လည်းကောင်း အသုံးပြုနိုင်ပါသည်။", 
-                            img_url: "https://www.orencloud.com/wp-content/uploads/2023/02/ChatGPT-Feature-1024x576.webp",
-                            date: "Oct 15, 2023",
-                            category: "Tutorial"
-                        },
-                        { 
-                            title: "CapCut Pro ဖြင့် Video များကို Professional ကျကျ တည်းဖြတ်ခြင်း", 
-                            description: "CapCut PC ၏ လျှို့ဝှက်ချက်များနှင့် AI Features များကို အသုံးပြု၍ Quality ကောင်းသော Video ဖန်တီးနည်းများ။ Auto Captions, Background Removal, နှင့် AI Effects များကို အလွယ်တကူ သုံးနိုင်ပါသည်။\n\nVideo တည်းဖြတ်သူများအတွက် CapCut Pro account သည် မရှိမဖြစ်လိုအပ်သော Tools တစ်ခုဖြစ်ပြီး Digital Nest တွင် လစဉ်ကြေးပေးသွင်းကာ အလွယ်တကူရယူနိုင်ပါသည်။", 
-                            img_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzBS6aDCVeczti15QCCBbDei9PhpEPFVRKyw&s",
-                            date: "Oct 10, 2023",
-                            category: "Editing"
-                        },
-                        { 
-                            title: "Gemini AI ကို အသုံးပြု၍ အလုပ်များကို မြန်ဆန်အောင်လုပ်နည်း", 
-                            description: "Google ၏ နောက်ဆုံးပေါ် AI Gemini ကို နေ့စဉ်လုပ်ငန်းခွင်တွင် မည်သို့အသုံးချနိုင်ကြောင်း လေ့လာကြပါစို့။ Email ရေးသားခြင်း၊ စာတမ်းပြုစုခြင်း၊ နှင့် Code ရေးသားခြင်းတို့တွင် အချိန်ကုန်သက်သာစေပါသည်။\n\nAdvanced features များအတွက် Gemini Advanced Subscription ကို ရယူနိုင်ပါသည်။", 
-                            img_url: "https://assets.bizclikmedia.net/900/5c54c1fa5b86257922ce5c7f359dc7a6:70dc165261503d52aca95c04679e0bae/google-gemini.webp",
-                            date: "Oct 05, 2023",
-                            category: "AI News"
-                        },
-                        { 
-                            title: "Midjourney ဖြင့် AI ပုံများဖန်တီးခြင်း အခြေခံလမ်းညွှန်", 
-                            description: "Prompt ရေးသားနည်းမှစ၍ လှပသော AI Artwork များထွက်ရှိလာသည်အထိ Midjourney အသုံးပြုနည်း အခြေခံများကို မျှဝေပေးထားပါသည်။ Parameter များကို ကစားနည်းများ၊ Aspect Ratio ချိန်ညှိနည်းများ ပါဝင်ပါသည်။", 
-                            img_url: "https://miro.medium.com/v2/resize:fit:1200/1*C2qP9-M8z7A9DItL84B9Yw.png",
-                            date: "Sep 28, 2023",
-                            category: "Design"
-                        }
-                    ];
-                    
-                    blogContainer.innerHTML = globalPosts.map((post, index) => generatePostCard(post, index)).join('');
-                    return;
-                }
-
-                // Fetch real data
                 const response = await fetch(GOOGLE_SCRIPT_URL);
                 if (!response.ok) throw new Error('Network response error');
                 
-                const data = await response.json();
-                
-                if(data && data.length > 0) {
-                    globalPosts = data; // Save to global array
-                    blogContainer.innerHTML = globalPosts.map((post, index) => generatePostCard(post, index)).join('');
+                const text = await response.text();
+                const jsonStrMatch = text.match(/(?<=.*\().*(?=\);)/s);
+                if(jsonStrMatch && jsonStrMatch[0]) {
+                    const data = JSON.parse(jsonStrMatch[0]);
+                    const rows = data.table.rows;
+                    
+                    if(rows && rows.length > 0) {
+                        // Reverse array to show newest first
+                        globalPosts = rows.map(row => {
+                            const cells = row.c;
+                            return {
+                                title: cells[0]?.v || "Latest Article",
+                                description: cells[1]?.v || "Click here to read our latest updates...",
+                                img_url: cells[2]?.v || "",
+                                date: cells[3]?.f || cells[3]?.v || "",
+                                category: cells[4]?.v || "Update"
+                            };
+                        }).reverse();
+                        
+                        blogContainer.innerHTML = globalPosts.map((post, index) => generatePostCard(post, index)).join('');
+                    } else {
+                        blogContainer.innerHTML = `<div class="col-span-full text-center text-slate-500 py-10">No articles found.</div>`;
+                    }
                 } else {
-                    blogContainer.innerHTML = `<div class="col-span-full text-center text-slate-500 py-10">No articles found.</div>`;
+                    throw new Error('Data parse error');
                 }
 
             } catch (error) {
@@ -642,63 +625,6 @@
 
         document.addEventListener('DOMContentLoaded', fetchBlogPosts);
 
-    </script>
-
-        <!-- Mobile Menu Isolated Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Mobile Menu Toggle Logic
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileMenu = document.getElementById('mobileMenu');
-            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-            const mobileLinks = document.querySelectorAll('.mobile-link');
-            
-            const closeMobileMenu = () => {
-                if(!mobileMenu || !mobileMenuOverlay) return;
-                mobileMenu.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4'); 
-                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0'); 
-                mobileMenuOverlay.classList.add('opacity-0', 'pointer-events-none');
-                mobileMenuOverlay.classList.remove('opacity-100', 'pointer-events-auto');
-                
-                const menuIcon = document.getElementById('menuIcon');
-                const closeIcon = document.getElementById('closeIcon');
-                if(menuIcon) menuIcon.classList.remove('hidden'); 
-                if(closeIcon) closeIcon.classList.add('hidden'); 
-            };
-
-            if (mobileMenuBtn) {
-                mobileMenuBtn.onclick = () => {
-                    const isClosed = mobileMenu.classList.contains('opacity-0');
-                    if (isClosed) { 
-                        // Open Menu
-                        mobileMenu.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-4'); 
-                        mobileMenu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0'); 
-                        mobileMenuOverlay.classList.remove('opacity-0', 'pointer-events-none');
-                        mobileMenuOverlay.classList.add('opacity-100', 'pointer-events-auto');
-                        
-                        const menuIcon = document.getElementById('menuIcon');
-                        const closeIcon = document.getElementById('closeIcon');
-                        if(menuIcon) menuIcon.classList.add('hidden'); 
-                        if(closeIcon) closeIcon.classList.remove('hidden'); 
-                    } else { 
-                        // Close Menu
-                        closeMobileMenu();
-                    }
-                };
-            }
-            
-            // Close menu when clicking overlay
-            if (mobileMenuOverlay) {
-                mobileMenuOverlay.onclick = closeMobileMenu;
-            }
-
-            // Close menu when clicking any links
-            if (mobileLinks.length > 0) {
-                mobileLinks.forEach(link => {
-                    link.addEventListener('click', closeMobileMenu);
-                });
-            }
-        });
     </script>
 </body>
 </html>
