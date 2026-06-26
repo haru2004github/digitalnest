@@ -175,7 +175,7 @@
 
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center gap-6 text-[11px] xl:text-xs font-semibold uppercase tracking-widest text-slate-600 dark:text-slate-300">
-                <a href="./index.html#home" data-i18n="navHome" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors py-2">Home</a>
+                <a href="./index.html./index.html#home" data-i18n="navHome" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors py-2">Home</a>
                 <a href="./about.html" data-i18n="navAbout" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors py-2">About</a>
                 <a href="./shop.html" data-i18n="navShop" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors py-2">Shop</a>
                 <a href="./blog.html" data-i18n="navBlog" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors py-2">Blog</a>
@@ -252,7 +252,7 @@
                 
                 <!-- Dual Buttons -->
                 <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
-                    <a href="./shop.html" class="w-full sm:w-auto px-6 py-4 md:px-8 rounded-xl md:rounded-2xl border border-slate-300 dark:border-white/10 glass font-bold text-slate-800 dark:text-white hover:bg-slate-200/50 dark:hover:bg-white/5 transition-all text-sm flex items-center justify-center gap-2">
+                    <a href="./shop.html/" class="w-full sm:w-auto px-6 py-4 md:px-8 rounded-xl md:rounded-2xl border border-slate-300 dark:border-white/10 glass font-bold text-slate-800 dark:text-white hover:bg-slate-200/50 dark:hover:bg-white/5 transition-all text-sm flex items-center justify-center gap-2">
                         <span data-i18n="heroBtnExplore">Explore Services</span>
                     </a>
                     <a href="#contact" class="w-full sm:w-auto px-6 py-4 md:px-8 rounded-xl md:rounded-2xl bg-cyan-600 dark:bg-cyan-500 text-white font-bold flex items-center justify-center gap-2 hover:bg-cyan-700 dark:hover:bg-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all transform hover:-translate-y-1 text-sm">
@@ -318,14 +318,82 @@
                         <p class="text-xs font-bold tracking-[0.2em] text-cyan-600 dark:text-cyan-400 uppercase mb-2">Our Marketplace</p>
                         <h2 class="text-3xl md:text-4xl font-display font-bold text-slate-900 dark:text-white" data-i18n="shopTitle">Top Products</h2>
                     </div>
-                    <a href="./shop.html" class="w-full md:w-auto px-6 py-3 rounded-xl border border-cyan-500 text-cyan-600 dark:text-cyan-400 font-bold text-sm hover:bg-cyan-500 hover:text-white transition-all text-center">View All Products</a>
+                    <a href="./shop.html" target="_blank" class="w-full md:w-auto px-6 py-3 rounded-xl border border-cyan-500 text-cyan-600 dark:text-cyan-400 font-bold text-sm hover:bg-cyan-500 hover:text-white transition-all text-center">View All Products</a>
                 </div>
                 
-                <!-- Dynamic Products Container -->
-                <div id="featured-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- Loading State -->
-                    <div class="col-span-full text-center py-10">
-                        <div class="animate-spin rounded-full h-8 w-8 border-2 border-cyan-500 border-t-transparent mx-auto"></div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Shop Item 1 -->
+                    <div class="glass p-5 rounded-[1.5rem] hover:-translate-y-2 transition-all duration-300 group border border-slate-200 dark:border-white/10 hover:border-cyan-500/50 shadow-sm flex flex-col h-full">
+                        <div class="aspect-[16/10] bg-slate-900 rounded-xl mb-4 overflow-hidden relative border border-slate-800">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzBS6aDCVeczti15QCCBbDei9PhpEPFVRKyw&s" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-3 right-3 px-3 py-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm text-slate-900 dark:text-white text-[10px] font-bold rounded-lg shadow-sm">Editing</div>
+                        </div>
+                        <h3 class="text-base sm:text-lg font-bold mb-2 text-slate-900 dark:text-white">Capcut Pro (1 Month)</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-2 flex-grow">Capcut Pro ဟာ Share "လုံးဝ" မဟုတ်ဘဲ Private Account ဖြစ်တာမို့ တစ်ယောက်တည်း အသုံးပြုနိုင်ပါမယ်။</p>
+                        <div class="flex justify-between items-end mb-5">
+                            <span class="font-display font-bold text-cyan-600 dark:text-cyan-400 text-lg sm:text-xl">33,000 MMK</span>
+                            <span class="text-[10px] text-slate-400 font-medium">10 available</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 mt-auto">
+                            <a href="./shop.html" target="_blank" class="py-2.5 text-center border border-slate-300 dark:border-white/20 rounded-xl text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors">Details</a>
+                            <a href="./shop.html" target="_blank" class="py-2.5 text-center bg-cyan-600 dark:bg-cyan-500 text-white rounded-xl text-xs sm:text-sm font-bold hover:bg-cyan-700 dark:hover:bg-cyan-400 transition-colors">Add to Cart</a>
+                        </div>
+                    </div>
+
+                    <!-- Shop Item 2 -->
+                    <div class="glass p-5 rounded-[1.5rem] hover:-translate-y-2 transition-all duration-300 group border border-slate-200 dark:border-white/10 hover:border-cyan-500/50 shadow-sm flex flex-col h-full">
+                        <div class="aspect-[16/10] bg-slate-900 rounded-xl mb-4 overflow-hidden relative border border-slate-800">
+                            <img src="https://assets.bizclikmedia.net/900/5c54c1fa5b86257922ce5c7f359dc7a6:70dc165261503d52aca95c04679e0bae/google-gemini.webp" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-3 right-3 px-3 py-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm text-slate-900 dark:text-white text-[10px] font-bold rounded-lg shadow-sm">Ai</div>
+                        </div>
+                        <h3 class="text-base sm:text-lg font-bold mb-2 text-slate-900 dark:text-white">Gemini Pro Private (1 Year)</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-2 flex-grow">Gemini Manager Account ဖြစ်လို့ Full Access ရပါမယ်။ Video, Voice, Canvas တို့ကို အသုံးပြုနိုင်ပါမယ်။</p>
+                        <div class="flex justify-between items-end mb-5">
+                            <span class="font-display font-bold text-cyan-600 dark:text-cyan-400 text-lg sm:text-xl">60,000 MMK</span>
+                            <span class="text-[10px] text-slate-400 font-medium">10 available</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 mt-auto">
+                            <a href="./shop.html" target="_blank" class="py-2.5 text-center border border-slate-300 dark:border-white/20 rounded-xl text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors">Details</a>
+                            <a href="./shop.html" target="_blank" class="py-2.5 text-center bg-cyan-600 dark:bg-cyan-500 text-white rounded-xl text-xs sm:text-sm font-bold hover:bg-cyan-700 dark:hover:bg-cyan-400 transition-colors">Add to Cart</a>
+                        </div>
+                    </div>
+
+                    <!-- Shop Item 3 -->
+                    <div class="glass p-5 rounded-[1.5rem] hover:-translate-y-2 transition-all duration-300 group border border-slate-200 dark:border-white/10 hover:border-cyan-500/50 shadow-sm flex flex-col h-full">
+                        <div class="aspect-[16/10] bg-[#10a37f] rounded-xl mb-4 overflow-hidden relative border border-emerald-600">
+                            <img src="https://www.orencloud.com/wp-content/uploads/2023/02/ChatGPT-Feature-1024x576.webp" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-3 right-3 px-3 py-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm text-slate-900 dark:text-white text-[10px] font-bold rounded-lg shadow-sm">Ai</div>
+                        </div>
+                        <h3 class="text-base sm:text-lg font-bold mb-2 text-slate-900 dark:text-white">ChatGPT Plus Own Acc (1 Month)</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-2 flex-grow">ကိုယ်ပိုင် Gmail နှင့် အသုံးပြုရမည့် ChatGPT Plus အမျိုးအစားဖြစ်ပါသည်။ GPT-4 အပြည့်အဝရရှိပါမည်။</p>
+                        <div class="flex justify-between items-end mb-5">
+                            <span class="font-display font-bold text-cyan-600 dark:text-cyan-400 text-lg sm:text-xl">110,000 MMK</span>
+                            <span class="text-[10px] text-slate-400 font-medium">10 available</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 mt-auto">
+                            <a href="./shop.html" target="_blank" class="py-2.5 text-center border border-slate-300 dark:border-white/20 rounded-xl text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors">Details</a>
+                            <a href="./shop.html" target="_blank" class="py-2.5 text-center bg-cyan-600 dark:bg-cyan-500 text-white rounded-xl text-xs sm:text-sm font-bold hover:bg-cyan-700 dark:hover:bg-cyan-400 transition-colors">Add to Cart</a>
+                        </div>
+                    </div>
+
+                    <!-- Shop Item 4 -->
+                    <div class="glass p-5 rounded-[1.5rem] hover:-translate-y-2 transition-all duration-300 group border border-slate-200 dark:border-white/10 hover:border-purple-500/50 shadow-sm flex flex-col h-full">
+                        <div class="aspect-[16/10] bg-gradient-to-br from-purple-600 to-indigo-900 rounded-xl mb-4 overflow-hidden relative border border-purple-500/50">
+                            <img src="https://placehold.co/600x375/6b21a8/ffffff?text=AI+Masterclass" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 mix-blend-overlay">
+                            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                 <span class="text-sm font-bold text-white tracking-widest shadow-black drop-shadow-md">AI COURSE</span>
+                            </div>
+                            <div class="absolute top-3 right-3 px-3 py-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm text-slate-900 dark:text-white text-[10px] font-bold rounded-lg shadow-sm text-purple-600 dark:text-purple-400">Education</div>
+                        </div>
+                        <h3 class="text-base sm:text-lg font-bold mb-2 text-slate-900 dark:text-white" data-i18n="courseTitle">AI Master Course</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-2 flex-grow" data-i18n="courseDesc">ChatGPT, Midjourney အစရှိသည့် AI များကို ကျွမ်းကျင်စွာ အသုံးပြုနိုင်မည့် သင်တန်း။</p>
+                        <div class="flex justify-between items-end mb-5">
+                            <span class="font-display font-bold text-purple-600 dark:text-purple-400 text-lg sm:text-xl">Special Offer</span>
+                            <span class="text-[10px] text-slate-400 font-medium">Lifetime</span>
+                        </div>
+                        <div class="grid grid-cols-1 mt-auto">
+                            <a href="#contact" class="py-3 text-center bg-purple-600 text-white rounded-xl text-sm font-bold hover:bg-purple-700 transition-colors">Enroll Now</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -524,11 +592,14 @@
                                 <div class="h-px flex-1 bg-slate-200 dark:bg-white/10 hidden sm:block"></div>
                             </div>
                         </div>
-                        
-                        <!-- Dynamic Blog Container -->
-                        <div class="space-y-6" id="latest-blog-container">
-                            <div class="text-center py-5">
-                                <div class="animate-spin rounded-full h-6 w-6 border-2 border-cyan-500 border-t-transparent mx-auto"></div>
+                        <div class="space-y-6">
+                            <div class="glass p-6 rounded-[1.5rem] hover:border-cyan-500/30 transition-all group border border-slate-200 dark:border-white/10 shadow-sm">
+                                <p class="text-xs text-cyan-600 dark:text-cyan-400 mb-3 uppercase tracking-widest font-bold">AI News • March 2026</p>
+                                <h3 class="text-lg sm:text-xl font-bold mb-3 text-slate-900 dark:text-white group-hover:text-cyan-500 transition-colors leading-snug">ချက်ဂျီပီ Plus ရဲ့ Agent Mode Feature နဲ့ ဘာတွေလုပ်လိုရလဲ❓</h3>
+                                <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed mb-5">ချက်ဂျီပီ Plus သုံးနေပေမယ့် Agent Mode ကို မသုံးရသေးရင် အများကြီး နောက်ကျသွားနိုင်တယ်နော်။❗️</p>
+                                <a href="./blog.html" class="inline-flex items-center gap-2 text-sm font-bold text-cyan-600 dark:text-cyan-400 hover:text-cyan-500 transition-colors">
+                                    Read Full Article <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                                </a>
                             </div>
                         </div>
                         
@@ -591,7 +662,7 @@
                     <p data-i18n="contactDesc" class="text-sm text-slate-500 dark:text-slate-400 mb-8 sm:mb-10">အောက်ပါ Platform များမှတစ်ဆင့် တိုက်ရိုက်ဆက်သွယ်ဝယ်ယူနိုင်ပါသည်</p>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 md:gap-6">
-                        <a href="./shop.html" class="p-6 rounded-2xl bg-white dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 transition-all group text-center flex flex-col items-center">
+                        <a href="./shop.html" target="_blank" class="p-6 rounded-2xl bg-white dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 transition-all group text-center flex flex-col items-center">
                             <div class="w-14 h-14 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-4 group-hover:-translate-y-1 transition-transform">
                                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                             </div>
@@ -670,30 +741,6 @@
     <button id="scrollToTopBtn" class="fixed bottom-6 right-5 md:bottom-8 md:right-8 w-12 h-12 bg-cyan-600 dark:bg-cyan-500 text-white rounded-full shadow-lg shadow-cyan-500/30 flex items-center justify-center hover:bg-cyan-700 dark:hover:bg-cyan-400 hover:scale-110 transition-all z-50 focus:outline-none" aria-label="Scroll to top">
         <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
     </button>
-
-    <!-- Blog Modal Box -->
-    <div id="blogModal" class="fixed inset-0 z-[60] hidden items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm transition-opacity">
-        <div class="bg-white dark:bg-slate-900 w-full max-w-2xl rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 relative transform transition-all max-h-[95vh] flex flex-col overflow-hidden">
-            <button onclick="closeBlogModal()" class="absolute top-4 right-4 z-10 text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white bg-white/80 dark:bg-slate-800/80 backdrop-blur p-2 rounded-full transition-colors shadow-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-
-            <div class="overflow-y-auto custom-scrollbar">
-                <div class="w-full h-48 sm:h-64 bg-slate-100 dark:bg-slate-800">
-                    <img id="blogModalImg" src="" alt="Blog Image" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/800x400/0f172a/22d3ee?text=Blog+Image'">
-                </div>
-                <div class="p-6 sm:p-8">
-                    <p id="blogModalDate" class="text-xs text-cyan-600 dark:text-cyan-400 mb-3 uppercase tracking-widest font-bold"></p>
-                    <h3 id="blogModalTitle" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-5 leading-snug"></h3>
-                    <div id="blogModalDesc" class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap"></div>
-                </div>
-            </div>
-            
-            <div class="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex justify-end">
-                <button onclick="closeBlogModal()" class="px-6 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors text-sm">ပိတ်မည် (Close)</button>
-            </div>
-        </div>
-    </div>
 
     <!-- Discount Modal -->
     <div id="discountModal" class=" fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm transition-opacity">
@@ -900,163 +947,6 @@
         });
     </script>
 
-    <!-- Dynamic Fetch Script for Products & Blogs -->
-    <script>
-        async function fetchDynamicData() {
-            // 1. Fetch Top Products
-            try {
-                const prodResponse = await fetch('https://script.google.com/macros/s/AKfycbyeqvqyP4Ekg6aanfPqznfwf2b7MPo04YHtsIPw5d0JcUA_c9xy-GupYjUrz8zFgFk6/exec', {
-                    method: 'POST',
-                    body: JSON.stringify({ action: 'read' }),
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
-                });
-                const prodJson = await prodResponse.json();
-                
-                if(prodJson.status === 'success') {
-                    const groups = {};
-                    prodJson.data.forEach(item => {
-                        if(item.status !== 'active') return;
-                        if (!groups[item.product_id]) groups[item.product_id] = { ...item, variants: [], maxNo: 0 };
-                        const itemNo = parseInt(item.no) || 0;
-                        if(itemNo > groups[item.product_id].maxNo) groups[item.product_id].maxNo = itemNo;
-                        groups[item.product_id].variants.push({ price: parseInt(item.price)||0 });
-                    });
-                    
-                    let products = Object.values(groups);
-                    products.forEach(p => {
-                        p.variants.sort((a,b) => a.price - b.price);
-                        p.basePrice = p.variants.length ? p.variants[0].price : 0;
-                    });
-                    
-                    products.sort((a,b) => b.maxNo - a.maxNo); // Newest items first
-                    const top4 = products.slice(0, 4);
-                    
-                    const productGrid = document.getElementById('featured-products-grid');
-                    if(top4.length > 0) {
-                        productGrid.innerHTML = top4.map(p => `
-                            <a href="./shop.html?product=${p.product_id}" class="glass p-5 rounded-[1.5rem] hover:-translate-y-2 transition-all duration-300 group border border-slate-200 dark:border-white/10 hover:border-cyan-500/50 shadow-sm flex flex-col h-full block">
-                                <div class="aspect-[16/10] bg-slate-50 dark:bg-slate-900 rounded-xl mb-4 overflow-hidden relative border border-slate-200 dark:border-slate-800 flex items-center justify-center p-2">
-                                    <img src="${p.img_url}" alt="${p.product_name}" class="max-h-full object-contain group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/200?text=No+Img'">
-                                    <div class="absolute top-3 right-3 px-3 py-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm text-slate-900 dark:text-white text-[10px] font-bold rounded-lg shadow-sm">${p.category}</div>
-                                </div>
-                                <h3 class="text-base sm:text-lg font-bold mb-2 text-slate-900 dark:text-white line-clamp-2">${p.product_name}</h3>
-                                <div class="flex justify-between items-end mt-auto pt-4 border-t border-slate-100 dark:border-white/5">
-                                    <div>
-                                        <div class="text-[10px] text-slate-400 font-medium uppercase tracking-wider mb-0.5">Starting From</div>
-                                        <span class="font-display font-bold text-cyan-600 dark:text-cyan-400 text-lg sm:text-xl">${p.basePrice.toLocaleString()} <span class="text-[10px]">MMK</span></span>
-                                    </div>
-                                    <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center group-hover:bg-cyan-500 group-hover:text-white transition-colors text-slate-400">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                                    </div>
-                                </div>
-                            </a>
-                        `).join('');
-                    } else {
-                        productGrid.innerHTML = `<div class="col-span-full text-center text-slate-500 text-sm">Product အသစ်များ မတွေ့ရှိပါ။</div>`;
-                    }
-                }
-            } catch(e) {
-                console.error("Failed to load products", e);
-                document.getElementById('featured-products-grid').innerHTML = `<div class="col-span-full text-center text-slate-500 text-sm">Product များ ဆွဲယူရာတွင် အမှားရှိပါသည်။</div>`;
-            }
-
-            // 2. Fetch Latest Blog
-            try {
-                const sheetId = '13C89R1HgKakij6SgJWFZZ8EnK3qRqW-3R9vBCUIZrks';
-                const blogUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
-                const blogRes = await fetch(blogUrl);
-                const text = await blogRes.text();
-                
-                // Google gviz response format handling
-                const jsonStrMatch = text.match(/(?<=.*\().*(?=\);)/s);
-                if(jsonStrMatch && jsonStrMatch[0]) {
-                    const data = JSON.parse(jsonStrMatch[0]);
-                    const rows = data.table.rows;
-                    
-                    if(rows && rows.length > 0) {
-                        const latestRow = rows[rows.length - 1].c;
-                        
-                        // Google Sheet မှ Column အစီအစဉ်အတိုင်း တိကျစွာဆွဲယူခြင်း
-                        const title = latestRow[0]?.v || "Latest Article";
-                        const rawDesc = latestRow[1]?.v || "Click here to read our latest updates and guides...";
-                        let extractedImgUrl = latestRow[2]?.v || "";
-                        const dateRaw = latestRow[3]?.f || latestRow[3]?.v || "";
-                        const category = latestRow[4]?.v || "Update";
-                        
-                        if(!extractedImgUrl || !extractedImgUrl.toString().startsWith('http')) {
-                            extractedImgUrl = "https://placehold.co/800x400/0f172a/22d3ee?text=Digital+Nest+Blog";
-                        }
-
-                        // စာအပြည့်အစုံကို Modal အတွက် သိမ်းထားမည်
-                        window.latestBlogData = {
-                            title: title,
-                            desc: rawDesc,
-                            date: dateRaw,
-                            img: extractedImgUrl,
-                            category: category
-                        };
-
-                        document.getElementById('latest-blog-container').innerHTML = `
-                            <div class="glass rounded-[1.5rem] hover:border-cyan-500/30 transition-all group border border-slate-200 dark:border-white/10 shadow-sm block relative overflow-hidden flex flex-col h-full">
-                                <!-- Blog Image Preview -->
-                                <div class="w-full h-48 sm:h-56 bg-slate-100 dark:bg-slate-800 overflow-hidden shrink-0">
-                                    <img src="${extractedImgUrl}" alt="Blog Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/800x400/0f172a/22d3ee?text=Blog+Image'">
-                                </div>
-                                
-                                <div class="p-6 flex-grow flex flex-col">
-                                    <div class="flex items-center gap-2 mb-3">
-                                        <span class="px-2.5 py-1 bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-[10px] uppercase tracking-widest font-bold rounded-lg">${category}</span>
-                                        <span class="text-[10px] text-slate-400 font-medium">${dateRaw}</span>
-                                    </div>
-                                    
-                                    <h3 class="text-lg sm:text-xl font-display font-bold mb-3 text-slate-900 dark:text-white group-hover:text-cyan-500 transition-colors leading-tight line-clamp-2">${title}</h3>
-                                    
-                                    <!-- Preview Text ကို စာကြောင်း (၃) ကြောင်းသာပေါ်အောင် ပြင်ဆင်ထားပါတယ် -->
-                                    <p class="text-sm text-slate-500 dark:text-slate-400 line-clamp-3 overflow-hidden text-ellipsis leading-relaxed flex-grow">${rawDesc}</p>
-                                    
-                                    <!-- Action Buttons -->
-                                    <div class="mt-4 pt-4 border-t border-slate-100 dark:border-white/5">
-                                        <button onclick="openBlogModal()" class="inline-flex items-center gap-1.5 text-sm font-bold text-cyan-600 dark:text-cyan-400 hover:text-cyan-500 transition-colors cursor-pointer focus:outline-none">
-                                            Detail <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    }
-                }
-            } catch(e) {
-                console.error("Failed to load blog", e);
-                document.getElementById('latest-blog-container').innerHTML = `<div class="text-center text-slate-500 text-sm py-4">Blog Post ဆွဲယူရာတွင် အမှားရှိပါသည်။</div>`;
-            }
-        }
-        
-        // Load data on page load
-        document.addEventListener('DOMContentLoaded', fetchDynamicData);
-
-        // Blog Modal Logic
-        window.openBlogModal = function() {
-            if (!window.latestBlogData) return;
-            document.getElementById('blogModalImg').src = window.latestBlogData.img;
-            
-            const dateStr = window.latestBlogData.date ? ' • ' + window.latestBlogData.date : '';
-            document.getElementById('blogModalDate').innerText = window.latestBlogData.category.toUpperCase() + dateStr;
-            
-            document.getElementById('blogModalTitle').innerText = window.latestBlogData.title;
-            document.getElementById('blogModalDesc').innerText = window.latestBlogData.desc;
-            
-            document.getElementById('blogModal').classList.remove('hidden');
-            document.getElementById('blogModal').classList.add('flex');
-            document.body.classList.add('overflow-hidden');
-        };
-
-        window.closeBlogModal = function() {
-            document.getElementById('blogModal').classList.add('hidden');
-            document.getElementById('blogModal').classList.remove('flex');
-            document.body.classList.remove('overflow-hidden');
-        };
-    </script>
-
     <script>
         // See More Reviews Logic
         const seeMoreBtn = document.getElementById('seeMoreBtn');
@@ -1162,11 +1052,12 @@
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[currentLang][key]) {
-                    if(key === 'footerText') {
+                    if(key.includes('Title') || key.includes('Slogan') || key.includes('nav')) {
+                        el.innerHTML = translations[currentLang][key];
+                    } else if(key === 'footerText') {
                         el.innerText = translations[currentLang][key].replace('{year}', new Date().getFullYear());
                     } else {
-                        // innerHTML အစားထိုးခြင်းဖြင့် HTML tag (ဥပမာ- span ဖြင့် အရောင်ပြောင်းထားခြင်း) အား ပြိုကွဲခြင်းမှ ကာကွယ်ပေးသည်
-                        el.innerHTML = translations[currentLang][key];
+                        el.innerText = translations[currentLang][key];
                     }
                 }
             });
