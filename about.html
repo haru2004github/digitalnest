@@ -55,9 +55,33 @@
         .timeline-line { width: 2px; background: linear-gradient(to bottom, transparent, #06b6d4, #06b6d4, transparent); }
         .minimal-card { background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 0, 0, 0.05); transition: all 0.3s ease; }
         .dark .minimal-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); }
+
+        /* Page Loader Styles */
+        #page-loader {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            transition: opacity 0.6s ease-in-out, visibility 0.6s;
+        }
+        .dark #page-loader {
+            background: #0B1120;
+        }
+        @keyframes rotate-once {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .animate-rotate-once {
+            animation: rotate-once 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+        }
     </style>
 </head>
-<body class="min-h-screen bg-tech-light text-slate-900 dark:bg-tech-dark dark:text-slate-50 font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden transition-colors duration-300 relative w-full flex flex-col">
+<body class="min-h-screen bg-tech-light text-slate-900 dark:bg-tech-dark dark:text-slate-50 font-sans selection:bg-cyan-500 selection:text-white overflow-hidden transition-colors duration-300 relative w-full flex flex-col">
+
+
 
     <!-- Background Grid -->
     <div class="fixed inset-0 bg-grid-pattern pointer-events-none z-0"></div>
@@ -498,7 +522,6 @@
 
         document.getElementById('mobileMenuBtn').onclick = () => document.getElementById('mobileMenu').classList.toggle('hidden');
 
-        document.addEventListener('DOMContentLoaded', updateContent);
     </script>
 </body>
 </html>
