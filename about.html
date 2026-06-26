@@ -528,5 +528,62 @@
         document.getElementById('mobileMenuBtn').onclick = () => document.getElementById('mobileMenu').classList.toggle('hidden');
 
     </script>
+
+        <!-- Mobile Menu Isolated Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle Logic
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            
+            const closeMobileMenu = () => {
+                if(!mobileMenu || !mobileMenuOverlay) return;
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4'); 
+                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0'); 
+                mobileMenuOverlay.classList.add('opacity-0', 'pointer-events-none');
+                mobileMenuOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+                
+                const menuIcon = document.getElementById('menuIcon');
+                const closeIcon = document.getElementById('closeIcon');
+                if(menuIcon) menuIcon.classList.remove('hidden'); 
+                if(closeIcon) closeIcon.classList.add('hidden'); 
+            };
+
+            if (mobileMenuBtn) {
+                mobileMenuBtn.onclick = () => {
+                    const isClosed = mobileMenu.classList.contains('opacity-0');
+                    if (isClosed) { 
+                        // Open Menu
+                        mobileMenu.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-4'); 
+                        mobileMenu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0'); 
+                        mobileMenuOverlay.classList.remove('opacity-0', 'pointer-events-none');
+                        mobileMenuOverlay.classList.add('opacity-100', 'pointer-events-auto');
+                        
+                        const menuIcon = document.getElementById('menuIcon');
+                        const closeIcon = document.getElementById('closeIcon');
+                        if(menuIcon) menuIcon.classList.add('hidden'); 
+                        if(closeIcon) closeIcon.classList.remove('hidden'); 
+                    } else { 
+                        // Close Menu
+                        closeMobileMenu();
+                    }
+                };
+            }
+            
+            // Close menu when clicking overlay
+            if (mobileMenuOverlay) {
+                mobileMenuOverlay.onclick = closeMobileMenu;
+            }
+
+            // Close menu when clicking any links
+            if (mobileLinks.length > 0) {
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', closeMobileMenu);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
