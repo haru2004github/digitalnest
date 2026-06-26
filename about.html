@@ -79,9 +79,8 @@
         }
     </style>
 </head>
-<body class="min-h-screen bg-tech-light text-slate-900 dark:bg-tech-dark dark:text-slate-50 font-sans selection:bg-cyan-500 selection:text-white overflow-hidden transition-colors duration-300 relative w-full flex flex-col">
-
-
+<!-- Fix: Changed overflow-hidden to overflow-x-hidden here to allow vertical scrolling -->
+<body class="min-h-screen bg-tech-light text-slate-900 dark:bg-tech-dark dark:text-slate-50 font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden transition-colors duration-300 relative w-full flex flex-col">
 
     <!-- Background Grid -->
     <div class="fixed inset-0 bg-grid-pattern pointer-events-none z-0"></div>
@@ -99,7 +98,7 @@
 
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center gap-6 text-[11px] xl:text-xs font-semibold uppercase tracking-widest text-slate-600 dark:text-slate-300">
-                <a href="./index.html./index.html#home" data-i18n="navHome" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors py-2">Home</a>
+                <a href="./index.html" data-i18n="navHome" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors py-2">Home</a>
                 <a href="./about.html" data-i18n="navAbout" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors py-2">About</a>
                 <a href="./shop.html" data-i18n="navShop" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors py-2">Shop</a>
                 <a href="./blog.html" data-i18n="navBlog" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors py-2">Blog</a>
@@ -326,7 +325,7 @@
             <!-- Call to Action -->
             <section class="text-center py-12 animate-fade-in">
                 <h3 data-i18n="ctaTitle" class="text-xl md:text-2xl font-display font-bold mb-6 text-slate-900 dark:text-white">ကျွန်ုပ်တို့၏ ခရီးစဉ်တွင် အတူတကွ ပါဝင်လိုက်ပါ</h3>
-                <a href="index.html#shop" class="inline-flex items-center gap-2 px-8 py-4 bg-cyan-600 dark:bg-cyan-500 text-white rounded-2xl font-bold text-sm shadow-xl shadow-cyan-500/20 active:scale-95 transition-all">
+                <a href="./index.html#shop" class="inline-flex items-center gap-2 px-8 py-4 bg-cyan-600 dark:bg-cyan-500 text-white rounded-2xl font-bold text-sm shadow-xl shadow-cyan-500/20 active:scale-95 transition-all">
                     Explore Our Services
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                 </a>
@@ -343,7 +342,7 @@
                 <div class="md:col-span-2">
                     <div class="flex items-center gap-2 mb-4">
                          <div class="w-8 h-8 md:w-12 md:h-12 rounded-full overflow-hidden bg-gradient-to-tr from-cyan-500 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/30">
-                    <img src="./img/dnlogo.png" alt="">
+                    <img src="./img/dnlogo.png" alt="" onerror="this.style.display='none'">
                 </div>
                         <span class="text-xl font-display font-bold tracking-tight text-slate-900 dark:text-white">DIGITAL<span class="text-cyan-600 dark:text-cyan-400">NEST</span></span>
                     </div>
@@ -524,12 +523,12 @@
         window.addEventListener('scroll', () => {
             document.getElementById('navbar').classList.toggle('glass-nav', window.scrollY > 20);
         });
-
-        document.getElementById('mobileMenuBtn').onclick = () => document.getElementById('mobileMenu').classList.toggle('hidden');
+        
+        // Removed conflicting document.getElementById('mobileMenuBtn').onclick one-liner here
 
     </script>
 
-        <!-- Mobile Menu Isolated Script -->
+    <!-- Mobile Menu Isolated Script -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Mobile Menu Toggle Logic
