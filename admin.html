@@ -41,6 +41,12 @@
         
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Accordion transition */
+        .accordion-content {
+            transition: all 0.3s ease-in-out;
+            transform-origin: top;
+        }
     </style>
 </head>
 <body class="text-slate-800 min-h-screen relative overflow-x-hidden">
@@ -107,15 +113,20 @@
                 </div>
             </div>
 
+            <!-- Portal Category Filters (Dynamic) -->
+            <div id="portal-categories" class="flex gap-2.5 overflow-x-auto no-scrollbar py-1">
+                <!-- Pills will be injected here -->
+            </div>
+
             <!-- Grouped List for Portal -->
-            <div id="portal-list" class="grid gap-6">
+            <div id="portal-list" class="grid gap-4">
                 <!-- Grouped list items will be injected here -->
             </div>
         </div>
 
         <!-- ==================== SHOP VIEW (Client Preview) ==================== -->
         <div id="view-shop" class="hide space-y-8">
-            <!-- Shop Header & Filters (Like Screenshot 1) -->
+            <!-- Shop Header & Filters -->
             <div class="bg-white p-8 sm:p-10 rounded-[2.5rem] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-slate-50 space-y-8">
                 <div class="text-center space-y-4">
                     <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-50 text-cyan-600 text-[10px] font-extrabold tracking-widest uppercase">
@@ -126,16 +137,21 @@
                     </h1>
                 </div>
 
+                <!-- Shop Category Filters (Dynamic) -->
+                <div id="shop-categories" class="flex justify-start sm:justify-center gap-2.5 overflow-x-auto no-scrollbar py-1">
+                    <!-- Pills will be injected here -->
+                </div>
+
                 <!-- Search and Sort Bar -->
-                <div class="flex flex-col sm:flex-row gap-3 max-w-2xl mx-auto">
+                <div class="flex flex-col sm:flex-row gap-3 max-w-2xl mx-auto pt-2">
                     <div class="relative flex-grow">
                         <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
                         <input type="text" id="search-input" onkeyup="filterShop()" placeholder="Search by name, category or ID..." 
                             class="w-full pl-11 pr-4 py-3 rounded-2xl border-none bg-slate-100/80 focus:bg-slate-100 outline-none transition-all font-medium text-sm focus:ring-2 focus:ring-cyan-500/20">
                     </div>
-                    <div class="sm:w-40 flex-shrink-0">
+                    <div class="sm:w-48 flex-shrink-0">
                         <select id="sort-select" onchange="filterShop()" class="w-full px-4 py-3 rounded-2xl border-none bg-slate-100/80 font-bold text-slate-600 outline-none transition-all cursor-pointer text-sm focus:ring-2 focus:ring-cyan-500/20">
-                            <option value="default">Sort by</option>
+                            <option value="newest">Newest First</option>
                             <option value="price-asc">Price: Low to High</option>
                             <option value="price-desc">Price: High to Low</option>
                         </select>
@@ -151,24 +167,21 @@
 
     </main>
 
-    <!-- ==================== SHOP DETAIL MODAL (Centered like Screenshot 2) ==================== -->
+    <!-- ==================== SHOP DETAIL MODAL ==================== -->
     <div id="detail-modal" class="fixed inset-0 z-[110] hide">
         <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm modal-animate-fade cursor-pointer" onclick="closeDetailModal()"></div>
         
-        <!-- Centered Modal Content -->
         <div class="absolute w-[92%] sm:w-full max-w-[420px] bg-white rounded-3xl modal-animate-center shadow-2xl flex flex-col max-h-[90vh] overflow-hidden">
-            
             <button onclick="closeDetailModal()" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-800 bg-white/50 hover:bg-slate-100 rounded-full transition-colors z-10 backdrop-blur-md">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
-
             <div class="overflow-y-auto no-scrollbar p-6 sm:p-8 flex flex-col gap-6" id="detail-content">
                 <!-- Injected via JS -->
             </div>
         </div>
     </div>
 
-    <!-- ==================== CRUD FORM MODAL (Admin - Add completely new product) ==================== -->
+    <!-- ==================== CRUD FORM MODAL ==================== -->
     <div id="form-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] hide flex items-center justify-center p-4 overflow-y-auto">
         <div class="bg-white rounded-3xl w-full max-w-xl overflow-hidden shadow-2xl transform transition-all my-8">
             <div class="p-6 border-b border-slate-100 flex justify-between items-center sticky top-0 bg-white z-10">
@@ -215,7 +228,7 @@
                         </select>
                     </div>
 
-                    <!-- Dynamic Pricing Options Section (For new product only) -->
+                    <!-- Dynamic Pricing Options Section -->
                     <div class="col-span-2 border-t border-slate-100 pt-4 mt-2">
                         <div class="flex justify-between items-center mb-3">
                             <label class="block text-xs font-bold text-slate-800 uppercase">Pricing Options (Durations)</label>
@@ -246,10 +259,14 @@
         let appData = [];
         let groupedProducts = [];
         let currentShopData = []; 
+        
+        // Category and UI States
+        let portalCategory = 'All';
+        let shopCategory = 'All';
+        let expandedCards = []; // Tracks which portal cards are expanded
 
         lucide.createIcons();
 
-        // Ensure Portal is default on load
         function initApp() {
             switchView('portal');
             fetchData();
@@ -266,10 +283,11 @@
             if(view === 'portal') {
                 btnPortal.className = "nav-btn px-4 py-2.5 rounded-xl flex items-center gap-2 text-cyan-600 bg-cyan-50 font-bold transition-all text-sm";
                 btnShop.className = "nav-btn px-4 py-2.5 rounded-xl flex items-center gap-2 text-slate-600 hover:bg-slate-100 font-bold transition-all text-sm border border-slate-200";
-                renderPortal(); // Re-render to ensure inline forms are reset
+                renderPortal(); 
             } else {
                 btnShop.className = "nav-btn px-4 py-2.5 rounded-xl flex items-center gap-2 text-cyan-600 bg-cyan-50 font-bold transition-all text-sm border border-cyan-100";
                 btnPortal.className = "nav-btn px-4 py-2.5 rounded-xl flex items-center gap-2 text-slate-600 hover:bg-slate-100 font-bold transition-all text-sm";
+                filterShop();
             }
         }
 
@@ -289,12 +307,13 @@
                     appData = result.data;
                     processData();
                     populateCategoryList();
+                    renderCategoryPills();
                     renderPortal();
                     
                     document.getElementById('search-input').value = '';
-                    document.getElementById('sort-select').value = 'default';
+                    document.getElementById('sort-select').value = 'newest';
                     currentShopData = [...groupedProducts];
-                    renderShop();
+                    filterShop();
                 }
             } catch (error) {
                 console.error(error);
@@ -316,9 +335,16 @@
                         category: item.category,
                         img_url: item.img_url,
                         description: item.description,
-                        variants: []
+                        variants: [],
+                        maxNo: 0 // To sort by newest
                     };
                 }
+                
+                const itemNo = parseInt(item.no) || 0;
+                if(itemNo > groups[item.product_id].maxNo) {
+                    groups[item.product_id].maxNo = itemNo;
+                }
+
                 groups[item.product_id].variants.push({
                     no: item.no, 
                     months: item.months,
@@ -328,10 +354,13 @@
             });
 
             groupedProducts = Object.values(groups).map(g => {
-                g.variants.sort((a, b) => a.price - b.price);
+                g.variants.sort((a, b) => a.price - b.price); // Variants sorted by price ascending internally
                 g.basePrice = g.variants.length > 0 ? g.variants[0].price : 0;
                 return g;
             });
+
+            // Sort overall groups by maxNo descending (Newest Create First)
+            groupedProducts.sort((a, b) => b.maxNo - a.maxNo);
         }
 
         function populateCategoryList() {
@@ -346,18 +375,61 @@
         }
 
         // ==============================================================
+        // CATEGORY FILTER PILLS LOGIC
+        // ==============================================================
+        function renderCategoryPills() {
+            const categories = ['All', ...new Set(appData.map(item => item.category).filter(Boolean))];
+            
+            const portalContainer = document.getElementById('portal-categories');
+            const shopContainer = document.getElementById('shop-categories');
+
+            const makePill = (cat, isActive, onClickFn) => `
+                <button onclick="${onClickFn}('${cat}')"
+                    class="whitespace-nowrap px-4 py-2 rounded-xl text-sm font-bold transition-all border ${isActive ? 'bg-cyan-500 text-white border-cyan-500 shadow-md shadow-cyan-500/30' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:border-slate-300'}">
+                    ${cat}
+                </button>
+            `;
+
+            if(portalContainer) {
+                portalContainer.innerHTML = categories.map(cat => makePill(cat, cat === portalCategory, 'setPortalCategory')).join('');
+            }
+            if(shopContainer) {
+                shopContainer.innerHTML = categories.map(cat => makePill(cat, cat === shopCategory, 'setShopCategory')).join('');
+            }
+        }
+
+        window.setPortalCategory = function(cat) {
+            portalCategory = cat;
+            renderCategoryPills();
+            renderPortal();
+        }
+
+        window.setShopCategory = function(cat) {
+            shopCategory = cat;
+            renderCategoryPills();
+            filterShop();
+        }
+
+
+        // ==============================================================
         // SHOP RENDER & FILTER LOGIC (Client View)
         // ==============================================================
         function filterShop() {
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
             const sortVal = document.getElementById('sort-select').value;
 
+            // Filter by Search Term and Category
             currentShopData = groupedProducts.filter(group => {
                 const searchStr = `${group.product_name} ${group.category} ${group.product_id}`.toLowerCase();
-                return searchStr.includes(searchTerm);
+                const matchesSearch = searchStr.includes(searchTerm);
+                const matchesCat = shopCategory === 'All' || group.category === shopCategory;
+                return matchesSearch && matchesCat;
             });
 
-            if (sortVal === 'price-asc') {
+            // Sort
+            if (sortVal === 'newest') {
+                currentShopData.sort((a, b) => b.maxNo - a.maxNo);
+            } else if (sortVal === 'price-asc') {
                 currentShopData.sort((a, b) => a.basePrice - b.basePrice);
             } else if (sortVal === 'price-desc') {
                 currentShopData.sort((a, b) => b.basePrice - a.basePrice);
@@ -380,11 +452,9 @@
             activeProducts.forEach(product => {
                 const activeVariants = product.variants.filter(v => v.status === 'active');
                 if(activeVariants.length === 0) return;
-
                 const basePrice = activeVariants[0].price;
 
                 const card = document.createElement('div');
-                // Clean Minimal Card matching Screenshot 1
                 card.className = "bg-white rounded-3xl p-5 shadow-[0_4px_16px_rgba(0,0,0,0.03)] border border-slate-100 hover:border-cyan-100 hover:shadow-xl hover:shadow-cyan-100/50 hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col gap-4 group";
                 card.onclick = () => openDetailModal(product.product_id);
                 
@@ -411,10 +481,204 @@
             });
         }
 
+
         // ==============================================================
-        // SHOP DETAIL MODAL LOGIC (Matching Screenshot 2)
+        // GROUPED PORTAL RENDER LOGIC (Admin View)
         // ==============================================================
-        function openDetailModal(productId) {
+        
+        window.togglePortalCard = function(productId, e) {
+            // Prevent toggling if clicked inside action buttons area
+            if (e && e.target.closest('button') || e && e.target.closest('input') || e && e.target.closest('select')) return;
+
+            const body = document.getElementById(`card-body-${productId}`);
+            const chevron = document.getElementById(`chevron-${productId}`);
+            const index = expandedCards.indexOf(productId);
+
+            if (body.classList.contains('hidden')) {
+                body.classList.remove('hidden');
+                body.classList.add('flex');
+                chevron.style.transform = 'rotate(180deg)';
+                if (index === -1) expandedCards.push(productId);
+            } else {
+                body.classList.add('hidden');
+                body.classList.remove('flex');
+                chevron.style.transform = 'rotate(0deg)';
+                if (index > -1) expandedCards.splice(index, 1);
+            }
+        }
+
+        function renderPortal() {
+            const list = document.getElementById('portal-list');
+            list.innerHTML = '';
+            
+            const searchTerm = document.getElementById('portal-search-input')?.value.toLowerCase() || '';
+
+            // Filter Portal Data by Category and Search
+            let filteredPortalData = groupedProducts.filter(group => {
+                const searchStr = `${group.product_name} ${group.category} ${group.product_id}`.toLowerCase();
+                const matchesSearch = searchStr.includes(searchTerm);
+                const matchesCat = portalCategory === 'All' || group.category === portalCategory;
+                return matchesSearch && matchesCat;
+            });
+
+            if(filteredPortalData.length === 0) {
+                list.innerHTML = `<div class="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-300 text-slate-400 font-medium flex flex-col items-center justify-center gap-4">
+                    <i data-lucide="package-open" class="w-12 h-12 text-slate-200"></i>
+                    Data မတွေ့ရှိပါ။ Product အသစ်စတင်ထည့်သွင်းပါ။
+                </div>`;
+                lucide.createIcons();
+                return;
+            }
+
+            filteredPortalData.forEach(group => {
+                const el = document.createElement('div');
+                el.className = "bg-white rounded-3xl shadow-sm border border-slate-100 flex flex-col overflow-hidden transition-all hover:border-slate-300";
+                
+                const isExpanded = expandedCards.includes(group.product_id);
+                const bodyDisplay = isExpanded ? 'flex' : 'hidden';
+                const chevronRot = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+
+                let variantsHtml = group.variants.map(v => `
+                    <div class="flex items-center justify-between p-3.5 bg-slate-50 rounded-2xl border border-slate-100 hover:border-slate-200 transition-colors">
+                        <div class="flex items-center gap-4 w-1/3">
+                            <span class="bg-white border border-slate-200 text-slate-700 text-sm font-bold px-4 py-1.5 rounded-lg shadow-sm w-24 text-center">${v.months}</span>
+                            <span class="text-[10px] font-extrabold ${v.status === 'active' ? 'text-green-500' : 'text-slate-400'} uppercase tracking-widest hidden sm:block">${v.status}</span>
+                        </div>
+                        <div class="flex items-center justify-end w-2/3 gap-6">
+                            <div class="font-extrabold text-slate-900 text-lg">${v.price.toLocaleString()} <span class="text-[10px] text-slate-500 font-bold ml-0.5">Ks</span></div>
+                            <div class="flex items-center gap-1 border-l border-slate-200 pl-4">
+                                <button onclick='openEditVariantModal(${JSON.stringify(group).replace(/'/g, "&#39;")}, ${v.no})' class="p-2 text-slate-400 hover:text-cyan-600 rounded-xl transition-all" title="Edit Option">
+                                    <i data-lucide="edit-2" class="w-4 h-4"></i>
+                                </button>
+                                <button onclick='handleDeleteVariant(${v.no})' class="p-2 text-slate-400 hover:text-red-500 rounded-xl transition-all" title="Delete Option">
+                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                el.innerHTML = `
+                    <!-- Clickable Header (Accordion trigger) -->
+                    <div class="p-5 sm:p-6 cursor-pointer select-none bg-white hover:bg-slate-50 transition-colors flex justify-between items-center gap-4" onclick="togglePortalCard('${group.product_id}', event)">
+                        <div class="flex items-center gap-4">
+                            <div class="h-12 w-12 sm:h-14 sm:w-14 rounded-xl bg-white border border-slate-200 flex-shrink-0 flex items-center justify-center p-2 shadow-sm">
+                                <img src="${group.img_url}" class="w-full h-full object-contain" onerror="this.style.display='none'">
+                            </div>
+                            <div>
+                                <h4 class="font-extrabold text-slate-900 text-lg sm:text-xl tracking-tight leading-tight">${group.product_name}</h4>
+                                <div class="flex items-center gap-2 mt-1.5">
+                                    <span class="bg-slate-800 text-white text-[9px] font-extrabold px-2 py-0.5 rounded uppercase tracking-widest">${group.product_id}</span>
+                                    <span class="bg-slate-100 text-slate-500 text-[9px] font-extrabold px-2 py-0.5 rounded uppercase tracking-widest">${group.category}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-3">
+                            <span class="hidden sm:inline-flex bg-cyan-50 text-cyan-600 text-xs font-bold px-2.5 py-1 rounded-lg">${group.variants.length} Options</span>
+                            <div class="p-2 rounded-full bg-slate-100 text-slate-500">
+                                <i data-lucide="chevron-down" id="chevron-${group.product_id}" class="w-5 h-5 transition-transform duration-300" style="transform: ${chevronRot}"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hidden Body Details -->
+                    <div id="card-body-${group.product_id}" class="${bodyDisplay} flex-col px-5 pb-5 sm:px-6 sm:pb-6 pt-2 border-t border-slate-100 bg-white accordion-content gap-5">
+                        
+                        <!-- Action Buttons -->
+                        <div class="flex gap-2.5 w-full sm:w-auto mt-2">
+                            <button onclick="toggleInlineAdd('${group.product_id}')" class="flex-1 sm:flex-none text-xs font-bold text-cyan-600 bg-cyan-50/50 hover:bg-cyan-50 border border-cyan-100 px-4 py-2.5 rounded-xl transition-all flex items-center justify-center gap-2">
+                                <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add Option
+                            </button>
+                            <button onclick="handleDeleteProduct('${group.product_id}')" class="flex-1 sm:flex-none text-xs font-bold text-red-500 hover:text-white bg-red-50/50 hover:bg-red-500 border border-red-100 hover:border-red-500 px-4 py-2.5 rounded-xl transition-all flex items-center justify-center gap-2">
+                                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> <span class="hidden sm:inline">Delete All</span>
+                            </button>
+                        </div>
+
+                        <!-- Inline Add Form (Hidden by default) -->
+                        <div id="inline-form-${group.product_id}" class="hidden bg-cyan-50/30 p-4 rounded-2xl border border-cyan-100 mb-2">
+                            <div class="flex flex-col sm:flex-row items-center gap-3">
+                                <input type="text" id="in-month-${group.product_id}" placeholder="Duration (e.g. 1 months)" class="w-full sm:w-1/3 px-3 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-cyan-500 text-sm font-medium">
+                                <input type="number" id="in-price-${group.product_id}" placeholder="Price (Ks)" class="w-full sm:w-1/3 px-3 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-cyan-500 text-sm font-medium">
+                                <select id="in-status-${group.product_id}" class="w-full sm:w-auto px-3 py-2.5 rounded-xl border border-slate-200 outline-none text-sm font-bold bg-white text-slate-600 cursor-pointer">
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                                <div class="flex gap-2 w-full sm:w-auto ml-auto">
+                                    <button onclick="toggleInlineAdd('${group.product_id}')" class="px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-500 text-sm font-bold hover:bg-slate-50">Cancel</button>
+                                    <button id="btn-save-in-${group.product_id}" onclick="saveInlineVariant('${group.product_id}')" class="px-5 py-2.5 rounded-xl bg-cyan-500 text-white text-sm font-bold shadow-md hover:bg-cyan-600 transition-colors w-24">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Variants List -->
+                        <div class="flex flex-col gap-2.5">
+                            ${variantsHtml}
+                        </div>
+                    </div>
+                `;
+                list.appendChild(el);
+            });
+            lucide.createIcons();
+        }
+
+        // --- Inline Add Form Logic ---
+        window.toggleInlineAdd = function(productId) {
+            const form = document.getElementById(`inline-form-${productId}`);
+            if(form.classList.contains('hidden')) {
+                form.classList.remove('hidden');
+                document.getElementById(`in-month-${productId}`).focus();
+            } else {
+                form.classList.add('hidden');
+                document.getElementById(`in-month-${productId}`).value = '';
+                document.getElementById(`in-price-${productId}`).value = '';
+            }
+        }
+
+        window.saveInlineVariant = async function(productId) {
+            const monthInput = document.getElementById(`in-month-${productId}`).value;
+            const priceInput = document.getElementById(`in-price-${productId}`).value;
+            const statusInput = document.getElementById(`in-status-${productId}`).value;
+
+            if(!monthInput || !priceInput) {
+                alert("Duration နှင့် Price အားလုံးဖြည့်ပါ။");
+                return;
+            }
+
+            const group = groupedProducts.find(g => g.product_id === productId);
+            if(!group) return;
+
+            const btn = document.getElementById(`btn-save-in-${productId}`);
+            const ogText = btn.innerText;
+            btn.innerHTML = `<div class="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mx-auto"></div>`;
+            btn.disabled = true;
+
+            const payload = {
+                action: 'create',
+                product_name: group.product_name,
+                product_id: group.product_id,
+                category: group.category,
+                months: monthInput,
+                price: priceInput,
+                img_url: group.img_url,
+                description: group.description,
+                status: statusInput
+            };
+
+            try {
+                await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
+                await fetchData(); 
+            } catch (err) {
+                alert("ချိတ်ဆက်မှု အမှားရှိပါသည်။");
+                btn.innerHTML = ogText;
+                btn.disabled = false;
+            }
+        }
+
+        // ==============================================================
+        // SHOP DETAIL MODAL LOGIC 
+        // ==============================================================
+        window.openDetailModal = function(productId) {
             const product = groupedProducts.find(p => p.product_id === productId);
             if(!product) return;
 
@@ -473,7 +737,7 @@
             lucide.createIcons();
         }
 
-        function selectVariant(element, price) {
+        window.selectVariant = function(element, price) {
             const labels = element.parentElement.querySelectorAll('label');
             labels.forEach(l => {
                 l.className = "relative flex items-center justify-between p-3.5 sm:p-4 rounded-xl border border-slate-200 hover:border-cyan-300 hover:bg-slate-50 cursor-pointer transition-all";
@@ -483,163 +747,8 @@
             document.getElementById('detail-price').innerHTML = `${price.toLocaleString()} <span class="text-xs text-slate-500 font-bold">Ks</span>`;
         }
 
-        function closeDetailModal() {
+        window.closeDetailModal = function() {
             document.getElementById('detail-modal').classList.add('hide');
-        }
-
-        // ==============================================================
-        // GROUPED PORTAL RENDER LOGIC & INLINE ADD (Admin View)
-        // ==============================================================
-        function renderPortal() {
-            const list = document.getElementById('portal-list');
-            list.innerHTML = '';
-            
-            const searchTerm = document.getElementById('portal-search-input')?.value.toLowerCase() || '';
-
-            // Filter Portal Data
-            let filteredPortalData = groupedProducts.filter(group => {
-                const searchStr = `${group.product_name} ${group.category} ${group.product_id}`.toLowerCase();
-                return searchStr.includes(searchTerm);
-            });
-
-            if(filteredPortalData.length === 0) {
-                list.innerHTML = `<div class="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-300 text-slate-400 font-medium flex flex-col items-center justify-center gap-4">
-                    <i data-lucide="package-open" class="w-12 h-12 text-slate-200"></i>
-                    Data မတွေ့ရှိပါ။ Product အသစ်စတင်ထည့်သွင်းပါ။
-                </div>`;
-                lucide.createIcons();
-                return;
-            }
-
-            filteredPortalData.forEach(group => {
-                const el = document.createElement('div');
-                // Structure matching Screenshot 3
-                el.className = "bg-white p-5 sm:p-7 rounded-3xl shadow-sm border border-slate-100 flex flex-col gap-5";
-                
-                let variantsHtml = group.variants.map(v => `
-                    <div class="flex items-center justify-between p-3.5 bg-slate-50 rounded-2xl border border-slate-100 hover:border-slate-200 transition-colors">
-                        <div class="flex items-center gap-4 w-1/3">
-                            <span class="bg-white border border-slate-200 text-slate-700 text-sm font-bold px-4 py-1.5 rounded-lg shadow-sm w-24 text-center">${v.months}</span>
-                            <span class="text-[10px] font-extrabold ${v.status === 'active' ? 'text-green-500' : 'text-slate-400'} uppercase tracking-widest hidden sm:block">${v.status}</span>
-                        </div>
-                        <div class="flex items-center justify-end w-2/3 gap-6">
-                            <div class="font-extrabold text-slate-900 text-lg">${v.price.toLocaleString()} <span class="text-[10px] text-slate-500 font-bold ml-0.5">Ks</span></div>
-                            <div class="flex items-center gap-1 border-l border-slate-200 pl-4">
-                                <button onclick='openEditVariantModal(${JSON.stringify(group).replace(/'/g, "&#39;")}, ${v.no})' class="p-2 text-slate-400 hover:text-cyan-600 rounded-xl transition-all" title="Edit Option">
-                                    <i data-lucide="edit-2" class="w-4 h-4"></i>
-                                </button>
-                                <button onclick='handleDeleteVariant(${v.no})' class="p-2 text-slate-400 hover:text-red-500 rounded-xl transition-all" title="Delete Option">
-                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-
-                el.innerHTML = `
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-2 border-b border-slate-50">
-                        <div class="flex items-center gap-4">
-                            <div class="h-14 w-14 sm:h-16 sm:w-16 rounded-2xl bg-slate-50 border border-slate-100 flex-shrink-0 flex items-center justify-center p-2">
-                                <img src="${group.img_url}" class="w-full h-full object-contain" onerror="this.style.display='none'">
-                            </div>
-                            <div>
-                                <h4 class="font-extrabold text-slate-900 text-lg sm:text-xl tracking-tight leading-tight">${group.product_name}</h4>
-                                <div class="flex items-center gap-2 mt-1.5">
-                                    <span class="bg-slate-800 text-white text-[9px] font-extrabold px-2 py-0.5 rounded uppercase tracking-widest">${group.product_id}</span>
-                                    <span class="bg-slate-100 text-slate-500 text-[9px] font-extrabold px-2 py-0.5 rounded uppercase tracking-widest">${group.category}</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="flex gap-2.5 w-full sm:w-auto">
-                            <!-- Inline Add Option Toggle -->
-                            <button onclick="toggleInlineAdd('${group.product_id}')" class="flex-1 sm:flex-none text-xs font-bold text-cyan-600 bg-cyan-50/50 hover:bg-cyan-50 border border-cyan-100 px-4 py-2.5 rounded-xl transition-all flex items-center justify-center gap-2">
-                                <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add Option
-                            </button>
-                            <button onclick="handleDeleteProduct('${group.product_id}')" class="flex-1 sm:flex-none text-xs font-bold text-red-500 hover:text-white bg-red-50/50 hover:bg-red-500 border border-red-100 hover:border-red-500 px-4 py-2.5 rounded-xl transition-all flex items-center justify-center gap-2">
-                                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> <span class="hidden sm:inline">Delete All</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Inline Add Form (Hidden by default) -->
-                    <div id="inline-form-${group.product_id}" class="hidden bg-cyan-50/30 p-4 rounded-2xl border border-cyan-100 mt-1 mb-2">
-                        <div class="flex flex-col sm:flex-row items-center gap-3">
-                            <input type="text" id="in-month-${group.product_id}" placeholder="Duration (e.g. 1 months)" class="w-full sm:w-1/3 px-3 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-cyan-500 text-sm font-medium">
-                            <input type="number" id="in-price-${group.product_id}" placeholder="Price (Ks)" class="w-full sm:w-1/3 px-3 py-2.5 rounded-xl border border-slate-200 outline-none focus:border-cyan-500 text-sm font-medium">
-                            <select id="in-status-${group.product_id}" class="w-full sm:w-auto px-3 py-2.5 rounded-xl border border-slate-200 outline-none text-sm font-bold bg-white text-slate-600 cursor-pointer">
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                            </select>
-                            <div class="flex gap-2 w-full sm:w-auto ml-auto">
-                                <button onclick="toggleInlineAdd('${group.product_id}')" class="px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-500 text-sm font-bold hover:bg-slate-50">Cancel</button>
-                                <button id="btn-save-in-${group.product_id}" onclick="saveInlineVariant('${group.product_id}')" class="px-5 py-2.5 rounded-xl bg-cyan-500 text-white text-sm font-bold shadow-md hover:bg-cyan-600 transition-colors w-24">Save</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Variants List -->
-                    <div class="flex flex-col gap-2.5">
-                        ${variantsHtml}
-                    </div>
-                `;
-                list.appendChild(el);
-            });
-            lucide.createIcons();
-        }
-
-        // --- Inline Add Form Logic ---
-        function toggleInlineAdd(productId) {
-            const form = document.getElementById(`inline-form-${productId}`);
-            if(form.classList.contains('hidden')) {
-                form.classList.remove('hidden');
-                document.getElementById(`in-month-${productId}`).focus();
-            } else {
-                form.classList.add('hidden');
-                // Clear inputs
-                document.getElementById(`in-month-${productId}`).value = '';
-                document.getElementById(`in-price-${productId}`).value = '';
-            }
-        }
-
-        async function saveInlineVariant(productId) {
-            const monthInput = document.getElementById(`in-month-${productId}`).value;
-            const priceInput = document.getElementById(`in-price-${productId}`).value;
-            const statusInput = document.getElementById(`in-status-${productId}`).value;
-
-            if(!monthInput || !priceInput) {
-                alert("Duration နှင့် Price အားလုံးဖြည့်ပါ။");
-                return;
-            }
-
-            const group = groupedProducts.find(g => g.product_id === productId);
-            if(!group) return;
-
-            const btn = document.getElementById(`btn-save-in-${productId}`);
-            const ogText = btn.innerText;
-            btn.innerHTML = `<div class="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mx-auto"></div>`;
-            btn.disabled = true;
-
-            const payload = {
-                action: 'create',
-                product_name: group.product_name,
-                product_id: group.product_id,
-                category: group.category,
-                months: monthInput,
-                price: priceInput,
-                img_url: group.img_url,
-                description: group.description,
-                status: statusInput
-            };
-
-            try {
-                await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
-                await fetchData(); // Re-fetch all data to update list
-            } catch (err) {
-                alert("ချိတ်ဆက်မှု အမှားရှိပါသည်။");
-                btn.innerHTML = ogText;
-                btn.disabled = false;
-            }
         }
 
         // ==============================================================
@@ -673,7 +782,6 @@
             });
         }
 
-        // Open Modal to create a completely new product
         window.openFormModal = function() {
             document.getElementById('form-modal').classList.remove('hide');
             document.getElementById('variants-container').innerHTML = ''; 
@@ -682,12 +790,10 @@
             document.getElementById('f-no').value = '';
             document.getElementById('status-container').classList.remove('hide');
             
-            // Show Add Option button
             document.getElementById('add-variant-btn').style.display = 'flex';
             addVariantRow('', ''); 
         }
 
-        // Open Modal specifically to edit an existing variant
         window.openEditVariantModal = function(group, variantNo) {
             const variant = group.variants.find(v => v.no === variantNo);
             if(!variant) return;
@@ -705,7 +811,6 @@
             document.getElementById('status-container').classList.remove('hide');
             document.getElementById('f-status').value = variant.status;
             
-            // Hide "Add Option" since we are strictly editing ONE row
             document.getElementById('add-variant-btn').style.display = 'none'; 
             addVariantRow(variant.months, variant.price);
         }
@@ -725,7 +830,7 @@
             const variants = document.querySelectorAll('.variant-row');
             
             try {
-                if (no) { // Update existing
+                if (no) { 
                     const payload = {
                         action: 'update', no: no,
                         product_name: document.getElementById('f-name').value,
@@ -738,7 +843,7 @@
                         status: document.getElementById('f-status').value
                     };
                     await fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) });
-                } else { // Create new
+                } else { 
                     for (const row of Array.from(variants)) {
                         const payload = {
                             action: 'create',
